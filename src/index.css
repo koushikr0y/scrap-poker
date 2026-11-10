@@ -22,16 +22,29 @@
   display: none;
 }
 
-.comic-shadow-sm {
+/* Comic & Cel shading tokens from Stitch screens */
+.comic-shadow-sm, .cel-shadow-sm {
   box-shadow: 2px 2px 0px #000000;
 }
-.comic-shadow-md {
+.comic-shadow-md, .cel-shadow {
   box-shadow: 4px 4px 0px #000000;
 }
-.comic-shadow-lg {
+.comic-shadow-lg, .cel-shadow-lg {
   box-shadow: 6px 6px 0px #000000;
 }
+
+.ink-border-3 {
+  border: 3px solid #101012;
+}
+.ink-border-4 {
+  border: 4px solid #101012;
+}
+
 .bg-halftone {
   background-image: radial-gradient(#353437 1.5px, transparent 1.5px);
   background-size: 10px 10px;
+}
+.halftone-bg {
+  background-image: radial-gradient(#201f21 20%, transparent 20%);
+  background-size: 8px 8px;
 }

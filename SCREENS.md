@@ -11,9 +11,9 @@
 | **Scrap Poker - Desktop Cash Game Table Browser** | `73b015eabaf84dfdac7b95f1dfc5908a` | Desktop | `/tables` | **done** |
 | **Scrap Poker - Texas Hold'em Battle Table** | `cbf4d94e0e8e40d5a64b60632ff94b28` | Desktop | `/table` | **done** |
 | **Scrap Poker - Texas Hold'em Battle Table (Alt)** | `69e085048ea5482d8792ffc98dfe8341` | Desktop | `/table/:id` | **done** |
-| **Scrap Poker - Desktop Battle Lobby** | `84f565efb4684920acb0a86ba549e116` | Desktop | `/lobby` | **todo** |
-| **Scrap Poker - Desktop Login & Auth** | `45c418b269f24289829ecb724c7e8f6a` | Desktop | `/login` | **todo** |
-| **Scrap Poker - Desktop Create Account** | `b7b60fdd3dd64b46b0b6fa6b0930b898` | Desktop | `/register` | **todo** |
+| **Scrap Poker - Desktop Battle Lobby** | `84f565efb4684920acb0a86ba549e116` | Desktop | `/lobby` | **done** |
+| **Scrap Poker - Desktop Login & Auth** | `45c418b269f24289829ecb724c7e8f6a` | Desktop | `/login` | **done** |
+| **Scrap Poker - Desktop Create Account** | `b7b60fdd3dd64b46b0b6fa6b0930b898` | Desktop | `/register` | **done** |
 | **Scrap Poker - Texas Hold'em Hand Rankings Guide** | `28462dde7686496997e25110c1ced864` | Desktop | `/hand-rankings` | **todo** |
 | **KosiGames - Scrap Poker Splash Screen** | `6688971659174560b2b3c1b7a13c2f33` | Desktop | `/splash` | **todo** |
 | **Scrap Poker - Mobile Battle Lobby** | `91f5a90293d24726b5e5bfe393aa2080` | Mobile | `/m/lobby` | **todo** |
@@ -30,5 +30,6 @@
 ---
 
 ### Legend
-* **done**: Converted into faithful React components with identical DOM structure, Tailwind utilities, and comic theme (`TableBrowser.tsx`, `BattleTable.tsx`).
+* **done**: Converted into faithful React components with identical DOM structure, Tailwind utilities, and comic theme (`TableBrowser.tsx`, `BattleTable.tsx`, `BattleLobby.tsx`, `DesktopLogin.tsx`, `DesktopRegister.tsx`).
 * **todo**: Not yet implemented.
+
