@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.comic-shadow-sm {
+  box-shadow: 2px 2px 0px #000000;
+}
+.comic-shadow-md {
+  box-shadow: 4px 4px 0px #000000;
+}
+.comic-shadow-lg {
+  box-shadow: 6px 6px 0px #000000;
+}
+.bg-halftone {
+  background-image: radial-gradient(#353437 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}

@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  /* ==========================================================================
+     1. PRIMITIVE DESIGN TOKENS (Monte Carlo Royale)
+     ========================================================================== */
+
+  /* --- Bullion Gold Spectrum --- */
+  --primitive-gold-primary: #d4af37;        /* Bullion gold base */
+  --primitive-gold-bright: #f2ca50;         /* Primary bright */
+  --primitive-gold-highlight: #fdf0cd;      /* Glint specular highlight */
+  --primitive-gold-burnished: #9a7b1c;      /* Bevel & edge burnished */
+  --primitive-gold-dim: #e9c349;            /* Secondary metallic tone */
+  --primitive-gold-container: #d4af37;
+  --primitive-gold-on-container: #554300;
+
+  /* --- Velvet Felt Spectrum --- */
+  --primitive-felt-center: #0d4734;         /* Table felt spotlight focus core */
+  --primitive-felt-perimeter: #083324;      /* Vignette edge drop-off */
+  --primitive-felt-cushion: #051d15;        /* Rail cushion boundary */
+  --primitive-felt-secondary: #9bd2b8;      /* Mint / felt accent text */
+  --primitive-felt-secondary-container: #19503c;
+  --primitive-felt-on-secondary-container: #8ac1a7;
+
+  /* --- Midnight & Charcoal Spectrum (Neutrals) --- */
+  --primitive-neutral-void: #0b0f17;        /* Deep canvas void */
+  --primitive-neutral-bg: #0f131c;          /* Base dark background */
+  --primitive-surface-lowest: #0a0e16;
+  --primitive-surface-low: #181c24;
+  --primitive-surface-container: #1c2028;
+  --primitive-surface-high: #262a33;
+  --primitive-surface-highest: #31353e;
+  --primitive-surface-bright: #353942;
+  --primitive-surface-elevation-1: #121620;  /* Player seats, deck trays */
+  --primitive-surface-elevation-2: #1b2232;  /* Overlays, modals, drawers */
+
+  /* --- Typography / Foreground Neutrals --- */
+  --primitive-text-primary: #dfe2ee;        /* Crisp on-surface text */
+  --primitive-text-variant: #d0c5af;        /* Warm secondary labels */
+  --primitive-outline: #99907c;             /* Muted hairline border */
+  --primitive-outline-variant: #4d4635;     /* Darker structural border */
+
+  /* --- Suit, Game Mechanics & Accent Tokens --- */
+  --primitive-suit-hearts-diamonds: #e03131; /* Ruby Royale */
+  --primitive-suit-ruby-shadow: #741212;
+  --primitive-suit-spades-clubs: #1a1d24;    /* Onyx */
+  --primitive-timer-start: #f59e0b;          /* Timer amber gradient start */
+  --primitive-timer-end: #d4af37;            /* Timer gold gradient end */
+  --primitive-allin-crimson: #ff4d4d;        /* All-in / Warning glow */
+  --primitive-error: #ffb4ab;
+  --primitive-error-container: #93000a;
+  --primitive-on-error: #690005;
+
+  /* ==========================================================================
+     2. SEMANTIC DESIGN TOKENS
+     ========================================================================== */
+
+  /* Background & Surface Semantics */
+  --bg-canvas: var(--primitive-neutral-void);
+  --bg-app: var(--primitive-neutral-bg);
+  --surface: var(--primitive-neutral-bg);
+  --surface-low: var(--primitive-surface-low);
+  --surface-container: var(--primitive-surface-container);
+  --surface-high: var(--primitive-surface-high);
+  --surface-highest: var(--primitive-surface-highest);
+  --surface-bright: var(--primitive-surface-bright);
+
+  /* Brand / Primary / Secondary */
+  --color-primary: var(--primitive-gold-primary);
+  --color-primary-bright: var(--primitive-gold-bright);
+  --color-primary-highlight: var(--primitive-gold-highlight);
+  --color-primary-container: var(--primitive-gold-container);
+  --color-on-primary: #3c2f00;
+  --color-on-primary-container: var(--primitive-gold-on-container);
+
+  --color-secondary: var(--primitive-felt-secondary);
+  --color-secondary-container: var(--primitive-felt-secondary-container);
+  --color-on-secondary: #003827;
+  --color-on-secondary-container: var(--primitive-felt-on-secondary-container);
+
+  /* Table Felt Environmental */
+  --felt-center: var(--primitive-felt-center);
+  --felt-perimeter: var(--primitive-felt-perimeter);
+  --felt-cushion: var(--primitive-felt-cushion);
+
+  /* Content & Borders */
+  --text-main: var(--primitive-text-primary);
+  --text-muted: var(--primitive-text-variant);
+  --border-hairline: rgba(212, 175, 55, 0.25);
+  --border-muted: var(--primitive-outline-variant);
+  --border-focus: var(--primitive-gold-primary);
+
+  /* Status & Alerts */
+  --status-warning: var(--primitive-timer-start);
+  --status-danger: var(--primitive-allin-crimson);
+  --status-error: var(--primitive-error);
+
+  /* ==========================================================================
+     3. TYPOGRAPHY SCALES & SYSTEM
+     ========================================================================== */
+  --font-editorial: 'Playfair Display', serif;
+  --font-interface: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ==========================================================================
+     4. RADII & SHAPES
+     ========================================================================== */
+  --radius-sm: 0.25rem;       /* 4px */
+  --radius-default: 0.5rem;   /* 8px */
+  --radius-card: 0.375rem;    /* 6px - Standard playing card */
+  --radius-md: 0.75rem;      /* 12px */
+  --radius-lg: 1rem;         /* 16px */
+  --radius-xl: 1.5rem;       /* 24px */
+  --radius-full: 9999px;     /* Circular avatars, dealer puck, chips */
+
+  /* ==========================================================================
+     5. SPACING & LAYOUT SCALES
+     ========================================================================== */
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter: 1rem;
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-margin: 1rem;
+  --spacing-margin-desktop: 2.5rem;
+
+  /* ==========================================================================
+     6. ELEVATION, SHADOWS & GLOWS
+     ========================================================================== */
+  /* Level 1: Table Felt Radial Gradient */
+  --gradient-felt-spotlight: radial-gradient(ellipse at 50% 45%, var(--felt-center) 0%, var(--felt-perimeter) 75%, var(--felt-cushion) 100%);
+  --gradient-gold-bullion: linear-gradient(135deg, #f59e0b 0%, #d4af37 50%, #9a7b1c 100%);
+  --gradient-gold-glint: linear-gradient(180deg, rgba(253, 240, 205, 0.4) 0%, rgba(212, 175, 55, 0.1) 100%);
+  --gradient-ruby-allin: linear-gradient(135deg, #ff4d4d 0%, #e03131 50%, #741212 100%);
+
+  /* Level 2: Active Cards & Chips */
+  --shadow-card-float: 0 4px 12px rgba(0, 0, 0, 0.65);
+
+  /* Level 3: Translucent Pods & Overlays */
+  --backdrop-blur-pod: 20px;
+  --surface-pod: rgba(18, 22, 32, 0.85);
+
+  /* Level 4: Modals & Consoles */
+  --shadow-modal-deep: 0 24px 64px rgba(0, 0, 0, 0.85);
+
+  /* Ambient Glows */
+  --glow-gold: 0 0 20px rgba(212, 175, 55, 0.45);
+  --glow-gold-subtle: 0 0 10px rgba(212, 175, 55, 0.25);
+  --glow-timer: 0 0 15px rgba(212, 175, 55, 0.45);
+  --glow-crimson: 0 0 20px rgba(255, 77, 77, 0.55);
+}
+
+/* ==========================================================================
+   GLOBAL UTILITIES & TYPOGRAPHIC HELPERS
+   ========================================================================== */
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: var(--font-interface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular numbers for chip stacks, pots, and timers */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Playing card aspect ratio helper (1:1.4) */
+.aspect-card {
+  aspect-ratio: 1 / 1.4;
+}
+

@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton:wght@100..900&family=Barlow+Condensed:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"tertiary-fixed":"#ffdad5","primary-container":"#f9d130","on-tertiary":"#690004","surface-container-lowest":"#0e0e10","secondary-container":"#009ccc","on-tertiary-fixed-variant":"#900c0d","background":"#131315","secondary-fixed":"#c1e8ff","on-primary-container":"#6e5a00","surface-variant":"#353437","outline-variant":"#4d4633","on-error":"#690005","on-surface":"#e5e1e4","error-container":"#93000a","tertiary-container":"#ffc7c0","inverse-primary":"#715c00","surface":"#131315","on-secondary-container":"#002e3f","inverse-on-surface":"#303032","surface-tint":"#eac31f","surface-bright":"#39393b","on-secondary":"#003548","secondary":"#73d1ff","surface-container":"#201f21","secondary-fixed-dim":"#73d1ff","on-primary-fixed":"#231b00","tertiary":"#ffedea","on-surface-variant":"#d0c6ad","surface-container-highest":"#353437","surface-dim":"#131315","primary-fixed-dim":"#eac31f","on-primary":"#3b2f00","primary-fixed":"#ffe179","on-secondary-fixed-variant":"#004d67","surface-container-low":"#1b1b1d","inverse-surface":"#e5e1e4","on-tertiary-container":"#ae2620","on-tertiary-fixed":"#410001","on-background":"#e5e1e4","on-secondary-fixed":"#001e2b","on-primary-fixed-variant":"#554500","primary":"#fff0c6","error":"#ffb4ab","outline":"#999079","on-error-container":"#ffdad6","surface-container-high":"#2a2a2c","tertiary-fixed-dim":"#ffb4aa"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-mobile":"0.5rem","space-sm":"0.5rem","margin-mobile":"0.75rem","space-xs":"0.25rem",margin:"1.5rem","space-lg":"1.25rem",gutter:"1rem","space-md":"0.75rem","space-xl":"2rem"},fontFamily:{"headline-lg":["Anton"],"display-lg-mobile":["Anton"],"display-lg":["Anton"],"label-md":["Barlow Condensed"],"headline-sm":["Anton"],"headline-md":["Anton"],"label-lg":["Barlow Condensed"],"body-md":["Barlow Condensed"],"body-sm":["Barlow Condensed"],"display-xl":["Anton"],"body-lg":["Barlow Condensed"],"label-sm":["Barlow Condensed"]},fontSize:{"headline-lg":["32px",{lineHeight:"36px",letterSpacing:"0.03em",fontWeight:"400"}],"display-lg-mobile":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"400"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"400"}],"label-md":["13px",{lineHeight:"15px",letterSpacing:"0.08em",fontWeight:"700"}],"headline-sm":["20px",{lineHeight:"24px",letterSpacing:"0.03em",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"28px",letterSpacing:"0.03em",fontWeight:"400"}],"label-lg":["16px",{lineHeight:"18px",letterSpacing:"0.06em",fontWeight:"800"}],"body-md":["15px",{lineHeight:"19px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["13px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"display-xl":["56px",{lineHeight:"56px",letterSpacing:"0.02em",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"22px",letterSpacing:"0.01em",fontWeight:"700"}],"label-sm":["11px",{lineHeight:"13px",letterSpacing:"0.08em",fontWeight:"700"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-low border-b-[3px] border-surface-container-lowest shadow-[0_4px_0_#000000]"><div class="h-20 max-w-7xl mx-auto px-margin flex items-center justify-between gap-gutter"><div class="flex items-center gap-space-md"><a class="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-space-md py-space-xs border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-sm text-headline-sm uppercase tracking-wider" data-path="main-lobby" href="#"><span class="material-symbols-outlined text-[18px]">arrow_back</span><span>LOBBY</span></a><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-lowest border-[2px] border-surface-container-highest shadow-[2px_2px_0px_#000000] rotate-1"><div class="w-7 h-7 bg-primary-container border-[2px] border-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md text-on-primary-container leading-none select-none">S</div><div class="flex flex-col"><span class="font-headline-md text-headline-md uppercase text-primary leading-none tracking-wider">SCRAP POKER</span><span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed-dim leading-none">UNDERGROUND DECK</span></div></div><div class="hidden lg:inline-block bg-primary-container text-on-primary-container font-headline-sm text-headline-sm px-space-md py-0.5 border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-2 select-none uppercase">CASH TABLES</div></div><nav class="hidden md:flex items-center gap-space-sm" data-active-classes="bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg"><a aria-current="page" class="uppercase tracking-wider px-space-md py-space-xs transition-all bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg" data-path="cash-game-browser" href="#">Cash Tables</a><a class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="sit-and-go-lobby" href="#">Sit & Go</a><a class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="tournaments" href="#">Tournaments</a><a class="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="hand-replayer" href="#">Replayer</a></nav><div class="flex items-center gap-space-md"><div class="flex items-center bg-surface-container-lowest border-[2px] border-surface-container-highest px-space-md py-space-xs shadow-[2px_2px_0px_#000000] rotate-1"><div class="w-5 h-5 rounded-full bg-secondary-container border-[1.5px] border-surface-container-lowest flex items-center justify-center mr-space-xs"><span class="font-headline-sm text-headline-sm text-on-secondary-container leading-none">$</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider leading-none">STACK</span><span class="font-headline-sm text-headline-sm text-primary tracking-wide leading-tight">450,200 <span class="font-label-md text-label-md text-primary-fixed-dim">SCRAP</span></span></div><button aria-label="Deposit Chips" class="ml-space-sm bg-primary-container hover:bg-primary-fixed text-on-primary-container w-6 h-6 border-[1.5px] border-surface-container-lowest flex items-center justify-center shadow-[1px_1px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5" type="button"><span class="material-symbols-outlined text-[16px]">add</span></button></div><a aria-label="Game Settings" class="w-10 h-10 bg-surface-container-high hover:bg-surface-variant text-on-surface border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" data-path="table-settings" href="#"><span class="material-symbols-outlined text-[22px]">settings</span></a><div class="relative group"><div class="w-10 h-10 bg-primary-container border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center rotate-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></div></header><main class="w-full pt-20 bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="relative w-full max-w-7xl mx-auto px-margin pb-space-xl overflow-hidden">
+<!-- SUB-NAV / LOBBY BANNER STRIP -->
+<div class="mt-space-md mb-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md flex-wrap">
+<a class="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-space-md py-space-xs shadow-[4px_4px_0px_#000000] -rotate-1 hover:rotate-0 transition-transform font-headline-sm text-headline-sm uppercase tracking-wider" data-path="main-lobby" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span>< BACK TO LOBBY</span>
+</a>
+<div class="relative inline-block bg-surface-container-lowest px-space-lg py-space-xs shadow-[4px_4px_0px_#000000] rotate-1">
+<div class="flex items-center gap-space-sm">
+<span class="w-3 h-3 bg-primary-container inline-block animate-ping"></span>
+<span class="font-headline-md text-headline-md text-primary tracking-wide uppercase">CASH TABLES // UNDERGROUND SYNDICATE FELT</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<div class="bg-surface-container px-space-md py-space-xs shadow-[3px_3px_0px_#000000] -rotate-1 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">table_bar</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase">18 ACTIVE TABLES</span>
+</div>
+<div class="bg-surface-container-lowest px-space-md py-space-xs shadow-[3px_3px_0px_#000000] rotate-1 flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary inline-block"></span>
+<span class="font-label-md text-label-md text-primary uppercase">112 RUNNERS ONLINE</span>
+</div>
+</div>
+</div>
+<!-- TORN FILTERS BARRIERS / ACTION PANEL -->
+<section aria-label="Filters" class="mb-space-lg bg-surface-container-low p-space-md shadow-[6px_6px_0px_#000000] relative">
+<div class="absolute -top-3 left-6 bg-primary-container px-space-sm py-0.5 shadow-[2px_2px_0px_#000000] -rotate-2">
+<span class="font-headline-sm text-headline-sm text-on-primary-container tracking-wider uppercase">DECK FILTER RACK</span>
+</div>
+<div class="flex flex-col gap-space-md pt-space-xs">
+<!-- ROW 1: GAME TYPE, STAKES, SEARCH -->
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<!-- Game Format Pill -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">FORMAT:</span>
+<button class="bg-secondary-container text-on-secondary-container px-space-md py-space-xs shadow-[3px_3px_0px_#000000] font-headline-sm text-headline-sm uppercase tracking-wide -rotate-1 hover:rotate-0 transition-transform flex items-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">playing_cards</span>
+<span>TEXAS HOLD'EM (NO-LIMIT)</span>
+</button>
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface-variant px-space-sm py-space-xs shadow-[2px_2px_0px_#000000] font-headline-sm text-headline-sm uppercase tracking-wide" type="button">
+              PLO 4-CARD
+            </button>
+</div>
+<!-- Search Input with comic look -->
+<div class="flex-1 min-w-[260px] max-w-md relative">
+<div class="relative flex items-center bg-surface-container-lowest shadow-[3px_3px_0px_#000000]">
+<span class="material-symbols-outlined text-outline ml-space-sm text-[20px]">search</span>
+<input class="w-full bg-transparent px-space-sm py-space-xs text-on-surface placeholder:text-outline font-label-lg text-label-lg tracking-wider focus:outline-none uppercase" placeholder="SEARCH TABLE NAME OR ID..." type="text"/>
+<span class="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 text-label-sm font-label-sm mr-1 uppercase">ESC</span>
+</div>
+</div>
+<!-- Checkbox: Open Seats Only -->
+<label class="flex items-center gap-space-xs cursor-pointer select-none bg-surface-container px-space-md py-space-xs shadow-[2px_2px_0px_#000000] rotate-1 hover:bg-surface-variant">
+<input checked="" class="w-4 h-4 accent-primary-container cursor-pointer" type="checkbox"/>
+<span class="font-label-lg text-label-lg text-primary uppercase tracking-wider">[✓] OPEN SEATS ONLY</span>
+</label>
+</div>
+<!-- ROW 2: STAKES, TABLE SIZE, SPEED, SORT -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs border-t-2 border-surface-container-highest">
+<!-- Stakes Tabs -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mr-1">STAKES:</span>
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface px-space-sm py-0.5 font-label-lg text-label-lg uppercase shadow-[2px_2px_0px_#000000]" type="button">ALL</button>
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface px-space-sm py-0.5 font-label-lg text-label-lg uppercase shadow-[2px_2px_0px_#000000]" type="button">MICRO (25/50)</button>
+<button class="bg-primary-container text-on-primary-container px-space-md py-0.5 font-headline-sm text-headline-sm uppercase shadow-[3px_3px_0px_#000000] -rotate-1" type="button">MID (50/100 - 100/200)</button>
+<button class="bg-surface-container hover:bg-surface-variant text-on-surface px-space-sm py-0.5 font-label-lg text-label-lg uppercase shadow-[2px_2px_0px_#000000]" type="button">HIGH ROLLER (200/400+)</button>
+</div>
+<!-- Table Size Selector -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mr-1">SIZE:</span>
+<div class="inline-flex bg-surface-container-lowest p-0.5 shadow-[2px_2px_0px_#000000]">
+<button class="px-space-xs py-0.5 text-on-surface-variant font-label-md text-label-md uppercase hover:text-on-surface" type="button">ALL</button>
+<button class="px-space-xs py-0.5 text-on-surface-variant font-label-md text-label-md uppercase hover:text-on-surface" type="button">2-HU</button>
+<button class="bg-surface-variant text-primary px-space-sm py-0.5 font-label-lg text-label-lg uppercase shadow-[1px_1px_0px_#000000]" type="button">6-MAX</button>
+<button class="px-space-xs py-0.5 text-on-surface-variant font-label-md text-label-md uppercase hover:text-on-surface" type="button">9-RING</button>
+</div>
+</div>
+<!-- Speed & Sort -->
+<div class="flex items-center gap-space-md flex-wrap">
+<!-- Speed toggle -->
+<div class="flex items-center gap-1 bg-surface-container-lowest px-space-xs py-0.5 shadow-[2px_2px_0px_#000000]">
+<button class="px-space-xs py-0.5 text-on-surface-variant hover:text-on-surface font-label-md text-label-md uppercase" type="button">NORMAL</button>
+<button class="bg-primary-container text-on-primary-container px-space-xs py-0.5 font-label-lg text-label-lg uppercase shadow-[1px_1px_0px_#000000]" type="button">TURBO ⚡</button>
+</div>
+<!-- Sort By dropdown pill -->
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-0.5 shadow-[2px_2px_0px_#000000]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">SORT:</span>
+<select class="bg-transparent text-primary font-label-lg text-label-lg uppercase tracking-wide focus:outline-none cursor-pointer">
+<option class="bg-surface-container-lowest text-on-surface" value="stakes-desc">STAKES (HIGH TO LOW)</option>
+<option class="bg-surface-container-lowest text-on-surface" value="avg-pot">AVERAGE POT</option>
+<option class="bg-surface-container-lowest text-on-surface" value="players">PLAYERS ONLINE</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2-COLUMN MAIN CONTENT SPLIT (TABLE LIST 68% + DETAILS INSPECTOR 32%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: TABLE LIST (approx 68% on lg -> 8 columns of 12) -->
+<section aria-label="Available Tables" class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Table Column Headers -->
+<div class="hidden sm:grid sm:grid-cols-12 gap-space-sm px-space-md py-space-xs bg-surface-container-lowest shadow-[2px_2px_0px_#000000] text-outline font-label-md text-label-md uppercase tracking-wider">
+<div class="col-span-4">TABLE / SYNDICATE</div>
+<div class="col-span-2 text-right">BLINDS</div>
+<div class="col-span-2 text-right">BUY-IN RANGE</div>
+<div class="col-span-2 text-center">SEATS</div>
+<div class="col-span-2 text-right">ACTION</div>
+</div>
+<!-- ROW 1: SCRAP YARD #07 (SELECTED TABLE) -->
+<article class="relative bg-surface-container p-space-md shadow-[4px_4px_0px_#000000] -rotate-[0.5deg] hover:rotate-0 transition-transform">
+<div class="absolute -top-2.5 right-4 bg-primary-container px-space-xs py-0.5 shadow-[2px_2px_0px_#000000] rotate-2">
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase tracking-wider">INSPECTOR ACTIVE</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Col: Name & badges -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-primary tracking-wide uppercase">SCRAP YARD #07</span>
+<span class="bg-error-container text-on-error-container px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000]">ALMOST FULL</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mt-0.5">
+<span class="text-secondary font-bold">⚡ TURBO</span>
+<span>•</span>
+<span>AVG POT: <span class="text-primary font-bold">14,200</span></span>
+</div>
+</div>
+<!-- Col: Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-primary tracking-wider">50 / 100</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Col: Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-on-surface uppercase">2K - 10K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">20-100 BB</span>
+</div>
+</div>
+<!-- Col: Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-primary-fixed-dim">5 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+</div>
+</div>
+</div>
+<!-- Col: CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                JOIN TABLE
+              </button>
+</div>
+</div>
+</article>
+<!-- ROW 2: BOLT RUNNER #12 -->
+<article class="bg-surface-container-low hover:bg-surface-container p-space-md shadow-[4px_4px_0px_#000000] transition-colors">
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Name & badge -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface tracking-wide uppercase">BOLT RUNNER #12</span>
+<span class="bg-secondary-container text-on-secondary-container px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000]">OPEN SEATS</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mt-0.5">
+<span>NORMAL PACE</span>
+<span>•</span>
+<span>AVG POT: <span class="text-primary font-bold">28,600</span></span>
+</div>
+</div>
+<!-- Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wider">100 / 200</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-on-surface uppercase">5K - 20K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">25-100 BB</span>
+</div>
+</div>
+<!-- Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-on-surface">4 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                JOIN TABLE
+              </button>
+</div>
+</div>
+</article>
+<!-- ROW 3: NEON ALLEY #03 -->
+<article class="bg-surface-container-low hover:bg-surface-container p-space-md shadow-[4px_4px_0px_#000000] transition-colors">
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Name & badge -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface tracking-wide uppercase">NEON ALLEY #03</span>
+<span class="bg-secondary-container text-on-secondary-container px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000]">OPEN SEATS</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mt-0.5">
+<span>NORMAL PACE</span>
+<span>•</span>
+<span>AVG POT: <span class="text-primary font-bold">6,400</span></span>
+</div>
+</div>
+<!-- Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wider">25 / 50</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-on-surface uppercase">1K - 5K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">20-100 BB</span>
+</div>
+</div>
+<!-- Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-on-surface">3 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                JOIN TABLE
+              </button>
+</div>
+</div>
+</article>
+<!-- ROW 4: RUST BUCKET #09 (TABLE FULL) -->
+<article class="bg-surface-container-lowest p-space-md shadow-[4px_4px_0px_#000000] opacity-90">
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Name & badge -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-outline tracking-wide uppercase">RUST BUCKET #09</span>
+<span class="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000]">TABLE FULL</span>
+</div>
+<div class="flex items-center gap-space-xs text-outline font-label-sm text-label-sm uppercase mt-0.5">
+<span>⚡ TURBO</span>
+<span>•</span>
+<span>AVG POT: 52,100</span>
+</div>
+</div>
+<!-- Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant tracking-wider">200 / 400</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-outline uppercase">10K - 40K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">25-100 BB</span>
+</div>
+</div>
+<!-- Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-error">6 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+<span class="w-2 h-2 bg-error-container inline-block"></span>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-surface-variant hover:bg-surface-bright text-on-surface-variant px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[2px_2px_0px_#000000] rotate-1 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                WAITLIST (2)
+              </button>
+</div>
+</div>
+</article>
+<!-- ROW 5: CYBER DEN #15 (WHALES / HIGH STAKES) -->
+<article class="bg-surface-container-low hover:bg-surface-container p-space-md shadow-[4px_4px_0px_#000000] transition-colors relative">
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Name & badge -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-primary-fixed-dim tracking-wide uppercase">CYBER DEN #15</span>
+<span class="bg-tertiary-container text-on-tertiary-container px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000] font-bold">VIP WHALES</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mt-0.5">
+<span class="text-secondary font-bold">⚡ FAST</span>
+<span>•</span>
+<span>AVG POT: <span class="text-primary font-bold">135,000</span></span>
+</div>
+</div>
+<!-- Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-primary tracking-wider">500 / 1K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-primary-fixed uppercase">40K - 200K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">40-200 BB</span>
+</div>
+</div>
+<!-- Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-primary">5 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-primary-container inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                JOIN TABLE
+              </button>
+</div>
+</div>
+</article>
+<!-- ROW 6: UNDERGROUND SHED #02 (PRIVATE PIN) -->
+<article class="bg-surface-container-low hover:bg-surface-container p-space-md shadow-[4px_4px_0px_#000000] transition-colors">
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-sm items-center">
+<!-- Name & badge -->
+<div class="sm:col-span-4 flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface tracking-wide uppercase">UNDERGROUND SHED #02</span>
+<span class="bg-surface-highest text-on-surface px-space-xs py-0.5 font-label-sm text-label-sm uppercase tracking-wider shadow-[1px_1px_0px_#000000] flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+<span>PRIVATE</span>
+</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase mt-0.5">
+<span>NORMAL PACE</span>
+<span>•</span>
+<span>AVG POT: <span class="text-primary font-bold">18,900</span></span>
+</div>
+</div>
+<!-- Blinds -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BLINDS:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wider">50 / 100</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Buy-in -->
+<div class="sm:col-span-2 sm:text-right flex sm:flex-col justify-between items-center sm:items-end">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">BUY-IN:</span>
+<div class="flex flex-col sm:items-end">
+<span class="font-label-lg text-label-lg text-on-surface uppercase">2K - 10K</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">20-100 BB</span>
+</div>
+</div>
+<!-- Seats -->
+<div class="sm:col-span-2 text-center flex sm:flex-col justify-between items-center">
+<span class="sm:hidden font-label-sm text-label-sm text-outline uppercase">SEATS:</span>
+<div class="flex flex-col items-center">
+<span class="font-headline-sm text-headline-sm text-on-surface">4 / 6</span>
+<div class="flex gap-1 mt-0.5">
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-secondary-container inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+<span class="w-2 h-2 bg-surface-variant inline-block"></span>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
+<button class="w-full sm:w-auto bg-secondary-container hover:bg-secondary text-on-secondary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+                ENTER PIN
+              </button>
+</div>
+</div>
+</article>
+</section>
+<!-- RIGHT COLUMN: SELECTED TABLE DETAILS INSPECTOR & MODAL DOCK (approx 32% -> 4 cols of 12) -->
+<aside aria-label="Table Inspector" class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- MAIN INSPECTOR CARD -->
+<div class="bg-surface-container p-space-lg shadow-[6px_6px_0px_#000000] relative rotate-[0.5deg]">
+<!-- Torn tape banner at top -->
+<div class="absolute -top-3 left-4 bg-primary-container px-space-md py-0.5 shadow-[2px_2px_0px_#000000] -rotate-2 flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-error-container inline-block animate-pulse"></span>
+<span class="font-headline-sm text-headline-sm text-on-primary-container uppercase tracking-wide">LIVE TABLE FEED</span>
+</div>
+<!-- Table Title -->
+<div class="mt-space-xs pb-space-sm border-b-2 border-surface-container-highest">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-widest">CURRENT FOCUS</span>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">SCRAP YARD #07</h2>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md uppercase">
+<span class="text-secondary font-bold">⚡ TURBO PACED</span>
+<span>•</span>
+<span>6-MAX NO-LIMIT HOLD'EM</span>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-3 gap-space-xs py-space-md border-b-2 border-surface-container-highest text-center">
+<div class="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
+<span class="font-label-sm text-label-sm text-outline uppercase block">BLINDS</span>
+<span class="font-headline-sm text-headline-sm text-primary">50 / 100</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
+<span class="font-label-sm text-label-sm text-outline uppercase block">AVG POT</span>
+<span class="font-headline-sm text-headline-sm text-secondary-fixed">14.2K</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
+<span class="font-label-sm text-label-sm text-outline uppercase block">PACE</span>
+<span class="font-headline-sm text-headline-sm text-primary-fixed-dim">84 H/HR</span>
+</div>
+</div>
+<!-- SEATED RUNNERS LIST (5/6 Players) -->
+<div class="py-space-md border-b-2 border-surface-container-highest">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">SEATED SCRAPPERS (5/6)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">SEAT #6 OPEN</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<!-- Player 1 -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-1 shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm leading-none">1</div>
+<span class="font-label-lg text-label-lg text-on-surface uppercase">Neon_Jack</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary tracking-wide">18,450 <span class="font-label-sm text-outline">SCRAP</span></span>
+</div>
+<!-- Player 2 -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-1 shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-surface-variant text-on-surface flex items-center justify-center font-headline-sm text-headline-sm leading-none">2</div>
+<span class="font-label-lg text-label-lg text-on-surface uppercase">Bolt_99</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide">9,200 <span class="font-label-sm text-outline">SCRAP</span></span>
+</div>
+<!-- Player 3 -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-1 shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-secondary-container text-on-secondary-container flex items-center justify-center font-headline-sm text-headline-sm leading-none">3</div>
+<span class="font-label-lg text-label-lg text-on-surface uppercase">Viper_X</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-secondary tracking-wide">24,800 <span class="font-label-sm text-outline">SCRAP</span></span>
+</div>
+<!-- Player 4 -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-1 shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-surface-variant text-on-surface flex items-center justify-center font-headline-sm text-headline-sm leading-none">4</div>
+<span class="font-label-lg text-label-lg text-on-surface uppercase">Cogwheel</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide">6,100 <span class="font-label-sm text-outline">SCRAP</span></span>
+</div>
+<!-- Player 5 -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-sm py-1 shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-headline-sm text-headline-sm leading-none">5</div>
+<span class="font-label-lg text-label-lg text-on-surface uppercase">Mad_Ram</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary tracking-wide">12,500 <span class="font-label-sm text-outline">SCRAP</span></span>
+</div>
+<!-- Seat 6 Empty CTA -->
+<div class="flex items-center justify-between bg-surface-container-high px-space-sm py-1 border-2 border-dashed border-outline shadow-[1px_1px_0px_#000000]">
+<div class="flex items-center gap-space-xs">
+<div class="w-5 h-5 bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm leading-none">6</div>
+<span class="font-label-lg text-label-lg text-primary uppercase font-bold">SEAT #6 VACANT</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-wider">[RESERVE NOW]</span>
+</div>
+</div>
+</div>
+<!-- BUY-IN CONFIRMATION CONTROLS (INSPECTOR ACTION) -->
+<div class="pt-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface uppercase">CONFIRM BUY-IN FOR SEAT #6</span>
+<span class="font-label-sm text-label-sm text-outline uppercase">STACK: 450.2K</span>
+</div>
+<!-- Amount display & Slider -->
+<div class="bg-surface-container-lowest p-space-sm shadow-[3px_3px_0px_#000000]">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">TARGET BUY-IN</span>
+<div class="text-right">
+<span class="font-headline-lg text-headline-lg text-primary tracking-wider" id="buyin-value-display">8,000</span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim uppercase ml-1">SCRAP (80 BB)</span>
+</div>
+</div>
+<!-- Stepped Slider -->
+<input class="w-full accent-primary-container cursor-pointer h-2 bg-surface-variant" id="buyin-slider" max="10000" min="2000" step="500" type="range" value="8000"/>
+<!-- Presets -->
+<div class="flex items-center justify-between gap-space-xs mt-space-xs">
+<button class="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onclick="document.getElementById('buyin-slider').value=2000; document.getElementById('buyin-value-display').innerText='2,000';" type="button">
+                  MIN (2K)
+                </button>
+<button class="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onclick="document.getElementById('buyin-slider').value=5000; document.getElementById('buyin-value-display').innerText='5,000';" type="button">
+                  MED (5K)
+                </button>
+<button class="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onclick="document.getElementById('buyin-slider').value=10000; document.getElementById('buyin-value-display').innerText='10,000';" type="button">
+                  MAX (10K)
+                </button>
+</div>
+</div>
+<!-- Primary Join CTA -->
+<div class="flex flex-col gap-space-xs">
+<button class="w-full bg-primary-container hover:bg-primary-fixed text-on-primary-container py-space-sm shadow-[4px_4px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-md text-headline-md uppercase tracking-wider flex items-center justify-center gap-space-xs" type="button">
+<span>CONFIRM & SIT DOWN</span>
+<span class="material-symbols-outlined text-[24px]">login</span>
+</button>
+<button class="w-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-1 font-label-lg text-label-lg uppercase tracking-wider shadow-[2px_2px_0px_#000000]" type="button">
+                CANCEL / CLOSE INSPECTOR
+              </button>
+</div>
+</div>
+</div>
+<!-- SECONDARY STATE PREVIEWS (Comic Alerts Stack) -->
+<div class="flex flex-col gap-space-md">
+<!-- STATE PREVIEW 1: INSUFFICIENT CHIPS WARNING -->
+<div class="bg-surface-container-low p-space-md shadow-[4px_4px_0px_#000000] -rotate-1 relative">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 bg-error-container text-on-error-container flex items-center justify-center font-headline-sm text-headline-sm shadow-[2px_2px_0px_#000000] shrink-0">!</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-error uppercase">STATE: INSUFFICIENT CHIPS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  ON TABLE <span class="text-primary font-bold">#04 HIGH ROLLER (1M BUY-IN)</span>: YOU NEED <span class="text-error font-bold">549,800 MORE SCRAP</span>. COMPLETE UNDERGROUND BOUNTIES OR JOIN MICRO STAKES.
+                </p>
+<div class="mt-space-xs flex gap-space-xs">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-primary px-space-sm py-0.5 font-label-sm text-label-sm uppercase shadow-[1px_1px_0px_#000000]" type="button">
+                    DAILY REWARD (+50K)
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- STATE PREVIEW 2: TABLE FULL / WAITLIST NOTICE -->
+<div class="bg-surface-container-low p-space-md shadow-[4px_4px_0px_#000000] rotate-1 relative">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 bg-surface-variant text-on-surface flex items-center justify-center font-headline-sm text-headline-sm shadow-[2px_2px_0px_#000000] shrink-0">#</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">STATE: RUST BUCKET FULL</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  YOU ARE CURRENTLY IN <span class="text-primary font-bold">WAITLIST POSITION #3</span>. ESTIMATED SEAT CLEARANCE: ~4 MINUTES.
+                </p>
+<div class="mt-space-xs flex gap-space-xs">
+<button class="bg-surface-container hover:bg-surface-variant text-secondary px-space-sm py-0.5 font-label-sm text-label-sm uppercase shadow-[1px_1px_0px_#000000]" type="button">
+                    EXPLORE SIMILAR 6-MAX TABLES ➔
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- STATE PREVIEW 3: JOINING DECK ANIMATED FEEDBACK -->
+<div class="bg-primary-container p-space-md shadow-[4px_4px_0px_#000000] -rotate-1 relative">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-primary-container text-[28px] animate-spin">cyclone</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-primary-container uppercase tracking-wide">CONNECTING TO TABLE...</span>
+<span class="font-label-sm text-label-sm text-on-primary-container/80 uppercase font-bold tracking-wider">ENTERING THE SCRAP YARD... SHUFFLING DECK</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const slider = document.getElementById('buyin-slider');
+    const display = document.getElementById('buyin-value-display');
+    if (slider && display) {
+      slider.addEventListener('input', function(e) {
+        const val = Number(e.target.value).toLocaleString();
+        display.innerText = val;
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-surface-container-lowest border-t-[3px] border-surface-container-high py-space-lg"><div class="max-w-7xl mx-auto px-margin flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wider">SCRAP POKER CLUB</span><span class="font-body-sm text-body-sm text-on-surface-variant">EST. 2024 • UNDERGROUND HIGH-STAKES ENGINE</span></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant uppercase"><span class="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse"></span><span>SERVER: LATENCY 18MS • TABLES SYNCED</span></div><span class="font-body-sm text-body-sm text-on-surface-variant">© SCRAP COLLECTIVE. CERTIFIED RNG.</span></div></div></footer></body></html>
