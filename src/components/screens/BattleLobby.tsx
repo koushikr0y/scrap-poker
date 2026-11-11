@@ -1,19 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface BattleLobbyProps {
+  callsign?: string;
+  bankroll?: number;
+  bonusClaimed?: boolean;
+  onClaimBonus?: () => void;
+  onRebuy?: () => void;
+  onLogout?: () => void;
   onNavigateToTable?: () => void;
   onNavigateToCashBrowser?: () => void;
+  onNavigateToRankings?: () => void;
 }
 
 export const BattleLobby: React.FC<BattleLobbyProps> = ({
+  callsign = "Bolt_Runner_99",
+  bankroll = 450200,
+  bonusClaimed: externalBonusClaimed,
+  onClaimBonus,
+  onRebuy,
+  onLogout,
   onNavigateToTable,
   onNavigateToCashBrowser,
+  onNavigateToRankings,
 }) => {
   const [speedMode, setSpeedMode] = useState<"std" | "fast">("std");
-  const [bonusClaimed, setBonusClaimed] = useState<boolean>(false);
+  const [localBonusClaimed, setLocalBonusClaimed] = useState<boolean>(false);
   const [showMatchmaking, setShowMatchmaking] = useState<boolean>(false);
   const [showRankings, setShowRankings] = useState<boolean>(false);
   const [copiedCode, setCopiedCode] = useState<boolean>(false);
+
+  const bonusClaimed = externalBonusClaimed ?? localBonusClaimed;
+
+  useEffect(() => {
+    if (!showMatchmaking) return;
+    const timer = window.setTimeout(() => {
+      setShowMatchmaking(false);
+      onNavigateToTable?.();
+    }, 1000);
+    return () => window.clearTimeout(timer);
+  }, [showMatchmaking, onNavigateToTable]);
+
+  const handleClaimReward = () => {
+    setLocalBonusClaimed(true);
+    onClaimBonus?.();
+  };
 
   const handleCopyGang = () => {
     navigator.clipboard?.writeText?.("#SCRAP-8849-GANG");
@@ -23,7 +53,7 @@ export const BattleLobby: React.FC<BattleLobbyProps> = ({
 
   return (
     <div className="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen">
-<header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-low ink-border-3 border-t-0 border-x-0 cel-shadow-sm select-none"> <div className="h-20 w-full px-gutter flex items-center justify-between gap-space-md"> <div className="flex items-center gap-space-lg"> <a className="flex items-center gap-space-sm transform -rotate-1 hover:rotate-0 transition-transform" href="#"> <div className="bg-primary-container ink-border-3 px-space-md py-space-xs cel-shadow-sm flex items-center gap-space-xs"> <span className="material-symbols-outlined text-on-primary-container text-[24px]">style</span> <span className="font-headline-md text-headline-md tracking-wider uppercase text-on-primary-container leading-none">SCRAP POKER</span></div> <div className="hidden sm:inline-block bg-error-container ink-border-3 px-space-xs py-0 transform rotate-3"> <span className="font-label-sm text-label-sm uppercase text-on-error-container">ZINE #07</span></div></a> <nav className="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-headline-sm text-headline-sm ink-border-3 cel-shadow-sm transform -rotate-1"> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="battle-table" href="#" onClick={(e) => { e.preventDefault(); onNavigateToTable?.(); }}>Battle Table</a> <a aria-current="page" className="px-space-md py-space-xs uppercase tracking-wider transition-all bg-primary-container text-on-primary-container font-headline-sm text-headline-sm ink-border-3 cel-shadow-sm transform -rotate-1" data-path="lobby" href="#">Lobby</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="hand-rankings" href="#">Hand Rankings</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="leaderboard" href="#">Leaderboard</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="daily-reward" href="#">Daily Reward</a></nav></div> <div className="flex items-center gap-space-md"> <div className="hidden md:flex items-center bg-surface-container ink-border-3 p-space-xs cel-shadow-sm transform rotate-1"> <div className="w-9 h-9 bg-secondary ink-border-3 flex items-center justify-center"> <span className="material-symbols-outlined text-on-secondary text-[20px]">electric_bolt</span></div> <div className="px-space-sm flex flex-col justify-center"> <span className="font-label-sm text-label-sm uppercase text-on-surface-variant leading-none">Bolt_Runner_99</span> <span className="font-headline-sm text-headline-sm text-primary leading-tight">450,200 <span className="font-label-sm text-label-sm text-primary-fixed-dim">SCRAP</span></span></div></div> <button className="hidden sm:flex items-center gap-space-xs bg-error-container ink-border-3 px-space-md py-space-xs cel-shadow text-on-error-container hover:bg-error hover:text-on-error active:translate-x-[2px] active:translate-y-[2px] active:cel-shadow-sm transition-all transform -rotate-1"> <span className="material-symbols-outlined text-[18px]">replay</span> <span className="font-headline-sm text-headline-sm uppercase leading-none">REBUY</span></button> <div className="flex items-center gap-space-xs"> <button aria-label="Toggle sound" className="w-10 h-10 bg-surface-container ink-border-3 flex items-center justify-center text-on-surface cel-shadow-sm hover:bg-surface-bright active:translate-x-[1px] active:translate-y-[1px]"> <span className="material-symbols-outlined text-[20px]">volume_up</span></button> <button aria-label="Settings" className="w-10 h-10 bg-surface-container ink-border-3 flex items-center justify-center text-on-surface cel-shadow-sm hover:bg-surface-bright active:translate-x-[1px] active:translate-y-[1px]"> <span className="material-symbols-outlined text-[20px]">tune</span></button> <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ink-border-3"> <span className="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header> <main className="w-full pt-20 bg-background flex-1 halftone-bg"> <div className="flex flex-col w-full">
+<header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-low ink-border-3 border-t-0 border-x-0 cel-shadow-sm select-none"> <div className="h-20 w-full px-gutter flex items-center justify-between gap-space-md"> <div className="flex items-center gap-space-lg"> <a className="flex items-center gap-space-sm transform -rotate-1 hover:rotate-0 transition-transform" href="#"> <div className="bg-primary-container ink-border-3 px-space-md py-space-xs cel-shadow-sm flex items-center gap-space-xs"> <span className="material-symbols-outlined text-on-primary-container text-[24px]">style</span> <span className="font-headline-md text-headline-md tracking-wider uppercase text-on-primary-container leading-none">SCRAP POKER</span></div> <div className="hidden sm:inline-block bg-error-container ink-border-3 px-space-xs py-0 transform rotate-3"> <span className="font-label-sm text-label-sm uppercase text-on-error-container">ZINE #07</span></div></a> <nav className="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-headline-sm text-headline-sm ink-border-3 cel-shadow-sm transform -rotate-1"> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="battle-table" href="#" onClick={(e) => { e.preventDefault(); onNavigateToTable?.(); }}>Battle Table</a> <a aria-current="page" className="px-space-md py-space-xs uppercase tracking-wider transition-all bg-primary-container text-on-primary-container font-headline-sm text-headline-sm ink-border-3 cel-shadow-sm transform -rotate-1" data-path="lobby" href="#" onClick={(e) => e.preventDefault()}>Lobby</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="hand-rankings" href="#" onClick={(e) => { e.preventDefault(); onNavigateToRankings ? onNavigateToRankings() : setShowRankings(true); }}>Hand Rankings</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="leaderboard" href="#" onClick={(e) => { e.preventDefault(); onNavigateToCashBrowser?.(); }}>Leaderboard</a> <a className="px-space-md py-space-xs font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface transition-all" data-path="daily-reward" href="#" onClick={(e) => { e.preventDefault(); handleClaimReward(); }}>Daily Reward</a></nav></div> <div className="flex items-center gap-space-md"> <div className="hidden md:flex items-center bg-surface-container ink-border-3 p-space-xs cel-shadow-sm transform rotate-1"> <div className="w-9 h-9 bg-secondary ink-border-3 flex items-center justify-center"> <span className="material-symbols-outlined text-on-secondary text-[20px]">electric_bolt</span></div> <div className="px-space-sm flex flex-col justify-center"> <span className="font-label-sm text-label-sm uppercase text-on-surface-variant leading-none">{callsign}</span> <span className="font-headline-sm text-headline-sm text-primary leading-tight">{bankroll.toLocaleString()} <span className="font-label-sm text-label-sm text-primary-fixed-dim">SCRAP</span></span></div></div> <button className="hidden sm:flex items-center gap-space-xs bg-error-container ink-border-3 px-space-md py-space-xs cel-shadow text-on-error-container hover:bg-error hover:text-on-error active:translate-x-[2px] active:translate-y-[2px] active:cel-shadow-sm transition-all transform -rotate-1 cursor-pointer" onClick={() => onRebuy?.()} type="button"> <span className="material-symbols-outlined text-[18px]">replay</span> <span className="font-headline-sm text-headline-sm uppercase leading-none">REBUY</span></button> <div className="flex items-center gap-space-xs"> <button aria-label="Toggle sound" className="w-10 h-10 bg-surface-container ink-border-3 flex items-center justify-center text-on-surface cel-shadow-sm hover:bg-surface-bright active:translate-x-[1px] active:translate-y-[1px]"> <span className="material-symbols-outlined text-[20px]">volume_up</span></button> <button aria-label="Settings" className="w-10 h-10 bg-surface-container ink-border-3 flex items-center justify-center text-on-surface cel-shadow-sm hover:bg-surface-bright active:translate-x-[1px] active:translate-y-[1px]"> <span className="material-symbols-outlined text-[20px]">tune</span></button> <button aria-label="Account Sign Out" className="w-8 h-8 rounded-full bg-primary flex items-center justify-center ink-border-3 cursor-pointer" onClick={() => onLogout?.()} title="Switch Account / Sign Out" type="button"> <span className="material-symbols-outlined text-on-primary text-[18px]">person</span></button></div></div></div></header> <main className="w-full pt-20 bg-background flex-1 halftone-bg"> <div className="flex flex-col w-full">
 {/* Dynamic Matchmaking Overlay (Toggled via JS) */}
 <div id="matchmaking-overlay" className={`fixed inset-0 z-50 bg-background/90 backdrop-blur-sm ${showMatchmaking ? "flex" : "hidden"} items-center justify-center p-space-lg select-none`}> <div className="relative w-full max-w-lg bg-surface-container ink-border-4 p-space-xl cel-shadow-lg transform -rotate-1"> <div className="absolute -top-6 -right-6 bg-error-container ink-border-3 px-space-md py-space-xs cel-shadow transform rotate-6"> <span className="font-headline-sm text-headline-sm uppercase text-on-error-container tracking-wider">LIVE QUEUE</span>
 </div> <div className="flex items-center gap-space-sm mb-space-md"> <span className="material-symbols-outlined text-primary-container text-headline-lg animate-spin">cyclone</span> <h3 className="font-display-lg text-display-lg text-primary uppercase leading-none">AUTO-SEAT ACTIVATED</h3>
@@ -133,7 +163,7 @@ export const BattleLobby: React.FC<BattleLobbyProps> = ({
       <span className="font-headline-md text-headline-md uppercase tracking-wider block">CLAIMED! +15,000 SCRAP</span>
     </button>
   ) : (
-    <button className="w-full bg-error-container hover:bg-error text-on-error-container hover:text-on-error ink-border-3 p-space-sm cel-shadow transform rotate-1 active:translate-x-0.5 active:translate-y-0.5 transition-all text-center" id="claim-btn" onClick={() => setBonusClaimed(true)}> <span className="font-headline-md text-headline-md uppercase tracking-wider block">CLAIM +15,000 NOW</span>
+    <button className="w-full bg-error-container hover:bg-error text-on-error-container hover:text-on-error ink-border-3 p-space-sm cel-shadow transform rotate-1 active:translate-x-0.5 active:translate-y-0.5 transition-all text-center cursor-pointer" id="claim-btn" onClick={handleClaimReward} type="button"> <span className="font-headline-md text-headline-md uppercase tracking-wider block">CLAIM +15,000 NOW</span>
 </button>
   )}
 </div>

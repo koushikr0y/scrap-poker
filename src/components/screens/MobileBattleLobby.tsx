@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
 export interface MobileBattleLobbyProps {
+  callsign?: string;
+  bankroll?: number;
+  level?: number;
+  rankLabel?: string;
+  bonusClaimed?: boolean;
+  onClaimBonus?: () => void;
+  onRebuy?: () => void;
+  onLogout?: () => void;
   onNavigateToTable?: () => void;
   onNavigateToCashBrowser?: () => void;
   onNavigateToRankings?: () => void;
@@ -8,15 +16,27 @@ export interface MobileBattleLobbyProps {
 }
 
 export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
+  callsign = "BOLT_RUNNER_99",
+  bankroll = 450200,
+  level = 24,
+  rankLabel = "GOLD II",
+  bonusClaimed: externalBonusClaimed,
+  onClaimBonus,
+  onRebuy,
+  onLogout,
   onNavigateToTable,
   onNavigateToCashBrowser,
   onNavigateToRankings,
+  onNavigateToProfile,
 }) => {
-  const [rewardClaimed, setRewardClaimed] = useState<boolean>(false);
+  const [localRewardClaimed, setLocalRewardClaimed] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<"home" | "play" | "hands" | "profile">("home");
 
+  const rewardClaimed = externalBonusClaimed ?? localRewardClaimed;
+
   const handleClaimReward = () => {
-    setRewardClaimed(true);
+    setLocalRewardClaimed(true);
+    onClaimBonus?.();
   };
 
   return (
@@ -35,7 +55,7 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
             </div>
             <div className="flex items-center justify-center bg-surface-container-high px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000000]">
               <span className="font-label-sm text-label-sm text-primary-fixed uppercase">
-                LVL 24
+                LVL {level}
               </span>
             </div>
           </div>
@@ -46,7 +66,7 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
             </span>
             <div className="flex flex-col leading-none">
               <span className="font-headline-sm text-headline-sm text-primary-container leading-none tracking-tight">
-                450,200
+                {bankroll.toLocaleString()}
               </span>
               <span className="font-label-sm text-[9px] text-on-surface-variant uppercase tracking-wider">
                 SCRAP
@@ -73,11 +93,17 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
                 settings
               </span>
             </button>
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[1px_1px_0px_#000000]">
+            <button
+              aria-label="Sign Out / Switch Profile"
+              className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[1px_1px_0px_#000000] cursor-pointer"
+              onClick={() => (onNavigateToProfile ?? onLogout)?.()}
+              title="Switch Account / Sign Out"
+              type="button"
+            >
               <span className="material-symbols-outlined text-on-primary text-[18px]">
                 person
               </span>
-            </div>
+            </button>
           </div>
         </div>
       </header>
@@ -108,18 +134,18 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
                     </span>
                   </div>
                   <span className="absolute -bottom-1 -right-1 bg-surface-container-lowest text-primary-fixed font-label-sm text-label-sm px-1 py-0.2 rounded shadow-[1px_1px_0px_#000000]">
-                    24
+                    {level}
                   </span>
                 </div>
                 <div className="flex flex-col min-w-0">
                   <div className="flex items-center gap-1.5">
                     <span className="font-headline-sm text-headline-sm text-on-surface tracking-wide truncate">
-                      BOLT_RUNNER_99
+                      {callsign}
                     </span>
                     <span className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_#73d1ff] flex-shrink-0"></span>
                   </div>
                   <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest truncate">
-                    LVL 24 SCRAP RUNNER
+                    LVL {level} SCRAP RUNNER
                   </span>
                 </div>
               </div>
@@ -127,6 +153,7 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
               <button
                 className="flex-shrink-0 flex items-center justify-center gap-1 bg-secondary-container text-on-secondary px-2.5 h-10 rounded shadow-[3px_3px_0px_#000000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#000000] transition-all rotate-[1deg] cursor-pointer"
                 id="rebuyBtn"
+                onClick={() => onRebuy?.()}
                 type="button"
               >
                 <span className="material-symbols-outlined text-[18px]">
@@ -144,7 +171,7 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
                   toll
                 </span>
                 <span className="font-headline-sm text-headline-sm text-primary-container tracking-tight">
-                  450,200
+                  {bankroll.toLocaleString()}
                 </span>
                 <span className="font-label-sm text-[10px] text-on-surface-variant">
                   SCRAP CHIPS
@@ -154,7 +181,7 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
                 <span className="material-symbols-outlined text-[13px]">
                   military_tech
                 </span>
-                <span>RANK: GOLD II</span>
+                <span>RANK: {rankLabel}</span>
               </div>
             </div>
           </section>

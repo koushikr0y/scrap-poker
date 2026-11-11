@@ -40,7 +40,7 @@ Featuring high-contrast ink outlines, halftone dot textures, brutalist card cont
 - **Bundler & Dev Server**: [Vite 5](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS 3](https://tailwindcss.com/) with custom design tokens
 - **Icons**: Google Material Symbols Outlined & Lucide React
-- **Architecture**: Pure presentational components with typed mock fixtures (`src/lib/mock/`) for seamless future backend/WebSocket integration.
+- **Architecture**: Connected React session flow (`src/context/SessionContext.tsx`) paired with an immutable 6-max Texas Hold'em Poker Engine (`src/lib/poker/`) behind a transport-ready `PokerTableClient` interface.
 
 ---
 
@@ -88,9 +88,10 @@ The app includes a built-in screen switcher pill (`[ ⚙ SCREEN_NAME ]`) at the 
 | `#/table` | Desktop | 6-Max Texas Hold'em Battle Table (Felt view, HUD, Action Bar) |
 | `#/table/:id` | Desktop | Texas Hold'em Battle Table Alt Variant |
 | `#/hand-rankings` | Desktop | Texas Hold'em 10-Tier Hand Rankings Guide & Dossier |
-| `#/splash` | Desktop | KosiGames Studio Intro & Cel-Pop Splash Screen |
+| `#/splash` | Desktop | KosiGames Studio Intro & Cel-Pop Splash Screen (default entry >= 768px) |
 | `#/login` | Desktop | Player Login & Syndicate Auth Screen |
 | `#/register` | Desktop | New Player Registration Screen |
+| `#/m/splash` | Mobile | KosiGames Mobile Splash Screen (default entry < 768px) |
 | `#/m/lobby` | Mobile | Mobile Battle Lobby (390×844) with Quick Play, Cash Games, Rewards & Bottom Nav |
 | `#/m/tables` | Mobile | Mobile Cash Tables Browser with Live Search, Sort & Occupancy Indicators |
 | `#/m/tables/buy-in` | Mobile | Mobile Table Filters, Buy-In Sheet & Edge Case Alerts |
@@ -112,8 +113,10 @@ The app includes a built-in screen switcher pill (`[ ⚙ SCREEN_NAME ]`) at the 
 │   │   ├── game/               # Poker game components (Table, Pods, Cards, Chips)
 │   │   ├── screens/            # Full-page screen views (Table, Lobby, Login, Register)
 │   │   └── ui/                 # Reusable buttons, badges, and glass panels
+│   ├── context/                # SessionProvider auth, wallet bankroll & table buy-in state
 │   ├── lib/
-│   │   ├── mock/               # Typed mock fixtures (players, tables, lobby, hands)
+│   │   ├── mock/               # Typed mock fixtures & card/player types
+│   │   ├── poker/              # Playable 6-max Texas Hold'em engine, bots & transport
 │   │   └── utils.ts            # Helper utilities & class mergers
 │   ├── App.tsx                 # Hash-based screen router & switcher bar
 │   ├── index.css               # Global theme & utility classes

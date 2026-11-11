@@ -1,19 +1,67 @@
 import React, { useState } from "react";
 
-export interface TableBrowserProps {
-  onNavigateToTable?: (tableId?: string) => void;
-  onNavigateToLobby?: () => void;
+export interface TableSelectionSpec {
+  tableId: string;
+  tableName: string;
+  blinds: [number, number];
+  buyIn: number;
+  minBuyIn: number;
+  maxBuyIn: number;
+  avgPot?: string;
+  pace?: string;
+  seatedCount?: string;
 }
 
+export interface TableBrowserProps {
+  callsign?: string;
+  bankroll?: number;
+  onNavigateToTable?: (tableSpec?: TableSelectionSpec) => void;
+  onNavigateToLobby?: () => void;
+  onNavigateToRankings?: () => void;
+  onRebuy?: () => void;
+  onLogout?: () => void;
+}
+
+const DEFAULT_TABLE_SPEC: Omit<TableSelectionSpec, "buyIn"> = {
+  tableId: "scrap-yard-07",
+  tableName: "SCRAP YARD #07",
+  blinds: [50, 100],
+  minBuyIn: 2000,
+  maxBuyIn: 10000,
+  avgPot: "14.2K",
+  pace: "84 H/HR",
+  seatedCount: "5/6",
+};
+
 export const TableBrowser: React.FC<TableBrowserProps> = ({
+  callsign = "BOLT_RUNNER_99",
+  bankroll = 450200,
   onNavigateToTable,
   onNavigateToLobby,
+  onNavigateToRankings,
+  onRebuy,
+  onLogout,
 }) => {
+  const [focusedTable, setFocusedTable] = useState<Omit<TableSelectionSpec, "buyIn">>(DEFAULT_TABLE_SPEC);
   const [buyIn, setBuyIn] = useState<number>(8000);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const selectTable = (spec: Omit<TableSelectionSpec, "buyIn">, defaultBuyIn: number) => {
+    setFocusedTable(spec);
+    setBuyIn(Math.min(bankroll > spec.minBuyIn ? bankroll : spec.maxBuyIn, defaultBuyIn));
+  };
+
+  const launchTable = (spec: Omit<TableSelectionSpec, "buyIn">, chosenBuyIn: number) => {
+    const safeBuyIn = Math.max(spec.minBuyIn, Math.min(spec.maxBuyIn, chosenBuyIn));
+    onNavigateToTable?.({
+      ...spec,
+      buyIn: Math.min(safeBuyIn, Math.max(spec.minBuyIn, bankroll)),
+    });
+  };
 
   return (
     <div className="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen">
-<header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-low border-b-[3px] border-surface-container-lowest shadow-[0_4px_0_#000000]"><div className="h-20 max-w-7xl mx-auto px-margin flex items-center justify-between gap-gutter"><div className="flex items-center gap-space-md"><a className="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-space-md py-space-xs border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-sm text-headline-sm uppercase tracking-wider" data-path="main-lobby" href="#" onClick={(e) => { e.preventDefault(); onNavigateToLobby?.(); }}><span className="material-symbols-outlined text-[18px]">arrow_back</span><span>LOBBY</span></a><div className="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-lowest border-[2px] border-surface-container-highest shadow-[2px_2px_0px_#000000] rotate-1"><div className="w-7 h-7 bg-primary-container border-[2px] border-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md text-on-primary-container leading-none select-none">S</div><div className="flex flex-col"><span className="font-headline-md text-headline-md uppercase text-primary leading-none tracking-wider">SCRAP POKER</span><span className="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed-dim leading-none">UNDERGROUND DECK</span></div></div><div className="hidden lg:inline-block bg-primary-container text-on-primary-container font-headline-sm text-headline-sm px-space-md py-0.5 border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-2 select-none uppercase">CASH TABLES</div></div><nav className="hidden md:flex items-center gap-space-sm" data-active-classes="bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg"><a aria-current="page" className="uppercase tracking-wider px-space-md py-space-xs transition-all bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg" data-path="cash-game-browser" href="#">Cash Tables</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="sit-and-go-lobby" href="#">Sit & Go</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="tournaments" href="#">Tournaments</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="hand-replayer" href="#">Replayer</a></nav><div className="flex items-center gap-space-md"><div className="flex items-center bg-surface-container-lowest border-[2px] border-surface-container-highest px-space-md py-space-xs shadow-[2px_2px_0px_#000000] rotate-1"><div className="w-5 h-5 rounded-full bg-secondary-container border-[1.5px] border-surface-container-lowest flex items-center justify-center mr-space-xs"><span className="font-headline-sm text-headline-sm text-on-secondary-container leading-none">$</span></div><div className="flex flex-col"><span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider leading-none">STACK</span><span className="font-headline-sm text-headline-sm text-primary tracking-wide leading-tight">450,200 <span className="font-label-md text-label-md text-primary-fixed-dim">SCRAP</span></span></div><button aria-label="Deposit Chips" className="ml-space-sm bg-primary-container hover:bg-primary-fixed text-on-primary-container w-6 h-6 border-[1.5px] border-surface-container-lowest flex items-center justify-center shadow-[1px_1px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5" type="button"><span className="material-symbols-outlined text-[16px]">add</span></button></div><a aria-label="Game Settings" className="w-10 h-10 bg-surface-container-high hover:bg-surface-variant text-on-surface border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" data-path="table-settings" href="#"><span className="material-symbols-outlined text-[22px]">settings</span></a><div className="relative group"><div className="w-10 h-10 bg-primary-container border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center rotate-1"><div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></div></header><main className="w-full pt-20 bg-background min-h-screen"><div className="flex flex-col w-full">
+<header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-low border-b-[3px] border-surface-container-lowest shadow-[0_4px_0_#000000]"><div className="h-20 max-w-7xl mx-auto px-margin flex items-center justify-between gap-gutter"><div className="flex items-center gap-space-md"><a className="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-variant text-on-surface px-space-md py-space-xs border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-sm text-headline-sm uppercase tracking-wider" data-path="main-lobby" href="#" onClick={(e) => { e.preventDefault(); onNavigateToLobby?.(); }}><span className="material-symbols-outlined text-[18px]">arrow_back</span><span>LOBBY</span></a><div className="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-lowest border-[2px] border-surface-container-highest shadow-[2px_2px_0px_#000000] rotate-1"><div className="w-7 h-7 bg-primary-container border-[2px] border-surface-container-lowest flex items-center justify-center font-headline-md text-headline-md text-on-primary-container leading-none select-none">S</div><div className="flex flex-col"><span className="font-headline-md text-headline-md uppercase text-primary leading-none tracking-wider">SCRAP POKER</span><span className="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed-dim leading-none">UNDERGROUND DECK</span></div></div><div className="hidden lg:inline-block bg-primary-container text-on-primary-container font-headline-sm text-headline-sm px-space-md py-0.5 border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-2 select-none uppercase">CASH TABLES</div></div><nav className="hidden md:flex items-center gap-space-sm" data-active-classes="bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg"><a aria-current="page" className="uppercase tracking-wider px-space-md py-space-xs transition-all bg-primary-container text-on-primary-container border-surface-container-lowest shadow-[2px_2px_0px_#000000] -rotate-1 font-label-lg" data-path="cash-game-browser" href="#">Cash Tables</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="sit-and-go-lobby" href="#">Sit & Go</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="tournaments" href="#">Tournaments</a><a className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface-variant hover:text-on-surface px-space-md py-space-xs border-[2px] border-transparent transition-all" data-path="hand-replayer" href="#">Replayer</a></nav><div className="flex items-center gap-space-md"><div className="flex items-center bg-surface-container-lowest border-[2px] border-surface-container-highest px-space-md py-space-xs shadow-[2px_2px_0px_#000000] rotate-1"><div className="w-5 h-5 rounded-full bg-secondary-container border-[1.5px] border-surface-container-lowest flex items-center justify-center mr-space-xs"><span className="font-headline-sm text-headline-sm text-on-secondary-container leading-none">$</span></div><div className="flex flex-col"><span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider leading-none">STACK</span><span className="font-headline-sm text-headline-sm text-primary tracking-wide leading-tight">{bankroll.toLocaleString()} <span className="font-label-md text-label-md text-primary-fixed-dim">SCRAP</span></span></div><button aria-label="Deposit Chips" className="ml-space-sm bg-primary-container hover:bg-primary-fixed text-on-primary-container w-6 h-6 border-[1.5px] border-surface-container-lowest flex items-center justify-center shadow-[1px_1px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5" onClick={() => onRebuy?.()} title="Top up 10,000 SCRAP" type="button"><span className="material-symbols-outlined text-[16px]">add</span></button></div><a aria-label="Hand Rankings" className="w-10 h-10 bg-surface-container-high hover:bg-surface-variant text-on-surface border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" data-path="table-settings" href="#" onClick={(e) => { e.preventDefault(); onNavigateToRankings?.(); }} title="Hand Rankings & Rules"><span className="material-symbols-outlined text-[22px]">settings</span></a><div className="relative group" title={onLogout ? `${callsign} — Click to sign out` : callsign}><button className="w-10 h-10 bg-primary-container border-[2px] border-surface-container-lowest shadow-[2px_2px_0px_#000000] flex items-center justify-center rotate-1 cursor-pointer" onClick={() => onLogout?.()} type="button"><div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-on-primary text-[18px]">person</span></div></button></div></div></div></header><main className="w-full pt-20 bg-background min-h-screen"><div className="flex flex-col w-full">
 <div className="relative w-full max-w-7xl mx-auto px-margin pb-space-xl overflow-hidden">
 {/* SUB-NAV / LOBBY BANNER STRIP */}
 <div className="mt-space-md mb-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
@@ -63,7 +111,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 <div className="flex-1 min-w-[260px] max-w-md relative">
 <div className="relative flex items-center bg-surface-container-lowest shadow-[3px_3px_0px_#000000]">
 <span className="material-symbols-outlined text-outline ml-space-sm text-[20px]">search</span>
-<input className="w-full bg-transparent px-space-sm py-space-xs text-on-surface placeholder:text-outline font-label-lg text-label-lg tracking-wider focus:outline-none uppercase" placeholder="SEARCH TABLE NAME OR ID..." type="text"/>
+<input className="w-full bg-transparent px-space-sm py-space-xs text-on-surface placeholder:text-outline font-label-lg text-label-lg tracking-wider focus:outline-none uppercase" onChange={(e) => setSearchQuery(e.target.value)} placeholder="SEARCH TABLE NAME OR ID..." type="text" value={searchQuery}/>
 <span className="bg-surface-variant text-on-surface-variant px-space-xs py-0.5 text-label-sm font-label-sm mr-1 uppercase">ESC</span>
 </div>
 </div>
@@ -176,7 +224,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 </div>
 {/* Col: CTA */}
 <div className="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
-<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" onClick={() => launchTable(DEFAULT_TABLE_SPEC, focusedTable.tableId === 'scrap-yard-07' ? buyIn : 8000)} type="button">
                 JOIN TABLE
               </button>
 </div>
@@ -230,7 +278,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 </div>
 {/* CTA */}
 <div className="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
-<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" onClick={() => selectTable({ tableId: 'bolt-runner-12', tableName: 'BOLT RUNNER #12', blinds: [100, 200], minBuyIn: 5000, maxBuyIn: 20000, avgPot: '28.6K', pace: '58 H/HR', seatedCount: '4/6' }, 10000)} type="button">
                 JOIN TABLE
               </button>
 </div>
@@ -284,7 +332,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 </div>
 {/* CTA */}
 <div className="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
-<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" onClick={() => selectTable({ tableId: 'neon-alley-03', tableName: 'NEON ALLEY #03', blinds: [25, 50], minBuyIn: 1000, maxBuyIn: 5000, avgPot: '6.4K', pace: '52 H/HR', seatedCount: '3/6' }, 4000)} type="button">
                 JOIN TABLE
               </button>
 </div>
@@ -392,7 +440,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 </div>
 {/* CTA */}
 <div className="sm:col-span-2 sm:text-right mt-space-xs sm:mt-0">
-<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" type="button">
+<button className="w-full sm:w-auto bg-primary-container hover:bg-primary-fixed text-on-primary-container px-space-md py-space-xs font-headline-sm text-headline-sm uppercase tracking-wider shadow-[3px_3px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all" onClick={() => selectTable({ tableId: 'cyber-den-15', tableName: 'CYBER DEN #15', blinds: [500, 1000], minBuyIn: 40000, maxBuyIn: 200000, avgPot: '135K', pace: '76 H/HR', seatedCount: '5/6' }, 80000)} type="button">
                 JOIN TABLE
               </button>
 </div>
@@ -468,7 +516,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 {/* Table Title */}
 <div className="mt-space-xs pb-space-sm border-b-2 border-surface-container-highest">
 <span className="font-label-sm text-label-sm text-outline uppercase tracking-widest">CURRENT FOCUS</span>
-<h2 className="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">SCRAP YARD #07</h2>
+<h2 className="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">{focusedTable.tableName}</h2>
 <div className="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md uppercase">
 <span className="text-secondary font-bold">⚡ TURBO PACED</span>
 <span>•</span>
@@ -479,15 +527,15 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 <div className="grid grid-cols-3 gap-space-xs py-space-md border-b-2 border-surface-container-highest text-center">
 <div className="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
 <span className="font-label-sm text-label-sm text-outline uppercase block">BLINDS</span>
-<span className="font-headline-sm text-headline-sm text-primary">50 / 100</span>
+<span className="font-headline-sm text-headline-sm text-primary">{focusedTable.blinds[0]} / {focusedTable.blinds[1]}</span>
 </div>
 <div className="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
 <span className="font-label-sm text-label-sm text-outline uppercase block">AVG POT</span>
-<span className="font-headline-sm text-headline-sm text-secondary-fixed">14.2K</span>
+<span className="font-headline-sm text-headline-sm text-secondary-fixed">{focusedTable.avgPot ?? '14.2K'}</span>
 </div>
 <div className="bg-surface-container-lowest p-space-xs shadow-[2px_2px_0px_#000000]">
 <span className="font-label-sm text-label-sm text-outline uppercase block">PACE</span>
-<span className="font-headline-sm text-headline-sm text-primary-fixed-dim">84 H/HR</span>
+<span className="font-headline-sm text-headline-sm text-primary-fixed-dim">{focusedTable.pace ?? '84 H/HR'}</span>
 </div>
 </div>
 {/* SEATED RUNNERS LIST (5/6 Players) */}
@@ -551,7 +599,7 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 <div className="pt-space-md flex flex-col gap-space-md">
 <div className="flex items-center justify-between">
 <span className="font-label-md text-label-md text-on-surface uppercase">CONFIRM BUY-IN FOR SEAT #6</span>
-<span className="font-label-sm text-label-sm text-outline uppercase">STACK: 450.2K</span>
+<span className="font-label-sm text-label-sm text-outline uppercase">STACK: {(bankroll / 1000).toFixed(1)}K</span>
 </div>
 {/* Amount display & Slider */}
 <div className="bg-surface-container-lowest p-space-sm shadow-[3px_3px_0px_#000000]">
@@ -559,31 +607,31 @@ export const TableBrowser: React.FC<TableBrowserProps> = ({
 <span className="font-label-sm text-label-sm text-on-surface-variant uppercase">TARGET BUY-IN</span>
 <div className="text-right">
 <span className="font-headline-lg text-headline-lg text-primary tracking-wider" id="buyin-value-display">{buyIn.toLocaleString()}</span>
-<span className="font-label-sm text-label-sm text-primary-fixed-dim uppercase ml-1">SCRAP (80 BB)</span>
+<span className="font-label-sm text-label-sm text-primary-fixed-dim uppercase ml-1">SCRAP ({Math.round(buyIn / focusedTable.blinds[1])} BB)</span>
 </div>
 </div>
 {/* Stepped Slider */}
-<input className="w-full accent-primary-container cursor-pointer h-2 bg-surface-variant" id="buyin-slider" max="10000" min="2000" step="500" type="range" value={buyIn} onChange={(e) => setBuyIn(Number(e.target.value))}/>
+<input className="w-full accent-primary-container cursor-pointer h-2 bg-surface-variant" id="buyin-slider" max={focusedTable.maxBuyIn} min={focusedTable.minBuyIn} step={Math.max(100, Math.round((focusedTable.maxBuyIn - focusedTable.minBuyIn) / 16))} type="range" value={buyIn} onChange={(e) => setBuyIn(Number(e.target.value))}/>
 {/* Presets */}
 <div className="flex items-center justify-between gap-space-xs mt-space-xs">
-<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(2000)} type="button">
-                  MIN (2K)
+<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(focusedTable.minBuyIn)} type="button">
+                  MIN ({focusedTable.minBuyIn >= 1000 ? `${Math.round(focusedTable.minBuyIn / 1000)}K` : focusedTable.minBuyIn})
                 </button>
-<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(5000)} type="button">
-                  MED (5K)
+<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(Math.round((focusedTable.minBuyIn + focusedTable.maxBuyIn) / 2))} type="button">
+                  MED ({Math.round((focusedTable.minBuyIn + focusedTable.maxBuyIn) / 2) >= 1000 ? `${Math.round((focusedTable.minBuyIn + focusedTable.maxBuyIn) / 2000)}K` : Math.round((focusedTable.minBuyIn + focusedTable.maxBuyIn) / 2)})
                 </button>
-<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(10000)} type="button">
-                  MAX (10K)
+<button className="flex-1 bg-surface-container hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-0.5 font-label-md text-label-md uppercase shadow-[1px_1px_0px_#000000]" onClick={() => setBuyIn(focusedTable.maxBuyIn)} type="button">
+                  MAX ({focusedTable.maxBuyIn >= 1000 ? `${Math.round(focusedTable.maxBuyIn / 1000)}K` : focusedTable.maxBuyIn})
                 </button>
 </div>
 </div>
 {/* Primary Join CTA */}
 <div className="flex flex-col gap-space-xs">
-<button className="w-full bg-primary-container hover:bg-primary-fixed text-on-primary-container py-space-sm shadow-[4px_4px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-md text-headline-md uppercase tracking-wider flex items-center justify-center gap-space-xs" type="button" onClick={() => onNavigateToTable?.()}>
+<button className="w-full bg-primary-container hover:bg-primary-fixed text-on-primary-container py-space-sm shadow-[4px_4px_0px_#000000] -rotate-1 hover:rotate-0 active:translate-x-0.5 active:translate-y-0.5 transition-all font-headline-md text-headline-md uppercase tracking-wider flex items-center justify-center gap-space-xs" type="button" onClick={() => launchTable(focusedTable, buyIn)}>
 <span>CONFIRM & SIT DOWN</span>
 <span className="material-symbols-outlined text-[24px]">login</span>
 </button>
-<button className="w-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-1 font-label-lg text-label-lg uppercase tracking-wider shadow-[2px_2px_0px_#000000]" type="button">
+<button className="w-full bg-surface-container-high hover:bg-surface-variant text-on-surface-variant hover:text-on-surface py-1 font-label-lg text-label-lg uppercase tracking-wider shadow-[2px_2px_0px_#000000]" onClick={() => onNavigateToLobby?.()} type="button">
                 CANCEL / CLOSE INSPECTOR
               </button>
 </div>

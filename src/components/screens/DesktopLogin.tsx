@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 
 export interface DesktopLoginProps {
-  onLoginSuccess?: () => void;
+  onLoginSuccess?: (identifier?: string) => void;
+  onGoogleLogin?: () => void;
+  onGuestPlay?: () => void;
   onNavigateToRegister?: () => void;
   onNavigateToLobby?: () => void;
 }
 
 export const DesktopLogin: React.FC<DesktopLoginProps> = ({
   onLoginSuccess,
+  onGoogleLogin,
+  onGuestPlay,
   onNavigateToRegister,
   onNavigateToLobby,
 }) => {
@@ -20,7 +24,7 @@ export const DesktopLogin: React.FC<DesktopLoginProps> = ({
     setIsConnecting(true);
     setTimeout(() => {
       setIsConnecting(false);
-      onLoginSuccess?.();
+      onLoginSuccess?.(username);
     }, 800);
   };
 
@@ -182,7 +186,7 @@ export const DesktopLogin: React.FC<DesktopLoginProps> = ({
 {/* Quick OAuth Action Buttons */}
 <div className="mt-space-md flex flex-col gap-space-sm">
 {/* Google Button */}
-<button className="w-full bg-primary text-surface-container-lowest border-[3px] border-black p-space-sm flex items-center justify-center gap-space-sm shadow-[3px_3px_0px_#000000] hover:shadow-[1px_1px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all duration-75" type="button">
+<button className="w-full bg-primary text-surface-container-lowest border-[3px] border-black p-space-sm flex items-center justify-center gap-space-sm shadow-[3px_3px_0px_#000000] hover:shadow-[1px_1px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all duration-75 cursor-pointer" onClick={() => (onGoogleLogin ?? onLoginSuccess)?.()} type="button">
 <svg className="w-5 h-5" viewBox="0 0 24 24">
 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
@@ -193,9 +197,9 @@ export const DesktopLogin: React.FC<DesktopLoginProps> = ({
 </button>
 {/* Guest Fast Play Button */}
 <button
-  className="w-full bg-secondary text-on-secondary-container border-[3px] border-black p-space-sm flex items-center justify-center gap-space-sm shadow-[3px_3px_0px_#000000] hover:shadow-[1px_1px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all duration-75"
+  className="w-full bg-secondary text-on-secondary-container border-[3px] border-black p-space-sm flex items-center justify-center gap-space-sm shadow-[3px_3px_0px_#000000] hover:shadow-[1px_1px_0px_#000000] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 transition-all duration-75 cursor-pointer"
   type="button"
-  onClick={() => onNavigateToLobby?.()}
+  onClick={() => (onGuestPlay ?? onNavigateToLobby)?.()}
 >
 <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>casino</span>
 <span className="font-label-lg text-label-lg tracking-wider uppercase">CONTINUE AS GUEST (10K SEED)</span>

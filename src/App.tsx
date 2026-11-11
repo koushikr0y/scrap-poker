@@ -1,19 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { TableBrowser } from './components/screens/TableBrowser';
+import { TableBrowser, type TableSelectionSpec } from './components/screens/TableBrowser';
 import { BattleTable } from './components/screens/BattleTable';
 import { BattleLobby } from './components/screens/BattleLobby';
 import { DesktopLogin } from './components/screens/DesktopLogin';
 import { DesktopRegister } from './components/screens/DesktopRegister';
 import { HandRankings } from './components/screens/HandRankings';
 import { DesktopSplash } from './components/screens/DesktopSplash';
+import { MobileSplash } from './components/screens/MobileSplash';
 import { MobileBattleLobby } from './components/screens/MobileBattleLobby';
-import { MobileTableBrowser } from './components/screens/MobileTableBrowser';
+import {
+  MobileTableBrowser,
+  type MobileCashTableEntry,
+} from './components/screens/MobileTableBrowser';
 import { MobileBattleTable } from './components/screens/MobileBattleTable';
 import { MobileBattleTableAlt } from './components/screens/MobileBattleTableAlt';
-import { MobileBuyInSheet } from './components/screens/MobileBuyInSheet';
+import { MobileBuyInSheet, type SheetTabState } from './components/screens/MobileBuyInSheet';
 import { MobileLogin } from './components/screens/MobileLogin';
 import { MobileGuestSetup } from './components/screens/MobileGuestSetup';
 import { ComponentShowcase } from './components/dev/ComponentShowcase';
+import {
+  SessionProvider,
+  useSession,
+  type AvatarMaskId,
+  type TableEntrySpec,
+} from './context/SessionContext';
+import { formatCompactChips } from './lib/poker';
 
 export type ScreenRoute =
   | 'lobby'
@@ -23,6 +34,7 @@ export type ScreenRoute =
   | 'register'
   | 'hand-rankings'
   | 'splash'
+  | 'm-splash'
   | 'm-lobby'
   | 'm-tables'
   | 'm-buyin'
@@ -32,28 +44,85 @@ export type ScreenRoute =
   | 'm-guest-setup'
   | 'showcase';
 
-export const App: React.FC = () => {
-  const getScreenFromHash = (): ScreenRoute => {
-    const rawHash = window.location.hash.replace('#/', '').replace('#', '').toLowerCase();
-    if (rawHash === 'lobby') return 'lobby';
-    if (rawHash === 'table') return 'table';
-    if (rawHash === 'tables' || rawHash === 'browser') return 'tables';
-    if (rawHash === 'login') return 'login';
-    if (rawHash === 'register') return 'register';
-    if (rawHash === 'hand-rankings' || rawHash === 'rankings') return 'hand-rankings';
-    if (rawHash === 'splash') return 'splash';
-    if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
-    if (rawHash === 'm/tables' || rawHash === 'm-tables') return 'm-tables';
-    if (rawHash === 'm/tables/buy-in' || rawHash === 'm-buyin') return 'm-buyin';
-    if (rawHash === 'm/table' || rawHash === 'm-table') return 'm-table';
-    if (rawHash.startsWith('m/table/') || rawHash === 'm-table-alt') return 'm-table-alt';
-    if (rawHash === 'm/login' || rawHash === 'm-login') return 'm-login';
-    if (rawHash === 'm/guest-setup' || rawHash === 'm-guest-setup') return 'm-guest-setup';
-    if (rawHash === 'showcase' || rawHash === 'dev') return 'showcase';
-    return 'lobby';
+function parseChipToken(raw: string, fallback: number): number {
+  const clean = raw.replace(/[^0-9kKmM.]/g, '').toUpperCase();
+  if (!clean) return fallback;
+  const num = parseFloat(clean);
+  if (Number.isNaN(num)) return fallback;
+  if (clean.endsWith('M')) return Math.round(num * 1000000);
+  if (clean.endsWith('K')) return Math.round(num * 1000);
+  return Math.round(num);
+}
+
+function parseMobileTableEntry(entry: MobileCashTableEntry): Partial<TableEntrySpec> {
+  const blindParts = entry.blindsText.split('/');
+  const sb = parseChipToken(blindParts[0] ?? '50', 50);
+  const bb = parseChipToken(blindParts[1] ?? '100', 100);
+  const buyParts = entry.buyInText.split(/[–-]/);
+  const minBuyIn = parseChipToken(buyParts[0] ?? '2000', 2000);
+  const maxBuyIn = parseChipToken(buyParts[1] ?? '10000', 10000);
+  return {
+    tableId: entry.id,
+    tableName: entry.name,
+    tableCode: `#${entry.name.split('#')[1] ?? '07'}`,
+    smallBlind: sb,
+    bigBlind: bb,
+    minBuyIn,
+    maxBuyIn,
+    buyInAmount: Math.round((minBuyIn + maxBuyIn) / 2),
   };
+}
+
+function getScreenFromHash(): ScreenRoute {
+  const rawHash = window.location.hash.replace('#/', '').replace('#', '').toLowerCase();
+  if (!rawHash || rawHash === '/') {
+    return typeof window !== 'undefined' && window.innerWidth < 768
+      ? 'm-splash'
+      : 'splash';
+  }
+  if (rawHash === 'lobby') return 'lobby';
+  if (rawHash === 'table') return 'table';
+  if (rawHash === 'tables' || rawHash === 'browser') return 'tables';
+  if (rawHash === 'login') return 'login';
+  if (rawHash === 'register') return 'register';
+  if (rawHash === 'hand-rankings' || rawHash === 'rankings') return 'hand-rankings';
+  if (rawHash === 'splash') return 'splash';
+  if (rawHash === 'm/splash' || rawHash === 'm-splash') return 'm-splash';
+  if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
+  if (rawHash === 'm/tables' || rawHash === 'm-tables') return 'm-tables';
+  if (rawHash === 'm/tables/buy-in' || rawHash === 'm-buyin') return 'm-buyin';
+  if (rawHash === 'm/table' || rawHash === 'm-table') return 'm-table';
+  if (rawHash.startsWith('m/table/') || rawHash === 'm-table-alt') return 'm-table-alt';
+  if (rawHash === 'm/login' || rawHash === 'm-login') return 'm-login';
+  if (rawHash === 'm/guest-setup' || rawHash === 'm-guest-setup') return 'm-guest-setup';
+  if (rawHash === 'showcase' || rawHash === 'dev') return 'showcase';
+  return typeof window !== 'undefined' && window.innerWidth < 768
+    ? 'm-splash'
+    : 'splash';
+}
+
+const AppContent: React.FC = () => {
+  const {
+    session,
+    selectedTable,
+    activeTableConfig,
+    loginWithCredentials,
+    loginWithGoogle,
+    registerAccount,
+    startGuestSession,
+    logout,
+    toggleMute,
+    claimDailyBonus,
+    selectTableForBuyIn,
+    seatAtTable,
+    leaveTableSession,
+    requestBankrollRebuy,
+  } = useSession();
 
   const [currentScreen, setCurrentScreen] = useState<ScreenRoute>(getScreenFromHash);
+  const [buyInSheetView, setBuyInSheetView] = useState<SheetTabState>('buyin');
+  const [rankingsReturnScreen, setRankingsReturnScreen] = useState<ScreenRoute>('lobby');
+  const [switcherOpen, setSwitcherOpen] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -65,6 +134,7 @@ export const App: React.FC = () => {
 
   const navigateTo = (screen: ScreenRoute) => {
     const routeMap: Partial<Record<ScreenRoute, string>> = {
+      'm-splash': 'm/splash',
       'm-lobby': 'm/lobby',
       'm-tables': 'm/tables',
       'm-buyin': 'm/tables/buy-in',
@@ -78,7 +148,32 @@ export const App: React.FC = () => {
     setCurrentScreen(screen);
   };
 
-  const [switcherOpen, setSwitcherOpen] = useState(false);
+  const openRankingsFrom = (origin: ScreenRoute) => {
+    setRankingsReturnScreen(origin);
+    navigateTo('hand-rankings');
+  };
+
+  const handleDesktopSelectTable = (spec?: TableSelectionSpec) => {
+    if (spec) {
+      seatAtTable({
+        tableId: spec.tableId,
+        tableName: spec.tableName,
+        tableCode: `#${spec.tableName.split('#')[1] ?? '07'}`,
+        smallBlind: spec.blinds[0],
+        bigBlind: spec.blinds[1],
+        minBuyIn: spec.minBuyIn,
+        maxBuyIn: spec.maxBuyIn,
+        buyInAmount: spec.buyIn,
+        autoTopOff: true,
+      });
+    } else {
+      seatAtTable();
+    }
+    navigateTo('table');
+  };
+
+  const isMobileViewport = () =>
+    typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <div className="relative min-h-screen">
@@ -100,20 +195,21 @@ export const App: React.FC = () => {
           <div className="flex flex-wrap items-center gap-1 pl-1 border-l border-surface-container-highest max-w-sm sm:max-w-none">
             {(
               [
+                { id: 'splash', label: 'Splash', badge: 'DT' },
+                { id: 'login', label: 'Login', badge: 'DT' },
+                { id: 'register', label: 'Register', badge: 'DT' },
                 { id: 'lobby', label: 'Lobby', badge: 'DT' },
                 { id: 'tables', label: 'Tables', badge: 'DT' },
                 { id: 'table', label: 'Battle', badge: 'DT' },
                 { id: 'hand-rankings', label: 'Rankings', badge: 'DT' },
-                { id: 'splash', label: 'Splash', badge: 'DT' },
-                { id: 'login', label: 'Login', badge: 'DT' },
-                { id: 'register', label: 'Register', badge: 'DT' },
+                { id: 'm-splash', label: 'M-Splash', badge: 'MO' },
+                { id: 'm-login', label: 'M-Login', badge: 'MO' },
+                { id: 'm-guest-setup', label: 'M-Guest', badge: 'MO' },
                 { id: 'm-lobby', label: 'M-Lobby', badge: 'MO' },
                 { id: 'm-tables', label: 'M-Tables', badge: 'MO' },
                 { id: 'm-buyin', label: 'M-BuyIn', badge: 'MO' },
                 { id: 'm-table', label: 'M-Table', badge: 'MO' },
                 { id: 'm-table-alt', label: 'M-Table Alt', badge: 'MO' },
-                { id: 'm-login', label: 'M-Login', badge: 'MO' },
-                { id: 'm-guest-setup', label: 'M-Guest', badge: 'MO' },
                 { id: 'showcase', label: 'Dev', badge: 'DEV' },
               ] as const
             ).map((item) => (
@@ -138,41 +234,33 @@ export const App: React.FC = () => {
         )}
       </div>
 
-      {currentScreen === 'lobby' && (
-        <BattleLobby
-          onNavigateToTable={() => navigateTo('table')}
-          onNavigateToCashBrowser={() => navigateTo('tables')}
-        />
-      )}
-
-      {currentScreen === 'tables' && (
-        <TableBrowser
-          onNavigateToTable={() => navigateTo('table')}
-          onNavigateToLobby={() => navigateTo('lobby')}
-        />
-      )}
-
-      {currentScreen === 'table' && (
-        <BattleTable onBackToLobby={() => navigateTo('lobby')} />
-      )}
-
-      {currentScreen === 'hand-rankings' && (
-        <HandRankings
-          onBackToLobby={() => navigateTo('lobby')}
-          onNavigateToTable={() => navigateTo('table')}
-        />
-      )}
-
       {currentScreen === 'splash' && (
         <DesktopSplash
-          onEnterLobby={() => navigateTo('lobby')}
+          onEnterLobby={session.isAuthenticated ? () => navigateTo('lobby') : undefined}
           onEnterLogin={() => navigateTo('login')}
+        />
+      )}
+
+      {currentScreen === 'm-splash' && (
+        <MobileSplash
+          onEnter={() => navigateTo(session.isAuthenticated ? 'm-lobby' : 'm-login')}
         />
       )}
 
       {currentScreen === 'login' && (
         <DesktopLogin
-          onLoginSuccess={() => navigateTo('lobby')}
+          onLoginSuccess={(identifier) => {
+            loginWithCredentials(identifier);
+            navigateTo('lobby');
+          }}
+          onGoogleLogin={() => {
+            loginWithGoogle();
+            navigateTo('lobby');
+          }}
+          onGuestPlay={() => {
+            startGuestSession('BOLT_ROOKIE', 'bolt');
+            navigateTo('lobby');
+          }}
           onNavigateToRegister={() => navigateTo('register')}
           onNavigateToLobby={() => navigateTo('lobby')}
         />
@@ -180,57 +268,89 @@ export const App: React.FC = () => {
 
       {currentScreen === 'register' && (
         <DesktopRegister
-          onRegisterSuccess={() => navigateTo('lobby')}
-          onNavigateToLogin={() => navigateTo('login')}
+          onRegisterSuccess={(callsign) => {
+            registerAccount(callsign || 'CYBER_ACE_88');
+            navigateTo(isMobileViewport() ? 'm-lobby' : 'lobby');
+          }}
+          onGuestPlay={() => {
+            startGuestSession('SCRAP_ROOKIE', 'bolt');
+            navigateTo(isMobileViewport() ? 'm-lobby' : 'lobby');
+          }}
+          onNavigateToLogin={() => navigateTo(isMobileViewport() ? 'm-login' : 'login')}
+          onNavigateToLobby={() => navigateTo(isMobileViewport() ? 'm-lobby' : 'lobby')}
+        />
+      )}
+
+      {currentScreen === 'lobby' && (
+        <BattleLobby
+          callsign={session.callsign}
+          bankroll={session.bankroll}
+          bonusClaimed={session.dailyBonusClaimed}
+          onClaimBonus={() => claimDailyBonus(15000)}
+          onRebuy={() => leaveTableSession(10000)}
+          onLogout={() => {
+            logout();
+            navigateTo('login');
+          }}
+          onNavigateToTable={() => handleDesktopSelectTable()}
+          onNavigateToCashBrowser={() => navigateTo('tables')}
+          onNavigateToRankings={() => openRankingsFrom('lobby')}
+        />
+      )}
+
+      {currentScreen === 'tables' && (
+        <TableBrowser
+          callsign={session.callsign}
+          bankroll={session.bankroll}
+          onNavigateToTable={handleDesktopSelectTable}
           onNavigateToLobby={() => navigateTo('lobby')}
+          onNavigateToRankings={() => openRankingsFrom('tables')}
+          onRebuy={() => leaveTableSession(10000)}
+          onLogout={() => {
+            logout();
+            navigateTo('login');
+          }}
         />
       )}
 
-      {currentScreen === 'm-lobby' && (
-        <MobileBattleLobby
-          onNavigateToTable={() => navigateTo('m-table')}
-          onNavigateToCashBrowser={() => navigateTo('m-tables')}
-          onNavigateToRankings={() => navigateTo('hand-rankings')}
+      {currentScreen === 'table' && (
+        <BattleTable
+          tableConfig={activeTableConfig}
+          bankroll={session.bankroll}
+          muted={session.muted}
+          onToggleMute={toggleMute}
+          onRequestRebuy={requestBankrollRebuy}
+          onRequestTopOff={requestBankrollRebuy}
+          onExitTable={(finalStack) => {
+            leaveTableSession(finalStack);
+            navigateTo('lobby');
+          }}
+          onBackToLobby={() => navigateTo('lobby')}
+          onNavigateToRankings={() => openRankingsFrom('table')}
         />
       )}
 
-      {currentScreen === 'm-tables' && (
-        <MobileTableBrowser
-          onBackToLobby={() => navigateTo('m-lobby')}
-          onOpenFilters={() => navigateTo('m-buyin')}
-          onJoinTable={(tableId) =>
-            window.setTimeout(
-              () => navigateTo(tableId === 'cyber-den-15' ? 'm-table-alt' : 'm-table'),
-              450
+      {currentScreen === 'hand-rankings' && (
+        <HandRankings
+          onBackToLobby={() => navigateTo(rankingsReturnScreen)}
+          onNavigateToTable={() =>
+            navigateTo(
+              rankingsReturnScreen.startsWith('m-') ? 'm-table-alt' : 'table'
             )
           }
         />
       )}
 
-      {currentScreen === 'm-buyin' && (
-        <MobileBuyInSheet
-          onBack={() => navigateTo('m-tables')}
-          onConfirmJoin={() => window.setTimeout(() => navigateTo('m-table'), 900)}
-        />
-      )}
-
-      {currentScreen === 'm-table' && (
-        <MobileBattleTable
-          onExitTable={() => navigateTo('m-tables')}
-          onNavigateToRankings={() => navigateTo('hand-rankings')}
-        />
-      )}
-
-      {currentScreen === 'm-table-alt' && (
-        <MobileBattleTableAlt
-          onExitTable={() => navigateTo('m-tables')}
-          onNavigateToRankings={() => navigateTo('hand-rankings')}
-        />
-      )}
-
       {currentScreen === 'm-login' && (
         <MobileLogin
-          onLoginSuccess={() => navigateTo('m-lobby')}
+          onLoginSuccess={(identifier) => {
+            loginWithCredentials(identifier);
+            navigateTo('m-lobby');
+          }}
+          onGoogleLogin={() => {
+            loginWithGoogle();
+            navigateTo('m-lobby');
+          }}
           onGuestPlay={() => navigateTo('m-guest-setup')}
           onNavigateToRegister={() => navigateTo('register')}
         />
@@ -239,7 +359,112 @@ export const App: React.FC = () => {
       {currentScreen === 'm-guest-setup' && (
         <MobileGuestSetup
           onBack={() => navigateTo('m-login')}
-          onStartPlaying={() => window.setTimeout(() => navigateTo('m-lobby'), 600)}
+          onStartPlaying={(callsign, avatarId) => {
+            startGuestSession(callsign, (avatarId as AvatarMaskId) || 'bolt');
+            window.setTimeout(() => navigateTo('m-lobby'), 350);
+          }}
+        />
+      )}
+
+      {currentScreen === 'm-lobby' && (
+        <MobileBattleLobby
+          callsign={session.callsign}
+          bankroll={session.bankroll}
+          level={session.level}
+          rankLabel={session.rankLabel}
+          bonusClaimed={session.dailyBonusClaimed}
+          onClaimBonus={() => claimDailyBonus(15000)}
+          onRebuy={() => leaveTableSession(10000)}
+          onLogout={() => {
+            logout();
+            navigateTo('m-login');
+          }}
+          onNavigateToTable={() => {
+            seatAtTable();
+            navigateTo('m-table');
+          }}
+          onNavigateToCashBrowser={() => navigateTo('m-tables')}
+          onNavigateToRankings={() => openRankingsFrom('m-lobby')}
+        />
+      )}
+
+      {currentScreen === 'm-tables' && (
+        <MobileTableBrowser
+          playerBalance={formatCompactChips(session.bankroll)}
+          onBackToLobby={() => navigateTo('m-lobby')}
+          onOpenFilters={() => {
+            setBuyInSheetView('filters');
+            navigateTo('m-buyin');
+          }}
+          onJoinTable={(tableId, entry) => {
+            if (entry) {
+              selectTableForBuyIn(parseMobileTableEntry(entry));
+            } else {
+              selectTableForBuyIn({ tableId });
+            }
+            setBuyInSheetView('buyin');
+            window.setTimeout(() => navigateTo('m-buyin'), 300);
+          }}
+        />
+      )}
+
+      {currentScreen === 'm-buyin' && (
+        <MobileBuyInSheet
+          initialView={buyInSheetView}
+          bankroll={session.bankroll}
+          playerBalance={formatCompactChips(session.bankroll)}
+          playerBankrollFull={`${session.bankroll.toLocaleString()} SCRAP`}
+          tableName={selectedTable.tableName}
+          blindsText={`${selectedTable.smallBlind} / ${selectedTable.bigBlind}`}
+          bigBlind={selectedTable.bigBlind}
+          minBuyIn={selectedTable.minBuyIn}
+          maxBuyIn={selectedTable.maxBuyIn}
+          initialBuyIn={selectedTable.buyInAmount}
+          onBack={() => navigateTo('m-tables')}
+          onApplyFilters={() => navigateTo('m-tables')}
+          onClaimBonus={() => claimDailyBonus(25000)}
+          onConfirmJoin={(buyInAmount, autoTopOff) => {
+            seatAtTable({ buyInAmount, autoTopOff });
+            const targetScreen: ScreenRoute =
+              selectedTable.tableId === 'cyber-den-15' ? 'm-table-alt' : 'm-table';
+            window.setTimeout(() => navigateTo(targetScreen), 450);
+          }}
+        />
+      )}
+
+      {currentScreen === 'm-table' && (
+        <MobileBattleTable
+          tableConfig={activeTableConfig}
+          tableLabel={activeTableConfig.tableCode}
+          bankroll={session.bankroll}
+          muted={session.muted}
+          onToggleMute={toggleMute}
+          onRequestTopOff={requestBankrollRebuy}
+          onExitTable={(finalStack) => {
+            if (typeof finalStack === 'number') {
+              leaveTableSession(finalStack);
+            }
+            navigateTo('m-tables');
+          }}
+          onNavigateToRankings={() => openRankingsFrom('m-table')}
+        />
+      )}
+
+      {currentScreen === 'm-table-alt' && (
+        <MobileBattleTableAlt
+          tableConfig={activeTableConfig}
+          tableLabel={activeTableConfig.tableCode}
+          bankroll={session.bankroll}
+          muted={session.muted}
+          onToggleMute={toggleMute}
+          onRequestTopOff={requestBankrollRebuy}
+          onExitTable={(finalStack) => {
+            if (typeof finalStack === 'number') {
+              leaveTableSession(finalStack);
+            }
+            navigateTo('m-tables');
+          }}
+          onNavigateToRankings={() => openRankingsFrom('m-table-alt')}
         />
       )}
 
@@ -247,5 +472,11 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export const App: React.FC = () => (
+  <SessionProvider>
+    <AppContent />
+  </SessionProvider>
+);
 
 export default App;

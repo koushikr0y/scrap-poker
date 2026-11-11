@@ -183,7 +183,7 @@ export interface MobileTableBrowserProps {
   playerBalance?: string;
   activeFilterCount?: number;
   onBackToLobby?: () => void;
-  onJoinTable?: (tableId: string) => void;
+  onJoinTable?: (tableId: string, tableEntry?: MobileCashTableEntry) => void;
   onOpenFilters?: () => void;
 }
 
@@ -208,7 +208,7 @@ export const MobileTableBrowser: React.FC<MobileTableBrowserProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
   const toastTimerRef = useRef<number | null>(null);
 
-  const triggerJoinToast = (tableId: string) => {
+  const triggerJoinToast = (tableId: string, entry?: MobileCashTableEntry) => {
     setShowJoinToast(true);
     if (toastTimerRef.current) {
       window.clearTimeout(toastTimerRef.current);
@@ -217,7 +217,8 @@ export const MobileTableBrowser: React.FC<MobileTableBrowserProps> = ({
       setShowJoinToast(false);
     }, 1600);
     if (onJoinTable) {
-      onJoinTable(tableId);
+      const matched = entry ?? tables.find((t) => t.id === tableId);
+      onJoinTable(tableId, matched);
     }
   };
 
@@ -502,7 +503,7 @@ export const MobileTableBrowser: React.FC<MobileTableBrowserProps> = ({
                 {table.isWaitlist ? (
                   <button
                     className="join-btn w-full h-[50px] bg-surface-container-highest hover:bg-surface-bright active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#000000] text-primary font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-[4px_4px_0px_#000000] flex items-center justify-center gap-space-xs transition-transform cursor-pointer"
-                    onClick={() => triggerJoinToast(table.id)}
+                    onClick={() => triggerJoinToast(table.id, table)}
                     type="button"
                   >
                     <span className="material-symbols-outlined text-[20px] text-primary-container">
@@ -513,7 +514,7 @@ export const MobileTableBrowser: React.FC<MobileTableBrowserProps> = ({
                 ) : (
                   <button
                     className="join-btn w-full h-[50px] bg-primary-container hover:bg-surface-tint active:translate-x-[3px] active:translate-y-[3px] active:shadow-[1px_1px_0px_#000000] text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider rounded shadow-[4px_4px_0px_#000000] -rotate-0.5 flex items-center justify-center gap-space-xs transition-transform cursor-pointer"
-                    onClick={() => triggerJoinToast(table.id)}
+                    onClick={() => triggerJoinToast(table.id, table)}
                     type="button"
                   >
                     <span>{table.ctaLabel}</span>

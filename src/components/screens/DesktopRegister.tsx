@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
 export interface DesktopRegisterProps {
-  onRegisterSuccess?: () => void;
+  onRegisterSuccess?: (callsign?: string) => void;
+  onGuestPlay?: () => void;
   onNavigateToLogin?: () => void;
   onNavigateToLobby?: () => void;
 }
 
 export const DesktopRegister: React.FC<DesktopRegisterProps> = ({
   onRegisterSuccess,
+  onGuestPlay,
   onNavigateToLogin,
   onNavigateToLobby,
 }) => {
@@ -20,7 +22,10 @@ export const DesktopRegister: React.FC<DesktopRegisterProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onRegisterSuccess?.();
+    if (!agreed || (confirmPassword && password !== confirmPassword)) {
+      return;
+    }
+    onRegisterSuccess?.(callsign);
   };
 
   return (
@@ -308,7 +313,7 @@ export const DesktopRegister: React.FC<DesktopRegisterProps> = ({
 <button
   className="bg-surface-container-high hover:bg-surface-bright text-on-surface py-space-sm px-space-md shadow-[4px_4px_0px_#000000] active:translate-x-1 active:translate-y-1 active:shadow-[2px_2px_0px_#000000] transition-all flex items-center justify-center gap-space-xs -rotate-0.5 hover:rotate-0 cursor-pointer"
   type="button"
-  onClick={() => onNavigateToLobby?.()}
+  onClick={() => (onGuestPlay ?? onNavigateToLobby)?.()}
 >
 <span className="material-symbols-outlined text-headline-sm text-on-surface-variant">person_outline</span>
 <span className="font-headline-sm text-headline-sm uppercase tracking-wide">GUEST PASS</span>

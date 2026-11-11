@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export type SheetTabState = "filters" | "buyin" | "alerts";
 
@@ -74,29 +74,35 @@ const TABLE_SIZE_OPTIONS: {
 
 export interface MobileBuyInSheetProps {
   initialView?: SheetTabState;
+  bankroll?: number;
   playerBalance?: string;
   playerBankrollFull?: string;
   tableName?: string;
   blindsText?: string;
+  bigBlind?: number;
   minBuyIn?: number;
   maxBuyIn?: number;
   initialBuyIn?: number;
   onBack?: () => void;
   onApplyFilters?: () => void;
+  onClaimBonus?: () => void;
   onConfirmJoin?: (buyInAmount: number, autoTopOff: boolean) => void;
 }
 
 export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
   initialView = "filters",
+  bankroll,
   playerBalance = "$4,850",
   playerBankrollFull = "450,200 SCRAP",
   tableName = "Scrap Yard #07",
   blindsText = "50 / 100",
+  bigBlind = 100,
   minBuyIn = 2000,
   maxBuyIn = 10000,
   initialBuyIn = 8000,
   onBack,
   onApplyFilters,
+  onClaimBonus,
   onConfirmJoin,
 }) => {
   const [activeView, setActiveView] = useState<SheetTabState>(initialView);
@@ -105,8 +111,17 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
   const [turboOnly, setTurboOnly] = useState<boolean>(true);
   const [openSeatsOnly, setOpenSeatsOnly] = useState<boolean>(true);
 
-  const [buyInAmount, setBuyInAmount] = useState<number>(initialBuyIn);
+  const clampedInitialBuyIn = Math.max(minBuyIn, Math.min(maxBuyIn, initialBuyIn));
+  const [buyInAmount, setBuyInAmount] = useState<number>(clampedInitialBuyIn);
   const [autoTopOff, setAutoTopOff] = useState<boolean>(true);
+
+  useEffect(() => {
+    setBuyInAmount(Math.max(minBuyIn, Math.min(maxBuyIn, initialBuyIn)));
+  }, [minBuyIn, maxBuyIn, initialBuyIn]);
+
+  useEffect(() => {
+    setActiveView(initialView);
+  }, [initialView]);
 
   const activeStakesMeta =
     STAKES_OPTIONS.find((s) => s.id === selectedStakes) ?? STAKES_OPTIONS[2];
@@ -118,8 +133,13 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
     setOpenSeatsOnly(false);
   };
 
+  const hasEnoughChips = bankroll === undefined || bankroll >= buyInAmount;
+
   const handleConfirmJoin = () => {
-    setActiveView("alerts");
+    if (!hasEnoughChips) {
+      setActiveView("alerts");
+      return;
+    }
     onConfirmJoin?.(buyInAmount, autoTopOff);
   };
 
@@ -485,7 +505,7 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
                     </div>
                   </div>
                   <div className="bg-surface-variant px-2 py-1 rounded font-label-sm text-label-sm text-secondary uppercase font-bold">
-                    Safe Balance
+                    {hasEnoughChips ? "Safe Balance" : "Low Balance"}
                   </div>
                 </div>
 
@@ -506,7 +526,7 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
                         className="block font-label-sm text-label-sm text-outline uppercase font-semibold"
                         id="bb-label"
                       >
-                        {Math.floor(buyInAmount / 100)} Big Blinds
+                        {Math.floor(buyInAmount / Math.max(1, bigBlind))} Big Blinds
                       </span>
                     </div>
                   </div>
@@ -519,22 +539,22 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
                       max={maxBuyIn}
                       min={minBuyIn}
                       onChange={(e) => setBuyInAmount(Number(e.target.value))}
-                      step={500}
+                      step={Math.max(100, Math.round((maxBuyIn - minBuyIn) / 16))}
                       type="range"
                       value={buyInAmount}
                     />
                     <div className="flex justify-between font-label-sm text-label-sm text-on-surface-variant uppercase">
-                      <span>Min: 2,000 (20 BB)</span>
-                      <span>Max: 10,000 (100 BB)</span>
+                      <span>Min: {minBuyIn.toLocaleString()} ({Math.floor(minBuyIn / Math.max(1, bigBlind))} BB)</span>
+                      <span>Max: {maxBuyIn.toLocaleString()} ({Math.floor(maxBuyIn / Math.max(1, bigBlind))} BB)</span>
                     </div>
                   </div>
 
                   {/* Preset Stepper Buttons */}
                   <div className="grid grid-cols-3 gap-space-xs pt-1">
                     {[
-                      { label: "Min 2K", value: 2000 },
-                      { label: "Med 5K", value: 5000 },
-                      { label: "Max 10K", value: 10000 },
+                      { label: `Min ${minBuyIn >= 1000 ? `${Math.round(minBuyIn / 1000)}K` : minBuyIn}`, value: minBuyIn },
+                      { label: `Med ${Math.round((minBuyIn + maxBuyIn) / 2) >= 1000 ? `${Math.round((minBuyIn + maxBuyIn) / 2000)}K` : Math.round((minBuyIn + maxBuyIn) / 2)}`, value: Math.round((minBuyIn + maxBuyIn) / 2) },
+                      { label: `Max ${maxBuyIn >= 1000 ? `${Math.round(maxBuyIn / 1000)}K` : maxBuyIn}`, value: maxBuyIn },
                     ].map((preset) => (
                       <button
                         key={preset.label}
@@ -570,7 +590,7 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
                     onClick={handleConfirmJoin}
                     type="button"
                   >
-                    <span>Confirm & Join Table #07</span>
+                    <span>Confirm & Join {tableName}</span>
                     <span className="material-symbols-outlined text-[24px]">
                       sports_esports
                     </span>
@@ -612,17 +632,21 @@ export const MobileBuyInSheet: React.FC<MobileBuyInSheetProps> = ({
                     Insufficient Scrap!
                   </div>
                   <span className="font-label-sm text-label-sm text-error uppercase font-semibold">
-                    Min Buy-In: 50,000
+                    Required Buy-In: {buyInAmount.toLocaleString()}
                   </span>
                 </div>
                 <p className="font-body-md text-body-md text-on-surface mb-space-md">
-                  You need 50,000 SCRAP to seat here. Your current balance is{" "}
-                  <strong className="text-primary">12,400 SCRAP</strong>. Free game
-                  balance — claim your daily allowance or filter for micro stakes!
+                  You selected {buyInAmount.toLocaleString()} SCRAP to seat here. Your current balance is{" "}
+                  <strong className="text-primary">{playerBankrollFull}</strong>. Free game
+                  balance — claim your daily allowance or lower your buy-in!
                 </p>
                 <div className="grid grid-cols-2 gap-space-xs">
                   <button
                     className="py-2 px-3 rounded bg-primary-container text-on-primary-container font-label-md text-label-md uppercase font-bold shadow-[2px_2px_0px_#000000] active:translate-y-0.5 cursor-pointer"
+                    onClick={() => {
+                      onClaimBonus?.();
+                      setActiveView("buyin");
+                    }}
                     type="button"
                   >
                     Claim Bonus (+25K)
