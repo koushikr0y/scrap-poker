@@ -4,19 +4,34 @@ import { BattleTable } from './components/screens/BattleTable';
 import { BattleLobby } from './components/screens/BattleLobby';
 import { DesktopLogin } from './components/screens/DesktopLogin';
 import { DesktopRegister } from './components/screens/DesktopRegister';
+import { HandRankings } from './components/screens/HandRankings';
+import { DesktopSplash } from './components/screens/DesktopSplash';
+import { MobileBattleLobby } from './components/screens/MobileBattleLobby';
 import { ComponentShowcase } from './components/dev/ComponentShowcase';
 
-export type ScreenRoute = 'lobby' | 'tables' | 'table' | 'login' | 'register' | 'showcase';
+export type ScreenRoute =
+  | 'lobby'
+  | 'tables'
+  | 'table'
+  | 'login'
+  | 'register'
+  | 'hand-rankings'
+  | 'splash'
+  | 'm-lobby'
+  | 'showcase';
 
 export const App: React.FC = () => {
   const getScreenFromHash = (): ScreenRoute => {
-    const hash = window.location.hash.replace('#/', '').replace('#', '').toLowerCase();
-    if (hash === 'lobby') return 'lobby';
-    if (hash === 'table') return 'table';
-    if (hash === 'tables' || hash === 'browser') return 'tables';
-    if (hash === 'login') return 'login';
-    if (hash === 'register') return 'register';
-    if (hash === 'showcase' || hash === 'dev') return 'showcase';
+    const rawHash = window.location.hash.replace('#/', '').replace('#', '').toLowerCase();
+    if (rawHash === 'lobby') return 'lobby';
+    if (rawHash === 'table') return 'table';
+    if (rawHash === 'tables' || rawHash === 'browser') return 'tables';
+    if (rawHash === 'login') return 'login';
+    if (rawHash === 'register') return 'register';
+    if (rawHash === 'hand-rankings' || rawHash === 'rankings') return 'hand-rankings';
+    if (rawHash === 'splash') return 'splash';
+    if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
+    if (rawHash === 'showcase' || rawHash === 'dev') return 'showcase';
     return 'lobby';
   };
 
@@ -31,7 +46,8 @@ export const App: React.FC = () => {
   }, []);
 
   const navigateTo = (screen: ScreenRoute) => {
-    window.location.hash = `#/${screen}`;
+    const route = screen === 'm-lobby' ? 'm/lobby' : screen;
+    window.location.hash = `#/${route}`;
     setCurrentScreen(screen);
   };
 
@@ -52,15 +68,18 @@ export const App: React.FC = () => {
         </button>
 
         {switcherOpen && (
-          <div className="flex flex-wrap items-center gap-1 pl-1 border-l border-surface-container-highest">
+          <div className="flex flex-wrap items-center gap-1 pl-1 border-l border-surface-container-highest max-w-sm sm:max-w-none">
             {(
               [
-                { id: 'lobby', label: 'Lobby' },
-                { id: 'tables', label: 'Tables' },
-                { id: 'table', label: 'Battle' },
-                { id: 'login', label: 'Login' },
-                { id: 'register', label: 'Register' },
-                { id: 'showcase', label: 'Dev' },
+                { id: 'lobby', label: 'Lobby', badge: 'DT' },
+                { id: 'tables', label: 'Tables', badge: 'DT' },
+                { id: 'table', label: 'Battle', badge: 'DT' },
+                { id: 'hand-rankings', label: 'Rankings', badge: 'DT' },
+                { id: 'splash', label: 'Splash', badge: 'DT' },
+                { id: 'login', label: 'Login', badge: 'DT' },
+                { id: 'register', label: 'Register', badge: 'DT' },
+                { id: 'm-lobby', label: 'M-Lobby', badge: 'MO' },
+                { id: 'showcase', label: 'Dev', badge: 'DEV' },
               ] as const
             ).map((item) => (
               <button
@@ -70,13 +89,14 @@ export const App: React.FC = () => {
                   navigateTo(item.id);
                   setSwitcherOpen(false);
                 }}
-                className={`px-2 py-0.5 font-label-sm uppercase text-label-sm transition-all cursor-pointer ${
+                className={`px-2 py-0.5 font-label-sm uppercase text-label-sm transition-all cursor-pointer flex items-center gap-1 ${
                   currentScreen === item.id
                     ? 'bg-primary-container text-on-primary-container shadow-[1px_1px_0px_#000000] -rotate-1 font-bold'
                     : 'text-on-surface-variant hover:text-on-surface'
                 }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                <span className="text-[9px] opacity-60">[{item.badge}]</span>
               </button>
             ))}
           </div>
@@ -101,6 +121,20 @@ export const App: React.FC = () => {
         <BattleTable onBackToLobby={() => navigateTo('lobby')} />
       )}
 
+      {currentScreen === 'hand-rankings' && (
+        <HandRankings
+          onBackToLobby={() => navigateTo('lobby')}
+          onNavigateToTable={() => navigateTo('table')}
+        />
+      )}
+
+      {currentScreen === 'splash' && (
+        <DesktopSplash
+          onEnterLobby={() => navigateTo('lobby')}
+          onEnterLogin={() => navigateTo('login')}
+        />
+      )}
+
       {currentScreen === 'login' && (
         <DesktopLogin
           onLoginSuccess={() => navigateTo('lobby')}
@@ -114,6 +148,14 @@ export const App: React.FC = () => {
           onRegisterSuccess={() => navigateTo('lobby')}
           onNavigateToLogin={() => navigateTo('login')}
           onNavigateToLobby={() => navigateTo('lobby')}
+        />
+      )}
+
+      {currentScreen === 'm-lobby' && (
+        <MobileBattleLobby
+          onNavigateToTable={() => navigateTo('table')}
+          onNavigateToCashBrowser={() => navigateTo('tables')}
+          onNavigateToRankings={() => navigateTo('hand-rankings')}
         />
       )}
 

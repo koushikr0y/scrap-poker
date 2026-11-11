@@ -48,3 +48,7 @@
   background-image: radial-gradient(#201f21 20%, transparent 20%);
   background-size: 8px 8px;
 }
+.halftone-overlay {
+  background-image: radial-gradient(rgba(249, 209, 48, 0.08) 1px, transparent 0);
+  background-size: 8px 8px;
+}

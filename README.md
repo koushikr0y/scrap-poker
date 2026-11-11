@@ -77,6 +77,25 @@ Visit `http://localhost:3000` in your browser.
 
 ---
 
+## 🕹️ Screen Routes
+
+The app includes a built-in screen switcher pill (`[ ⚙ SCREEN_NAME ]`) at the bottom right to quickly jump between routes:
+
+| Route | Device | Screen View |
+| :--- | :--- | :--- |
+| `#/lobby` | Desktop | Battle Lobby with Quick Play & Active Games |
+| `#/tables` | Desktop | Cash Game Table Browser & Filters |
+| `#/table` | Desktop | 6-Max Texas Hold'em Battle Table (Felt view, HUD, Action Bar) |
+| `#/table/:id` | Desktop | Texas Hold'em Battle Table Alt Variant |
+| `#/hand-rankings` | Desktop | Texas Hold'em 10-Tier Hand Rankings Guide & Dossier |
+| `#/splash` | Desktop | KosiGames Studio Intro & Cel-Pop Splash Screen |
+| `#/login` | Desktop | Player Login & Syndicate Auth Screen |
+| `#/register` | Desktop | New Player Registration Screen |
+| `#/m/lobby` | Mobile | Mobile Battle Lobby (390×844) with Quick Play, Cash Games, Rewards & Bottom Nav |
+| `#/showcase` | Dev | Design Token & Component Showcase |
+
+---
+
 ## 📁 Project Structure
 
 ```
@@ -103,3 +122,4 @@ Visit `http://localhost:3000` in your browser.
 ## 📄 License
 
 MIT
+
