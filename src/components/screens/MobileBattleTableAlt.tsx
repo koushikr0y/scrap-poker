@@ -731,3 +731,4 @@ export const MobileBattleTableAlt: React.FC<MobileBattleTableAltProps> = ({
     </div>
   );
 };
+

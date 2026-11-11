@@ -10,6 +10,9 @@ import { MobileBattleLobby } from './components/screens/MobileBattleLobby';
 import { MobileTableBrowser } from './components/screens/MobileTableBrowser';
 import { MobileBattleTable } from './components/screens/MobileBattleTable';
 import { MobileBattleTableAlt } from './components/screens/MobileBattleTableAlt';
+import { MobileBuyInSheet } from './components/screens/MobileBuyInSheet';
+import { MobileLogin } from './components/screens/MobileLogin';
+import { MobileGuestSetup } from './components/screens/MobileGuestSetup';
 import { ComponentShowcase } from './components/dev/ComponentShowcase';
 
 export type ScreenRoute =
@@ -22,8 +25,11 @@ export type ScreenRoute =
   | 'splash'
   | 'm-lobby'
   | 'm-tables'
+  | 'm-buyin'
   | 'm-table'
   | 'm-table-alt'
+  | 'm-login'
+  | 'm-guest-setup'
   | 'showcase';
 
 export const App: React.FC = () => {
@@ -38,8 +44,11 @@ export const App: React.FC = () => {
     if (rawHash === 'splash') return 'splash';
     if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
     if (rawHash === 'm/tables' || rawHash === 'm-tables') return 'm-tables';
+    if (rawHash === 'm/tables/buy-in' || rawHash === 'm-buyin') return 'm-buyin';
     if (rawHash === 'm/table' || rawHash === 'm-table') return 'm-table';
     if (rawHash.startsWith('m/table/') || rawHash === 'm-table-alt') return 'm-table-alt';
+    if (rawHash === 'm/login' || rawHash === 'm-login') return 'm-login';
+    if (rawHash === 'm/guest-setup' || rawHash === 'm-guest-setup') return 'm-guest-setup';
     if (rawHash === 'showcase' || rawHash === 'dev') return 'showcase';
     return 'lobby';
   };
@@ -58,8 +67,11 @@ export const App: React.FC = () => {
     const routeMap: Partial<Record<ScreenRoute, string>> = {
       'm-lobby': 'm/lobby',
       'm-tables': 'm/tables',
+      'm-buyin': 'm/tables/buy-in',
       'm-table': 'm/table',
       'm-table-alt': 'm/table/alt',
+      'm-login': 'm/login',
+      'm-guest-setup': 'm/guest-setup',
     };
     const route = routeMap[screen] ?? screen;
     window.location.hash = `#/${route}`;
@@ -97,8 +109,11 @@ export const App: React.FC = () => {
                 { id: 'register', label: 'Register', badge: 'DT' },
                 { id: 'm-lobby', label: 'M-Lobby', badge: 'MO' },
                 { id: 'm-tables', label: 'M-Tables', badge: 'MO' },
+                { id: 'm-buyin', label: 'M-BuyIn', badge: 'MO' },
                 { id: 'm-table', label: 'M-Table', badge: 'MO' },
                 { id: 'm-table-alt', label: 'M-Table Alt', badge: 'MO' },
+                { id: 'm-login', label: 'M-Login', badge: 'MO' },
+                { id: 'm-guest-setup', label: 'M-Guest', badge: 'MO' },
                 { id: 'showcase', label: 'Dev', badge: 'DEV' },
               ] as const
             ).map((item) => (
@@ -182,12 +197,20 @@ export const App: React.FC = () => {
       {currentScreen === 'm-tables' && (
         <MobileTableBrowser
           onBackToLobby={() => navigateTo('m-lobby')}
+          onOpenFilters={() => navigateTo('m-buyin')}
           onJoinTable={(tableId) =>
             window.setTimeout(
               () => navigateTo(tableId === 'cyber-den-15' ? 'm-table-alt' : 'm-table'),
               450
             )
           }
+        />
+      )}
+
+      {currentScreen === 'm-buyin' && (
+        <MobileBuyInSheet
+          onBack={() => navigateTo('m-tables')}
+          onConfirmJoin={() => window.setTimeout(() => navigateTo('m-table'), 900)}
         />
       )}
 
@@ -202,6 +225,21 @@ export const App: React.FC = () => {
         <MobileBattleTableAlt
           onExitTable={() => navigateTo('m-tables')}
           onNavigateToRankings={() => navigateTo('hand-rankings')}
+        />
+      )}
+
+      {currentScreen === 'm-login' && (
+        <MobileLogin
+          onLoginSuccess={() => navigateTo('m-lobby')}
+          onGuestPlay={() => navigateTo('m-guest-setup')}
+          onNavigateToRegister={() => navigateTo('register')}
+        />
+      )}
+
+      {currentScreen === 'm-guest-setup' && (
+        <MobileGuestSetup
+          onBack={() => navigateTo('m-login')}
+          onStartPlaying={() => window.setTimeout(() => navigateTo('m-lobby'), 600)}
         />
       )}
 

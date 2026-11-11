@@ -93,8 +93,11 @@ The app includes a built-in screen switcher pill (`[ ⚙ SCREEN_NAME ]`) at the 
 | `#/register` | Desktop | New Player Registration Screen |
 | `#/m/lobby` | Mobile | Mobile Battle Lobby (390×844) with Quick Play, Cash Games, Rewards & Bottom Nav |
 | `#/m/tables` | Mobile | Mobile Cash Tables Browser with Live Search, Sort & Occupancy Indicators |
+| `#/m/tables/buy-in` | Mobile | Mobile Table Filters, Buy-In Sheet & Edge Case Alerts |
 | `#/m/table` | Mobile | Mobile Battle Table with Inline Raise Sizer & Action Dock |
 | `#/m/table/:id` | Mobile | Mobile Battle Table (Alt) with Full-Height Felt, Paper Cards & Modal Raise Sheet |
+| `#/m/login` | Mobile | Mobile Auth Screen (Google 1-Tap, Guest Play & Scrap ID Form) |
+| `#/m/guest-setup` | Mobile | Mobile Guest Runner Setup (Scrapper Masks & Callsign Roller) |
 | `#/showcase` | Dev | Design Token & Component Showcase |
 
 ---

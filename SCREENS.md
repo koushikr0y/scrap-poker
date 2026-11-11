@@ -20,9 +20,9 @@
 | **Scrap Poker - Mobile Cash Tables Browser** | `fc6e7599a4874f379f6a529e43a6d479` | Mobile | `/m/tables` | **done** |
 | **Scrap Poker - Mobile Battle Table** | `5b2259b015664e21824be7f3cb016c53` | Mobile | `/m/table` | **done** |
 | **Scrap Poker - Mobile Battle Table (Alt)** | `b7597b74c6c545b1869307b6812cf71b` | Mobile | `/m/table/:id` | **done** |
-| **Scrap Poker - Mobile Table Filters & Buy-In Sheet** | `a68213d03c0e489291974d5e0038c600` | Mobile | `/m/tables/buy-in` | **todo** |
-| **Scrap Poker - Mobile Login Screen** | `bf17188919ae4df1915c8f6ed2c32da1` | Mobile | `/m/login` | **todo** |
-| **Scrap Poker - Mobile Guest Setup** | `3ed8ae60e2e845bd9b4d537731876a90` | Mobile | `/m/guest-setup` | **todo** |
+| **Scrap Poker - Mobile Table Filters & Buy-In Sheet** | `a68213d03c0e489291974d5e0038c600` | Mobile | `/m/tables/buy-in` | **done** |
+| **Scrap Poker - Mobile Login Screen** | `bf17188919ae4df1915c8f6ed2c32da1` | Mobile | `/m/login` | **done** |
+| **Scrap Poker - Mobile Guest Setup** | `3ed8ae60e2e845bd9b4d537731876a90` | Mobile | `/m/guest-setup` | **done** |
 | **KosiGames - Mobile Splash Screen** | `94de03972d054d679b57696b1431a80f` | Mobile | `/m/splash` | **todo** |
 | **KosiGames - Mobile Splash Screen (Variant)** | `fac89471a3084eb8b9fd9739b048a2aa` | Mobile | `/m/splash-alt` | **todo** |
 | **Design Reference Board (`image.png`)** | `3814135132514478047` | N/A | `/ref-asset` | **todo** |
@@ -30,6 +30,6 @@
 ---
 
 ### Legend
-* **done**: Converted into faithful React components with identical DOM structure, Tailwind utilities, and comic theme (`TableBrowser.tsx`, `BattleTable.tsx`, `BattleLobby.tsx`, `DesktopLogin.tsx`, `DesktopRegister.tsx`, `HandRankings.tsx`, `DesktopSplash.tsx`, `MobileBattleLobby.tsx`, `MobileTableBrowser.tsx`, `MobileBattleTable.tsx`, `MobileBattleTableAlt.tsx`).
+* **done**: Converted into faithful React components with identical DOM structure, Tailwind utilities, and comic theme (`TableBrowser.tsx`, `BattleTable.tsx`, `BattleLobby.tsx`, `DesktopLogin.tsx`, `DesktopRegister.tsx`, `HandRankings.tsx`, `DesktopSplash.tsx`, `MobileBattleLobby.tsx`, `MobileTableBrowser.tsx`, `MobileBattleTable.tsx`, `MobileBattleTableAlt.tsx`, `MobileBuyInSheet.tsx`, `MobileLogin.tsx`, `MobileGuestSetup.tsx`).
 * **todo**: Not yet implemented.
 
