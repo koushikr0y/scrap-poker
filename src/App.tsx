@@ -7,6 +7,9 @@ import { DesktopRegister } from './components/screens/DesktopRegister';
 import { HandRankings } from './components/screens/HandRankings';
 import { DesktopSplash } from './components/screens/DesktopSplash';
 import { MobileBattleLobby } from './components/screens/MobileBattleLobby';
+import { MobileTableBrowser } from './components/screens/MobileTableBrowser';
+import { MobileBattleTable } from './components/screens/MobileBattleTable';
+import { MobileBattleTableAlt } from './components/screens/MobileBattleTableAlt';
 import { ComponentShowcase } from './components/dev/ComponentShowcase';
 
 export type ScreenRoute =
@@ -18,6 +21,9 @@ export type ScreenRoute =
   | 'hand-rankings'
   | 'splash'
   | 'm-lobby'
+  | 'm-tables'
+  | 'm-table'
+  | 'm-table-alt'
   | 'showcase';
 
 export const App: React.FC = () => {
@@ -31,6 +37,9 @@ export const App: React.FC = () => {
     if (rawHash === 'hand-rankings' || rawHash === 'rankings') return 'hand-rankings';
     if (rawHash === 'splash') return 'splash';
     if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
+    if (rawHash === 'm/tables' || rawHash === 'm-tables') return 'm-tables';
+    if (rawHash === 'm/table' || rawHash === 'm-table') return 'm-table';
+    if (rawHash.startsWith('m/table/') || rawHash === 'm-table-alt') return 'm-table-alt';
     if (rawHash === 'showcase' || rawHash === 'dev') return 'showcase';
     return 'lobby';
   };
@@ -46,7 +55,13 @@ export const App: React.FC = () => {
   }, []);
 
   const navigateTo = (screen: ScreenRoute) => {
-    const route = screen === 'm-lobby' ? 'm/lobby' : screen;
+    const routeMap: Partial<Record<ScreenRoute, string>> = {
+      'm-lobby': 'm/lobby',
+      'm-tables': 'm/tables',
+      'm-table': 'm/table',
+      'm-table-alt': 'm/table/alt',
+    };
+    const route = routeMap[screen] ?? screen;
     window.location.hash = `#/${route}`;
     setCurrentScreen(screen);
   };
@@ -56,15 +71,17 @@ export const App: React.FC = () => {
   return (
     <div className="relative min-h-screen">
       {/* Floating Screen Switcher Bar */}
-      <div className="fixed bottom-3 right-3 z-50 flex items-center gap-1 bg-surface-container-lowest border-[2px] border-surface-container-highest p-1 shadow-[4px_4px_0px_#000000] opacity-80 hover:opacity-100 transition-opacity">
+      <div className="fixed bottom-1.5 right-1.5 sm:bottom-3 sm:right-3 z-50 flex items-center gap-1 bg-surface-container-lowest border-[2px] border-surface-container-highest p-1 shadow-[4px_4px_0px_#000000] opacity-70 hover:opacity-100 transition-opacity">
         <button
           type="button"
           onClick={() => setSwitcherOpen(!switcherOpen)}
-          className="px-2 py-0.5 bg-surface-container font-label-sm uppercase text-label-sm text-on-surface flex items-center gap-1 cursor-pointer"
+          className="px-1.5 sm:px-2 py-0.5 bg-surface-container font-label-sm uppercase text-label-sm text-on-surface flex items-center gap-1 cursor-pointer"
           title="Toggle Screen Switcher"
         >
           <span className="material-symbols-outlined text-[14px]">tune</span>
-          <span className="font-bold">{currentScreen.toUpperCase()}</span>
+          <span className={switcherOpen ? 'font-bold' : 'hidden sm:inline font-bold'}>
+            {currentScreen.toUpperCase()}
+          </span>
         </button>
 
         {switcherOpen && (
@@ -79,6 +96,9 @@ export const App: React.FC = () => {
                 { id: 'login', label: 'Login', badge: 'DT' },
                 { id: 'register', label: 'Register', badge: 'DT' },
                 { id: 'm-lobby', label: 'M-Lobby', badge: 'MO' },
+                { id: 'm-tables', label: 'M-Tables', badge: 'MO' },
+                { id: 'm-table', label: 'M-Table', badge: 'MO' },
+                { id: 'm-table-alt', label: 'M-Table Alt', badge: 'MO' },
                 { id: 'showcase', label: 'Dev', badge: 'DEV' },
               ] as const
             ).map((item) => (
@@ -153,8 +173,34 @@ export const App: React.FC = () => {
 
       {currentScreen === 'm-lobby' && (
         <MobileBattleLobby
-          onNavigateToTable={() => navigateTo('table')}
-          onNavigateToCashBrowser={() => navigateTo('tables')}
+          onNavigateToTable={() => navigateTo('m-table')}
+          onNavigateToCashBrowser={() => navigateTo('m-tables')}
+          onNavigateToRankings={() => navigateTo('hand-rankings')}
+        />
+      )}
+
+      {currentScreen === 'm-tables' && (
+        <MobileTableBrowser
+          onBackToLobby={() => navigateTo('m-lobby')}
+          onJoinTable={(tableId) =>
+            window.setTimeout(
+              () => navigateTo(tableId === 'cyber-den-15' ? 'm-table-alt' : 'm-table'),
+              450
+            )
+          }
+        />
+      )}
+
+      {currentScreen === 'm-table' && (
+        <MobileBattleTable
+          onExitTable={() => navigateTo('m-tables')}
+          onNavigateToRankings={() => navigateTo('hand-rankings')}
+        />
+      )}
+
+      {currentScreen === 'm-table-alt' && (
+        <MobileBattleTableAlt
+          onExitTable={() => navigateTo('m-tables')}
           onNavigateToRankings={() => navigateTo('hand-rankings')}
         />
       )}

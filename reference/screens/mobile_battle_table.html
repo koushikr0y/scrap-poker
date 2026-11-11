@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton:wght@100..900&family=Barlow+Condensed:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#131315;}body{overscroll-behavior:none;background-image:radial-gradient(#353437 1px, transparent 1px);background-size:8px 8px;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error-container": "#ffdad6", "on-tertiary-fixed-variant": "#900c0d", "on-tertiary-fixed": "#410001", "surface-container-highest": "#353437", "error-container": "#93000a", "on-tertiary": "#690004", "on-primary": "#3b2f00", "surface-dim": "#131315", "primary-fixed-dim": "#eac31f", "inverse-surface": "#e5e1e4", "on-surface": "#e5e1e4", "inverse-on-surface": "#303032", "on-secondary": "#003548", "surface-bright": "#39393b", "tertiary-fixed": "#ffdad5", "background": "#131315", "on-background": "#e5e1e4", "surface-container-low": "#1b1b1d", "surface-variant": "#353437", "primary": "#fff0c6", "surface-container": "#201f21", "on-tertiary-container": "#ae2620", "secondary": "#73d1ff", "primary-container": "#f9d130", "surface-tint": "#eac31f", "on-secondary-fixed": "#001e2b", "surface-container-high": "#2a2a2c", "tertiary-container": "#ffc7c0", "tertiary-fixed-dim": "#ffb4aa", "error": "#ffb4ab", "on-secondary-fixed-variant": "#004d67", "on-surface-variant": "#d0c6ad", "tertiary": "#ffedea", "inverse-primary": "#715c00", "on-secondary-container": "#002e3f", "on-primary-fixed-variant": "#554500", "surface": "#131315", "secondary-container": "#009ccc", "outline-variant": "#4d4633", "surface-container-lowest": "#0e0e10", "on-primary-fixed": "#231b00", "secondary-fixed-dim": "#73d1ff", "secondary-fixed": "#c1e8ff", "on-primary-container": "#6e5a00", "on-error": "#690005", "outline": "#999079", "primary-fixed": "#ffe179" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter-mobile": "0.5rem", "space-xl": "2rem", "margin-mobile": "0.75rem", "gutter": "1rem", "margin": "1.5rem", "space-lg": "1.25rem", "space-md": "0.75rem" }, fontFamily: { "headline-lg": ["Anton"], "headline-md": ["Anton"], "label-md": ["Barlow Condensed"], "display-xl": ["Anton"], "label-sm": ["Barlow Condensed"], "label-lg": ["Barlow Condensed"], "display-lg-mobile": ["Anton"], "display-lg": ["Anton"], "headline-sm": ["Anton"], "body-lg": ["Barlow Condensed"], "body-sm": ["Barlow Condensed"], "body-md": ["Barlow Condensed"] }, fontSize: { "headline-lg": ["32px", { "lineHeight": "36px", "letterSpacing": "0.03em", "fontWeight": "400" }], "headline-md": ["24px", { "lineHeight": "28px", "letterSpacing": "0.03em", "fontWeight": "400" }], "label-md": ["13px", { "lineHeight": "15px", "letterSpacing": "0.08em", "fontWeight": "700" }], "display-xl": ["56px", { "lineHeight": "56px", "letterSpacing": "0.02em", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "13px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["16px", { "lineHeight": "18px", "letterSpacing": "0.06em", "fontWeight": "800" }], "display-lg-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.02em", "fontWeight": "400" }], "display-lg": ["44px", { "lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "400" }], "headline-sm": ["20px", { "lineHeight": "24px", "letterSpacing": "0.03em", "fontWeight": "400" }], "body-lg": ["18px", { "lineHeight": "22px", "letterSpacing": "0.01em", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "19px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl pt-safe shadow-[0_4px_16px_rgba(0,0,0,0.5)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs"><button class="w-11 h-11 flex items-center justify-center bg-surface-container hover:bg-surface-container-high rounded text-on-surface transition-transform active:scale-95" title="Exit Table"><span class="material-symbols-outlined text-[20px]">close</span></button><div class="flex flex-col ml-space-xs"><div class="flex items-center gap-space-xs"><span class="bg-primary-container text-on-primary-container font-headline-sm text-headline-sm uppercase px-space-xs -rotate-1 leading-none">SCRAP</span><span class="font-label-sm text-label-sm tracking-wider uppercase text-on-surface-variant font-bold">#07 HIGH STAKES</span></div><span class="font-label-md text-label-md text-primary font-bold tracking-wide">BLINDS: 500 / 1,000</span></div></div><div class="flex items-center gap-space-xs"><div class="flex items-center gap-space-xs bg-surface-container-highest px-space-sm py-1 rounded shadow-[2px_2px_0px_#000000] rotate-1"><span class="material-symbols-outlined text-primary-container text-[18px]">toll</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">$124.5K</span></div><button class="w-11 h-11 flex items-center justify-center bg-surface-container text-on-surface-variant hover:text-on-surface rounded" title="Sound"><span class="material-symbols-outlined text-[20px]">volume_up</span></button><button class="w-11 h-11 flex items-center justify-center bg-surface-container text-on-surface-variant hover:text-on-surface rounded" title="Settings"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[1px_1px_0px_#000000]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full relative select-none pb-2">
+<!-- TOP UTILITY / QUICK HUD DRAWER STRIP -->
+<div class="flex items-center justify-between px-margin-mobile py-space-xs gap-space-xs z-20">
+<div class="flex items-center gap-space-xs">
+<button class="bg-surface-container-high hover:bg-surface-container-highest px-space-sm py-1 shadow-[2px_2px_0px_#000000] -rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform flex items-center gap-1" id="btnRankings">
+<span class="material-symbols-outlined text-secondary text-[15px]">style</span>
+<span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">RANKINGS ?</span>
+</button>
+<button class="bg-surface-container-high hover:bg-surface-container-highest px-space-sm py-1 shadow-[2px_2px_0px_#000000] rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-container text-[15px]">forum</span>
+<span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">LOG (3)</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="bg-surface-container-high hover:bg-surface-container-highest px-space-sm py-1 shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-on-surface-variant text-[15px]">analytics</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">STATS</span>
+</button>
+<div class="bg-error-container text-on-error-container px-2 py-0.5 font-label-sm text-label-sm tracking-widest uppercase flex items-center gap-1 shadow-[1px_1px_0px_#000000]">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span>
+        LIVE
+      </div>
+</div>
+</div>
+<!-- TABLE FELT CANVAS (CEL-SHADED COMIC OCTAGON CASING) -->
+<div class="relative w-full px-1.5 mt-0.5 mb-2">
+<!-- Outer Comic Felt Panel -->
+<div class="relative w-full bg-surface-container-lowest rounded-xl shadow-[4px_4px_0px_#000000] overflow-hidden pt-2 pb-3 px-2">
+<!-- Halftone Ambient Background Grid Overlay -->
+<div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(#ffe179 1.5px, transparent 1.5px); background-size: 10px 10px;"></div>
+<!-- Top Seat Ring (Seats 1, 2, 3) -->
+<div class="grid grid-cols-3 gap-1 relative z-10 mb-2">
+<!-- SEAT 1: RUST BUCKET (FOLDED) -->
+<div class="flex flex-col items-center opacity-40 transform -rotate-1">
+<div class="relative w-11 h-11 bg-surface-container rounded-lg shadow-[2px_2px_0px_#000000] flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-[24px]">smart_toy</span>
+<div class="absolute inset-0 bg-surface-dim/80 flex items-center justify-center">
+<span class="font-headline-sm text-[10px] text-error uppercase tracking-tighter -rotate-12 bg-surface-container-lowest px-1 shadow-[1px_1px_0px_#000]">FOLD</span>
+</div>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase truncate max-w-[70px] mt-0.5">Rust_Bkt</span>
+<span class="font-label-sm text-[10px] text-outline tracking-tight leading-none">120.4K</span>
+</div>
+<!-- SEAT 2: NEON JACK (DEALER / ACTIVE BET) -->
+<div class="flex flex-col items-center relative transform rotate-0">
+<div class="relative w-12 h-12 bg-secondary-container rounded-lg shadow-[3px_3px_0px_#000000] flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-[28px]">android</span>
+<!-- Dealer Button Chip 'D' -->
+<div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-primary-container text-on-primary-container font-headline-sm text-[11px] flex items-center justify-center shadow-[1px_1px_0px_#000000] rotate-6">
+              D
+            </div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase truncate max-w-[80px] mt-0.5">Neon_Jack</span>
+<span class="font-label-sm text-[11px] text-on-surface tracking-tight">84.2K</span>
+<!-- Active Bet Tag -->
+<div class="bg-surface-container-highest px-1.5 py-0.2 shadow-[1px_1px_0px_#000000] -rotate-1 mt-0.5 flex items-center gap-0.5">
+<span class="material-symbols-outlined text-secondary text-[10px]">toll</span>
+<span class="font-headline-sm text-[11px] text-secondary">2,000</span>
+</div>
+</div>
+<!-- SEAT 3: CYBER VIPER (ALL-IN!) -->
+<div class="flex flex-col items-center relative transform rotate-1">
+<div class="relative w-11 h-11 bg-surface-container-high rounded-lg shadow-[2px_2px_0px_#000000] flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[24px]">skull</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface uppercase truncate max-w-[70px] mt-0.5">Viper_X</span>
+<!-- Comic All-in Burst Badge -->
+<div class="bg-error-container text-on-error-container px-1 py-0.5 font-headline-sm text-[9px] uppercase tracking-tighter -rotate-6 shadow-[2px_2px_0px_#000000] mt-0.5">
+            ALL-IN 55K
+          </div>
+</div>
+</div>
+<!-- Mid Seat Ring + Center Felt Street -->
+<div class="grid grid-cols-12 gap-1 items-center relative z-10 my-1">
+<!-- SEAT 4: MAD RAM (Mid Left) -->
+<div class="col-span-3 flex flex-col items-start transform -rotate-1 pl-1">
+<div class="relative w-11 h-11 bg-surface-container-high rounded-lg shadow-[2px_2px_0px_#000000] flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-[24px]">hardware</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface uppercase font-bold truncate max-w-[65px] mt-0.5">Mad_Ram</span>
+<span class="font-label-sm text-[10px] text-outline">310.0K</span>
+<div class="bg-surface-container-highest px-1 py-0.2 shadow-[1px_1px_0px_#000000] mt-0.5 flex items-center gap-0.5">
+<span class="font-headline-sm text-[11px] text-primary">4,200</span>
+</div>
+</div>
+<!-- CENTER FELT: STREET & POT & RIVER COMMUNITY CARDS -->
+<div class="col-span-6 flex flex-col items-center justify-center">
+<!-- STREET NAME BANNER -->
+<div class="bg-surface-container-high px-2 py-0.5 rounded-full shadow-[1px_1px_0px_#000000] -rotate-1 mb-1">
+<span class="font-label-sm text-[9px] text-secondary tracking-widest font-extrabold uppercase">★ RIVER · 5TH STREET ★</span>
+</div>
+<!-- MAIN POT BANNER -->
+<div class="relative bg-primary-container text-on-primary-container px-3 py-1 rounded shadow-[3px_3px_0px_#000000] rotate-1 mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">monetization_on</span>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide leading-none">POT: 28,400</span>
+</div>
+<!-- FIVE COMMUNITY CARDS -->
+<div class="flex items-center justify-center gap-1 w-full">
+<!-- Card 1: A♠ -->
+<div class="w-[30px] h-[46px] bg-primary text-on-surface rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 -rotate-1 select-none">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[13px] text-on-surface leading-none font-bold">A</span>
+<span class="font-body-sm text-[10px] text-on-surface leading-none -mt-0.5">♠</span>
+</div>
+<div class="self-center">
+<span class="font-body-sm text-[13px] text-on-surface">♠</span>
+</div>
+</div>
+<!-- Card 2: K♠ -->
+<div class="w-[30px] h-[46px] bg-primary text-on-surface rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 rotate-1 select-none">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[13px] text-on-surface leading-none font-bold">K</span>
+<span class="font-body-sm text-[10px] text-on-surface leading-none -mt-0.5">♠</span>
+</div>
+<div class="self-center">
+<span class="font-body-sm text-[13px] text-on-surface">♠</span>
+</div>
+</div>
+<!-- Card 3: Q♠ -->
+<div class="w-[30px] h-[46px] bg-primary text-on-surface rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 -rotate-1 select-none">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[13px] text-on-surface leading-none font-bold">Q</span>
+<span class="font-body-sm text-[10px] text-on-surface leading-none -mt-0.5">♠</span>
+</div>
+<div class="self-center">
+<span class="font-body-sm text-[13px] text-on-surface">♠</span>
+</div>
+</div>
+<!-- Card 4: 10♦ (Cyan) -->
+<div class="w-[30px] h-[46px] bg-primary rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 rotate-0 select-none">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[12px] text-secondary-container leading-none font-bold">10</span>
+<span class="font-body-sm text-[10px] text-secondary-container leading-none -mt-0.5">♦</span>
+</div>
+<div class="self-center">
+<span class="font-body-sm text-[12px] text-secondary-container">♦</span>
+</div>
+</div>
+<!-- Card 5: 2♣ (Green) -->
+<div class="w-[30px] h-[46px] bg-primary rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 rotate-2 select-none">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[13px] text-on-secondary leading-none font-bold">2</span>
+<span class="font-body-sm text-[10px] text-on-secondary leading-none -mt-0.5">♣</span>
+</div>
+<div class="self-center">
+<span class="font-body-sm text-[13px] text-on-secondary">♣</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SEAT 5: COGWHEEL (Mid Right - THINKING...) -->
+<div class="col-span-3 flex flex-col items-end transform rotate-1 pr-1">
+<div class="relative w-11 h-11 bg-surface-container-high rounded-lg shadow-[2px_2px_0px_#000000] flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-secondary text-[24px] animate-spin" style="animation-duration: 6s;">settings</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface uppercase font-bold truncate max-w-[65px] mt-0.5">Cogwheel</span>
+<span class="font-label-sm text-[10px] text-outline">98.1K</span>
+<!-- Thinking indicator bar -->
+<div class="w-14 bg-surface-container-highest h-2 rounded-full overflow-hidden mt-1 shadow-[1px_1px_0px_#000000]">
+<div class="bg-secondary h-full w-2/3 animate-pulse"></div>
+</div>
+<span class="font-label-sm text-[9px] text-secondary uppercase font-bold tracking-tighter">THINKING...</span>
+</div>
+</div>
+<!-- HERO / PLAYER ZONE (BOTTOM OF FELT) -->
+<div class="relative z-20 mt-3 pt-2">
+<!-- Equity & Hand Strength Ribbon -->
+<div class="flex items-center justify-between mb-1.5 px-1">
+<div class="bg-surface-container px-2 py-0.5 rounded shadow-[2px_2px_0px_#000000] -rotate-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-container text-[14px]">auto_awesome</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">ROYAL FLUSH DRAW · 9 OUTS</span>
+</div>
+<div class="bg-secondary-container text-on-secondary-container font-headline-sm text-[11px] px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000000] rotate-1">
+            34.8% EQ
+          </div>
+</div>
+<!-- Hero Hole Cards + Player Persona Block -->
+<div class="bg-surface-container-high rounded-lg p-2 shadow-[4px_4px_0px_#000000] flex items-center justify-between relative overflow-hidden">
+<!-- Turn Action Pulse Indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<!-- Hero Identity Stats -->
+<div class="flex items-center gap-2 pl-2">
+<div class="relative w-12 h-12 bg-primary-container rounded-lg shadow-[2px_2px_0px_#000000] flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container text-[30px]">bolt</span>
+<!-- Position Marker -->
+<span class="absolute -bottom-1 -right-1 bg-surface-container-lowest text-primary font-headline-sm text-[10px] px-1 rounded shadow-[1px_1px_0px_#000]">BB</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-wide uppercase leading-tight">Bolt_Runner_99</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary-container text-[14px]">toll</span>
+<span class="font-headline-sm text-[16px] text-primary-container leading-none">450,200</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase font-bold">SCRAP</span>
+</div>
+<span class="font-label-sm text-[11px] text-secondary font-bold uppercase tracking-tight mt-0.5">CURRENT BET: 4,200</span>
+</div>
+</div>
+<!-- Hero Hole Cards Display (Elevated Cut-Paper Pop) -->
+<div class="flex items-center -space-x-3 pr-1">
+<!-- Hero Card 1: J♠ -->
+<div class="w-11 h-16 bg-primary text-on-surface rounded shadow-[3px_3px_0px_#000000] flex flex-col justify-between p-1 -rotate-6 select-none relative z-10 transition-transform hover:-translate-y-1">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[16px] text-on-surface leading-none font-bold">J</span>
+<span class="font-body-sm text-[12px] text-on-surface leading-none">♠</span>
+</div>
+<div class="self-center pb-0.5">
+<span class="font-body-sm text-[16px] text-on-surface">♠</span>
+</div>
+</div>
+<!-- Hero Card 2: A♦ (Cyan Suit) -->
+<div class="w-11 h-16 bg-primary rounded shadow-[4px_4px_0px_#000000] flex flex-col justify-between p-1 rotate-6 select-none relative z-20 transition-transform hover:-translate-y-1">
+<div class="flex flex-col items-center leading-none">
+<span class="font-headline-sm text-[16px] text-secondary-container leading-none font-bold">A</span>
+<span class="font-body-sm text-[12px] text-secondary-container leading-none">♦</span>
+</div>
+<div class="self-center pb-0.5">
+<span class="font-body-sm text-[16px] text-secondary-container">♦</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE BETTING / RAISE SLIDER PANEL (CUT-PAPER COMIC POP-DRAWER) -->
+<div class="px-margin-mobile mb-2" id="raiseDrawer">
+<div class="bg-surface-container rounded-xl p-2.5 shadow-[4px_4px_0px_#000000] relative">
+<!-- Halftone accent strip -->
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="bg-primary-container text-on-primary-container font-headline-sm text-[12px] px-1.5 py-0.5 -rotate-1 leading-none uppercase">RAISE SIZER</span>
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">TARGET BET:</span>
+</div>
+<!-- Numerical Display -->
+<div class="bg-surface-container-lowest px-2 py-0.5 rounded shadow-[2px_2px_0px_#000000] rotate-1">
+<span class="font-headline-md text-headline-md text-primary-container leading-none" id="betDisplay">8,400</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant ml-0.5 uppercase">SCRAP</span>
+</div>
+</div>
+<!-- Thumb Presets -->
+<div class="grid grid-cols-4 gap-1.5 mb-2">
+<button class="bg-surface-container-high hover:bg-surface-container-highest py-1 text-center shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" onclick="setBetValue(14200)">
+<span class="font-label-sm text-label-sm text-on-surface uppercase font-bold">½ POT</span>
+</button>
+<button class="bg-surface-container-high hover:bg-surface-container-highest py-1 text-center shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" onclick="setBetValue(28400)">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold">POT (28K)</span>
+</button>
+<button class="bg-surface-container-high hover:bg-surface-container-highest py-1 text-center shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" onclick="setBetValue(42600)">
+<span class="font-label-sm text-label-sm text-on-surface uppercase font-bold">2× POT</span>
+</button>
+<button class="bg-error-container text-on-error-container py-1 text-center shadow-[2px_2px_0px_#000000] -rotate-1 active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform" onclick="setBetValue(55400)">
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-tight">ALL-IN</span>
+</button>
+</div>
+<!-- Step Stepper & Continuous Slider -->
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 bg-surface-container-highest rounded flex items-center justify-center text-on-surface shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none" onclick="adjustBet(-1000)">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<div class="flex-1 flex flex-col justify-center px-1">
+<input class="w-full accent-primary-container cursor-pointer h-2 bg-surface-container-lowest rounded-lg" id="raiseSlider" max="55400" min="4200" oninput="updateSliderBet(this.value)" step="500" type="range" value="8400"/>
+<div class="flex justify-between items-center mt-1 text-on-surface-variant font-label-sm text-[10px] uppercase font-bold">
+<span>MIN: 4,200</span>
+<span>MAX: 55,400</span>
+</div>
+</div>
+<button class="w-8 h-8 bg-surface-container-highest rounded flex items-center justify-center text-on-surface shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none" onclick="adjustBet(1000)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+<!-- Action Confirmation Row inside drawer -->
+<div class="flex items-center gap-2 mt-2.5">
+<button class="flex-1 bg-primary-container text-on-primary-container py-2 shadow-[3px_3px_0px_#000000] -rotate-0.5 hover:rotate-0 active:translate-x-1 active:translate-y-1 active:shadow-none transition-transform flex items-center justify-center gap-1.5" id="btnConfirmRaise">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide leading-none">CONFIRM RAISE</span>
+</button>
+<button class="bg-surface-container-high text-on-surface px-3 py-2 shadow-[2px_2px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-transform flex items-center justify-center" onclick="toggleRaiseDrawer()">
+<span class="font-label-md text-label-md uppercase font-bold">CANCEL</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRIMARY ACTION DOCK (THUMB-FRIENDLY BOTTOM BAR) -->
+<div class="px-margin-mobile z-30">
+<div class="grid grid-cols-3 gap-2">
+<!-- ACTION 1: FOLD -->
+<button class="bg-error-container text-on-error-container h-14 rounded-lg shadow-[4px_4px_0px_#000000] -rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none transition-transform flex flex-col items-center justify-center p-1 group">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">close</span>
+<span class="font-headline-md text-headline-md uppercase tracking-wider leading-none">FOLD</span>
+</div>
+<span class="font-label-sm text-[10px] opacity-80 uppercase tracking-tighter mt-0.5 font-bold">FORFEIT HAND</span>
+</button>
+<!-- ACTION 2: CALL 4,200 -->
+<button class="bg-secondary-container text-on-secondary-container h-14 rounded-lg shadow-[4px_4px_0px_#000000] rotate-0 active:translate-x-1 active:translate-y-1 active:shadow-none transition-transform flex flex-col items-center justify-center p-1 group">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span class="font-headline-md text-headline-md uppercase tracking-wider leading-none">CALL</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight text-on-secondary-container mt-0.5">4,200 SCRAP</span>
+</button>
+<!-- ACTION 3: RAISE / BET -->
+<button class="relative bg-primary-container text-on-primary-container h-14 rounded-lg shadow-[4px_4px_0px_#000000] rotate-1 active:translate-x-1 active:translate-y-1 active:shadow-none transition-transform flex flex-col items-center justify-center p-1 group" onclick="toggleRaiseDrawer()">
+<!-- Hot Burst Comic Badge -->
+<span class="absolute -top-2.5 -right-1 bg-tertiary-container text-on-tertiary-container font-headline-sm text-[10px] px-1.5 py-0.2 rounded shadow-[2px_2px_0px_#000000] rotate-12 uppercase leading-none">
+          HOT!
+        </span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-y-0.5 transition-transform">arrow_upward</span>
+<span class="font-headline-md text-headline-md uppercase tracking-wider leading-none">RAISE</span>
+</div>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight text-on-primary-container mt-0.5">TO 8,400+</span>
+</button>
+</div>
+</div>
+</div>
+<!-- INTERACTIVITY CONTROLLER JAVASCRIPT -->
+<script>
+  let currentBet = 8400;
+  const minBet = 4200;
+  const maxBet = 55400;
+
+  function updateSliderBet(val) {
+    currentBet = parseInt(val, 10);
+    renderBet();
+  }
+
+  function adjustBet(delta) {
+    currentBet = Math.max(minBet, Math.min(maxBet, currentBet + delta));
+    const slider = document.getElementById('raiseSlider');
+    if (slider) slider.value = currentBet;
+    renderBet();
+  }
+
+  function setBetValue(val) {
+    currentBet = Math.max(minBet, Math.min(maxBet, val));
+    const slider = document.getElementById('raiseSlider');
+    if (slider) slider.value = currentBet;
+    renderBet();
+  }
+
+  function renderBet() {
+    const display = document.getElementById('betDisplay');
+    if (display) {
+      display.textContent = currentBet.toLocaleString();
+    }
+  }
+
+  function toggleRaiseDrawer() {
+    const drawer = document.getElementById('raiseDrawer');
+    if (drawer) {
+      if (drawer.classList.contains('hidden')) {
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+  }
+
+  // Micro vibration/click feedback on buttons
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if ('vibrate' in navigator) {
+        navigator.vibrate(15);
+      }
+    });
+  });
+</script></main></body></html>

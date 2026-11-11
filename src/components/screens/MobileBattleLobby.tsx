@@ -526,3 +526,4 @@ export const MobileBattleLobby: React.FC<MobileBattleLobbyProps> = ({
 };
 
 export default MobileBattleLobby;
+
