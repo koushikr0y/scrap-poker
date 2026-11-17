@@ -418,3 +418,4 @@ export function analyzeHeroStrength(
     evaluated: currentBest,
   };
 }
+

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Barlow+Condensed:wght@600;700;800;900&amp;family=Rajdhani:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>
+@layer base {
+  html, body {
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #101012;
+    color: #e5e1e4;
+    overflow: hidden;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 12px); }
+  .pt-safe { padding-top: env(safe-area-inset-top, 12px); }
+  .halftone-bg {
+    background-color: #101012;
+    background-image: radial-gradient(rgba(249, 209, 48, 0.12) 1.5px, transparent 1.5px);
+    background-size: 10px 10px;
+  }
+}
+::-webkit-scrollbar { display: none; }
+
+/* Custom Comic Text Ink Stroke */
+.comic-text-stroke {
+  -webkit-text-stroke: 3px #000000;
+  paint-order: stroke fill;
+}
+
+/* Comic Pulsing & Rays Animations */
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes comicSlam {
+  0% { transform: scale(3) rotate(-12deg); opacity: 0; }
+  60% { transform: scale(0.92) rotate(2deg); opacity: 1; }
+  85% { transform: scale(1.05) rotate(-1.5deg); }
+  100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+}
+@keyframes popCardLeft {
+  0% { transform: translateY(40px) rotate(-35deg); opacity: 0; }
+  100% { transform: translateY(0) rotate(-14deg); opacity: 1; }
+}
+@keyframes popCardRight {
+  0% { transform: translateY(40px) rotate(35deg); opacity: 0; }
+  100% { transform: translateY(0) rotate(14deg); opacity: 1; }
+}
+@keyframes hazardSlide {
+  0% { background-position: 0 0; }
+  100% { background-position: 24px 0; }
+}
+
+.anim-spin-rays {
+  animation: spinSlow 32s linear infinite;
+}
+.anim-logo-slam {
+  animation: comicSlam 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.anim-card-left {
+  animation: popCardLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+}
+.anim-card-right {
+  animation: popCardRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+}
+.hazard-stripe-animated {
+  background-image: repeating-linear-gradient(45deg, #000 0, #000 8px, transparent 8px, transparent 16px);
+  background-size: 24px 24px;
+  animation: hazardSlide 1.2s linear infinite;
+}
+</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-bright": "#39393b", "on-error-container": "#ffdad6", "secondary-fixed": "#c1e8ff", "error-container": "#93000a", "surface-container-low": "#1b1b1d", "on-secondary-container": "#002e3f", "secondary-fixed-dim": "#73d1ff", "error": "#ffb4ab", "on-primary": "#3b2f00", "on-error": "#690005", "primary": "#fff0c6", "tertiary-container": "#ffc7c0", "on-background": "#e5e1e4", "on-tertiary-fixed-variant": "#900c0d", "on-surface": "#e5e1e4", "outline-variant": "#4d4633", "tertiary-fixed-dim": "#ffb4aa", "surface": "#101012", "surface-variant": "#353437", "secondary": "#1AA3D4", "inverse-primary": "#715c00", "primary-fixed": "#ffe179", "outline": "#999079", "on-secondary": "#003548", "on-primary-fixed-variant": "#554500", "surface-container-lowest": "#0a0a0c", "primary-fixed-dim": "#eac31f", "inverse-on-surface": "#303032", "surface-container-high": "#2a2a2c", "on-tertiary": "#690004", "secondary-container": "#009ccc", "surface-container": "#1d1d21", "tertiary-fixed": "#ffdad5", "surface-dim": "#101012", "on-surface-variant": "#d0c6ad", "on-tertiary-fixed": "#410001", "background": "#101012", "inverse-surface": "#e5e1e4", "on-secondary-fixed": "#001e2b", "tertiary": "#ffedea", "surface-tint": "#eac31f", "surface-container-highest": "#353437", "primary-container": "#F9D130", "on-primary-container": "#231b00", "on-primary-fixed": "#231b00", "on-secondary-fixed-variant": "#004d67", "on-tertiary-container": "#ae2620" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "space-sm": "0.5rem", "gutter-mobile": "0.5rem", "margin-mobile": "0.75rem", "space-md": "0.75rem", "space-lg": "1.25rem", "space-xs": "0.25rem", "space-xl": "2rem", "margin": "1.5rem" }, "fontFamily": { "body-md": ["Barlow Condensed"], "headline-md": ["Anton"], "body-lg": ["Barlow Condensed"], "label-sm": ["Barlow Condensed"], "label-md": ["Barlow Condensed"], "label-lg": ["Barlow Condensed"], "display-lg": ["Anton"], "headline-sm": ["Anton"], "body-sm": ["Barlow Condensed"], "display-xl": ["Anton"], "headline-lg": ["Anton"], "display-lg-mobile": ["Anton"], "tech": ["Rajdhani"] }, "fontSize": { "body-md": ["15px", { "lineHeight": "19px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "28px", "letterSpacing": "0.03em", "fontWeight": "400" }], "body-lg": ["18px", { "lineHeight": "22px", "letterSpacing": "0.01em", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "13px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-md": ["13px", { "lineHeight": "15px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["16px", { "lineHeight": "18px", "letterSpacing": "0.06em", "fontWeight": "800" }], "display-lg": ["44px", { "lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "400" }], "headline-sm": ["20px", { "lineHeight": "24px", "letterSpacing": "0.03em", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }], "display-xl": ["54px", { "lineHeight": "54px", "letterSpacing": "0.02em", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "36px", "letterSpacing": "0.03em", "fontWeight": "400" }], "display-lg-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "0.02em", "fontWeight": "400" }] } } } };</script></head>
+<body class="bg-[#101012] text-on-surface halftone-bg font-body-md h-screen w-screen overflow-hidden flex flex-col justify-between select-none">
+<main class="flex-1 flex flex-col w-full max-w-[430px] mx-auto h-full max-h-[884px] pt-safe pb-safe relative px-3 justify-between">
+<!-- TOP BAR: Quick Interactive Ribbon & Mode Toggles -->
+<header class="w-full flex items-center justify-between z-30 pt-1 shrink-0">
+<!-- Version Scrap Tape -->
+<div class="bg-surface-container-highest/90 text-on-surface px-2.5 py-1 shadow-[2px_2px_0px_#000] -rotate-2 flex items-center gap-1.5 border-l-2 border-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-tech text-[11px] font-bold uppercase tracking-wider text-primary">VER 1.0.4B // CEL-POP</span>
+</div>
+<!-- Replay / Stage Action Chip -->
+<div class="flex items-center gap-1.5">
+<button class="bg-surface-container-high hover:bg-surface-bright active:scale-95 text-secondary px-2.5 py-1 text-[11px] font-tech font-bold uppercase tracking-wider shadow-[2px_2px_0px_#000] rotate-1 transition-all flex items-center gap-1" id="btn-replay" onclick="triggerReplay()">
+<span class="material-symbols-outlined text-[13px]">replay</span>
+<span>REPLAY INTRO</span>
+</button>
+<!-- BAM! / SKIP Sticker -->
+<button class="bg-primary-container hover:bg-[#ffe179] text-on-primary-container px-2 py-0.5 shadow-[3px_3px_0px_#000] -rotate-3 transition-transform active:scale-95 font-headline-sm text-sm uppercase italic tracking-tighter" id="btn-stage-toggle" onclick="toggleScreenPhase()">
+<span id="badge-callout">BAM!</span>
+</button>
+</div>
+</header>
+<!-- AMBIENT EXPLOSIVE BURST RAYS & INK SPLATTERS (Background Decorative Comic FX) -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0 opacity-25">
+<div class="w-[620px] h-[620px] anim-spin-rays flex items-center justify-center">
+<svg class="w-full h-full text-primary-container" fill="currentColor" viewbox="0 0 1000 1000">
+<path d="M500,500 L440,0 L560,0 Z"></path>
+<path d="M500,500 L850,150 L950,250 Z"></path>
+<path d="M500,500 L1000,450 L1000,550 Z"></path>
+<path d="M500,500 L950,750 L850,850 Z"></path>
+<path d="M500,500 L550,1000 L450,1000 Z"></path>
+<path d="M500,500 L150,850 L50,750 Z"></path>
+<path d="M500,500 L0,550 L0,450 Z"></path>
+<path d="M500,500 L50,250 L150,150 Z"></path>
+</svg>
+</div>
+<!-- Comic Ink Splatters (Desktop Screen 11 homage) -->
+<div class="absolute inset-0 select-none opacity-40">
+<svg class="w-full h-full text-secondary" fill="currentColor" viewbox="0 0 430 844">
+<circle cx="65" cy="180" r="10"></circle>
+<circle cx="85" cy="195" r="5"></circle>
+<circle cx="50" cy="170" r="4"></circle>
+<path d="M65,180 Q90,205 110,230 Q100,238 80,215 Z"></path>
+<circle cx="365" cy="460" r="14"></circle>
+<circle cx="385" cy="480" r="7"></circle>
+<circle cx="350" cy="475" r="5"></circle>
+<path d="M365,460 Q330,500 295,530 Q305,540 345,495 Z"></path>
+</svg>
+</div>
+</div>
+<!-- CENTER HERO SPLASH AREA: Dynamic Stages (Studio Emblem vs Title Reveal) -->
+<div class="flex-1 flex flex-col items-center justify-center my-auto z-10 w-full relative py-2" id="hero-container">
+<!-- STAGE 1: KOSIGAMES STUDIO IDENTITY -->
+<div class="flex flex-col items-center justify-center text-center transition-all duration-300 w-full anim-logo-slam" id="view-studio">
+<!-- STYLIZED COMIC GAMING-INSPIRED EMBLEM: Stylized 'K' Controller with Card Suits -->
+<div class="relative mb-3 flex items-center justify-center">
+<!-- Offset Hard Comic Shadows -->
+<div class="absolute w-16 h-16 bg-primary-container transform rotate-6 translate-x-1 translate-y-1 shadow-[3px_3px_0px_#000]"></div>
+<div class="absolute w-16 h-16 bg-secondary transform -rotate-3 -translate-x-0.5 -translate-y-0.5 shadow-[2px_2px_0px_#000]"></div>
+<!-- Core Ink Emblem Badge -->
+<div class="relative w-16 h-16 bg-[#0a0a0c] border-2 border-black flex items-center justify-center shadow-[4px_4px_0px_#000]">
+<!-- Gaming Controller / K-Crest SVG Graphic -->
+<svg class="w-10 h-10" fill="none" viewbox="0 0 48 48">
+<!-- Distinctive comic controller body -->
+<path d="M10 16C6 16 4 20 4 27C4 35 8 38 12 37L16 32H32L36 37C40 38 44 35 44 27C44 20 42 16 38 16H10Z" fill="#F9D130" stroke="#000" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- D-Pad stylized as Card Club / Cross -->
+<path d="M12 21H16V25H12Z" fill="#101012"></path>
+<path d="M14 19V27" stroke="#101012" stroke-linecap="round" stroke-width="2"></path>
+<!-- Action buttons stylized as card suit dots -->
+<circle cx="32" cy="21" fill="#E53935" r="1.8"></circle>
+<circle cx="35.5" cy="24.5" fill="#1AA3D4" r="1.8"></circle>
+<circle cx="28.5" cy="24.5" fill="#fff" r="1.8"></circle>
+<!-- Inner sharp 'K' insignia cut -->
+<path d="M22 20L22 28M26 20L22 24L26 28" stroke="#101012" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</div>
+</div>
+<!-- KOSIGAMES CUSTOM WORDMARK -->
+<!-- Triple-layered cel effect: Off-white paper fill (#F2EEE4), 3px black stroke, yellow drop-shadow, cyan offset layer -->
+<div class="relative inline-block cursor-default select-none my-1">
+<!-- Cyan Graphic Detailing Offset Layer -->
+<span class="absolute -top-1 -left-1 font-display-xl text-display-xl tracking-tight text-secondary uppercase pointer-events-none select-none opacity-90 transform -rotate-1">
+          KOSIGAMES
+        </span>
+<!-- Vibrant Yellow (#F9D130) Comic Drop Shadow -->
+<span class="absolute top-1.5 left-1.5 font-display-xl text-display-xl tracking-tight text-primary-container uppercase pointer-events-none select-none transform -rotate-1">
+          KOSIGAMES
+        </span>
+<!-- Foreground Master Off-White Paper Lettering with Thick Black Ink Stroke -->
+<h1 class="relative font-display-xl text-display-xl tracking-tight text-[#F2EEE4] comic-text-stroke uppercase select-none transform -rotate-1 drop-shadow-[0_4px_0_#000]">
+          KOSIGAMES
+        </h1>
+</div>
+<!-- ARCADE ARCHITECTURE // CEL-POP CRAFT Ribbon -->
+<div class="mt-1 bg-surface-container-highest px-2.5 py-0.5 shadow-[2px_2px_0px_#000] rotate-1 border-b-2 border-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary-container text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-tech text-[12px] font-bold tracking-widest uppercase text-primary">ARCADE ARCHITECTURE // CEL-POP CRAFT</span>
+<span class="material-symbols-outlined text-secondary text-[14px]" style="font-variation-settings: 'FILL' 1;">token</span>
+</div>
+<!-- CAPTION: "★ A KOSIGAMES PRODUCTION ★" bold condensed paper-cut badge -->
+<div class="mt-3 bg-[#0e0e10] text-on-surface px-3 py-1 shadow-[3px_3px_0px_#000] -rotate-1 border border-primary-container/40">
+<p class="font-headline-sm text-sm uppercase tracking-widest text-primary-container">
+          ★ A KOSIGAMES PRODUCTION ★
+        </p>
+</div>
+<!-- CARD SUITS ACCENTS STRIP -->
+<div class="flex items-center gap-3 mt-3 text-on-surface-variant">
+<span class="text-[#E53935] font-headline-sm text-lg drop-shadow-[1px_1px_0_#000]">♥</span>
+<span class="text-secondary font-headline-sm text-lg drop-shadow-[1px_1px_0_#000]">♦</span>
+<span class="text-primary-container font-headline-sm text-lg drop-shadow-[1px_1px_0_#000]">♣</span>
+<span class="text-on-surface font-headline-sm text-lg drop-shadow-[1px_1px_0_#000]">♠</span>
+</div>
+</div>
+<!-- STAGE 2: TITLE REVEAL (SCRAP POKER & CEL-SHADED CARDS) -->
+<div class="hidden flex-col items-center justify-center text-center transition-all duration-300 w-full relative" id="view-poker">
+<!-- Collaged Cel-Shaded Poker Card Silhouettes peeking behind title -->
+<div class="relative w-full max-w-xs flex flex-col items-center mb-1">
+<!-- Left Ace of Spades -->
+<div class="absolute -top-12 left-4 z-0 pointer-events-none anim-card-left">
+<div class="w-14 h-20 bg-[#F2EEE4] text-[#101012] p-1.5 shadow-[4px_4px_0px_#000] border-2 border-black flex flex-col justify-between rounded-sm">
+<span class="font-headline-sm text-xs leading-none">A♠</span>
+<span class="material-symbols-outlined text-[20px] self-center text-[#101012]" style="font-variation-settings: 'FILL' 1;">playing_cards</span>
+<span class="font-headline-sm text-xs leading-none self-end rotate-180">A♠</span>
+</div>
+</div>
+<!-- Right King of Hearts -->
+<div class="absolute -top-10 right-4 z-0 pointer-events-none anim-card-right">
+<div class="w-14 h-20 bg-[#F2EEE4] text-[#E53935] p-1.5 shadow-[4px_4px_0px_#000] border-2 border-black flex flex-col justify-between rounded-sm">
+<span class="font-headline-sm text-xs leading-none">K♥</span>
+<span class="material-symbols-outlined text-[20px] self-center text-[#E53935]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-headline-sm text-xs leading-none self-end rotate-180">K♥</span>
+</div>
+</div>
+<!-- Scrap Poker Impact Badge -->
+<div class="relative z-10 bg-primary-container text-on-primary-container px-5 py-2 shadow-[5px_5px_0px_#000] -rotate-1 border-2 border-black w-full">
+<span class="font-tech text-[12px] font-bold tracking-widest uppercase block text-[#231b00] leading-none mb-0.5">THE UNDERGROUND HOLD'EM</span>
+<h2 class="font-display-xl text-[44px] tracking-tight uppercase text-[#101012] comic-text-stroke leading-none">
+            SCRAP POKER
+          </h2>
+</div>
+<!-- Sub Saloon Cel Strip -->
+<div class="relative z-10 -mt-1 bg-surface-container-lowest text-secondary px-4 py-1 shadow-[3px_3px_0px_#000] rotate-2 border border-secondary">
+<span class="font-headline-sm text-xs uppercase tracking-wider text-secondary">TEXAS TACTICS // NO-LIMIT SALOON</span>
+</div>
+</div>
+<!-- Quick 3-Pill Specs Rack -->
+<div class="grid grid-cols-3 gap-1.5 w-full max-w-xs mt-3">
+<div class="bg-surface-container p-1.5 shadow-[2px_2px_0px_#000] -rotate-1 border-t-2 border-primary-container text-center">
+<span class="font-tech text-[10px] text-primary-container block uppercase font-bold">CHIPS</span>
+<span class="font-headline-sm text-xs text-primary leading-tight">$50K FREE</span>
+</div>
+<div class="bg-surface-container p-1.5 shadow-[2px_2px_0px_#000] rotate-1 border-t-2 border-secondary text-center">
+<span class="font-tech text-[10px] text-secondary block uppercase font-bold">FORMAT</span>
+<span class="font-headline-sm text-xs text-primary leading-tight">6-MAX FAST</span>
+</div>
+<div class="bg-surface-container p-1.5 shadow-[2px_2px_0px_#000] -rotate-1 border-t-2 border-error text-center">
+<span class="font-tech text-[10px] text-error block uppercase font-bold">SHUFFLE</span>
+<span class="font-headline-sm text-xs text-primary leading-tight">PROVABLY FAIR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- LOWER SECTION: Hazard / Halftone Progress, Tactile Action Button & Legal Disclaimer -->
+<footer class="w-full flex flex-col gap-2.5 z-20 shrink-0 pb-1">
+<!-- SLEEK HAZARD / HALFTONE PROGRESS ENGINE BAR -->
+<div class="bg-surface-container-low p-2 rounded-lg flex flex-col gap-1.5 shadow-[3px_3px_0px_#000] border border-white/5">
+<div class="flex items-center justify-between text-on-surface px-1">
+<div class="flex items-center gap-1.5">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-tech text-xs uppercase tracking-wider text-primary font-bold" id="engine-status">
+            INITIALIZING CELL-ENGINE...
+          </span>
+</div>
+<span class="font-tech text-xs text-primary-container font-extrabold tracking-wider" id="engine-percent">[100%]</span>
+</div>
+<!-- Segmented Hazard Animated Progress Track -->
+<div class="h-3 w-full bg-surface-container-lowest rounded-sm overflow-hidden p-0.5 border border-black relative">
+<div class="h-full bg-primary-container transition-all duration-300 relative w-full overflow-hidden" id="progress-fill">
+<!-- Animated Diagonal Hazard Stripes -->
+<div class="absolute inset-0 opacity-40 hazard-stripe-animated"></div>
+</div>
+</div>
+</div>
+<!-- TACTILE THUMB CTA BUTTON: Bold yellow fill + hard 4px black shadow -->
+<button class="w-full bg-primary-container hover:bg-[#ffe179] text-[#101012] py-3.5 px-4 rounded-md shadow-[4px_4px_0px_#000] font-headline-md text-xl uppercase tracking-wider flex items-center justify-center gap-2 transform active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#000] transition-all border-2 border-black" id="cta-enter" onclick="handleEnterAction()">
+<span class="material-symbols-outlined text-[24px] text-black" style="font-variation-settings: 'FILL' 1;">casino</span>
+<span id="cta-label">TAP TO ENTER ▷</span>
+<span class="material-symbols-outlined text-[20px] text-black" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<!-- SUBTLE LEGAL / DISCLAIMER PILL -->
+<div class="text-center py-0.5">
+<span class="font-tech text-[10px] text-on-surface-variant uppercase tracking-wider block">
+        VER 1.0.4B • CEL-POP ENGINE • SOCIAL ENTERTAINMENT ONLY
+      </span>
+</div>
+</footer>
+</main>
+<!-- SPLASH CONTROLLER SCRIPT -->
+<script>
+  let currentStage = 'studio'; // 'studio' | 'poker'
+
+  function setScreenPhase(phase) {
+    const viewStudio = document.getElementById('view-studio');
+    const viewPoker = document.getElementById('view-poker');
+    const badgeCallout = document.getElementById('badge-callout');
+    const ctaLabel = document.getElementById('cta-label');
+    const engineStatus = document.getElementById('engine-status');
+
+    currentStage = phase;
+
+    if (phase === 'studio') {
+      viewPoker.classList.add('hidden');
+      viewPoker.classList.remove('flex');
+      viewStudio.classList.remove('hidden');
+      viewStudio.classList.add('flex');
+      badgeCallout.innerText = "BAM!";
+      ctaLabel.innerText = "SHUFFLE TO TITLE ▷";
+      engineStatus.innerText = "INITIALIZING CELL-ENGINE...";
+    } else {
+      viewStudio.classList.add('hidden');
+      viewStudio.classList.remove('flex');
+      viewPoker.classList.remove('hidden');
+      viewPoker.classList.add('flex');
+      badgeCallout.innerText = "POW!";
+      ctaLabel.innerText = "TAP TO ENTER SALOON ▷";
+      engineStatus.innerText = "SHUFFLING UNDERGROUND DECK...";
+    }
+  }
+
+  function toggleScreenPhase() {
+    setScreenPhase(currentStage === 'studio' ? 'poker' : 'studio');
+  }
+
+  function triggerReplay() {
+    const viewStudio = document.getElementById('view-studio');
+    viewStudio.classList.remove('anim-logo-slam');
+    void viewStudio.offsetWidth; // Trigger reflow
+    viewStudio.classList.add('anim-logo-slam');
+    setScreenPhase('studio');
+  }
+
+  function handleEnterAction() {
+    const cta = document.getElementById('cta-enter');
+    const label = document.getElementById('cta-label');
+    const status = document.getElementById('engine-status');
+
+    if (currentStage === 'studio') {
+      // Transition from studio phase to featured game title
+      setScreenPhase('poker');
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(30);
+      }
+    } else {
+      // Enter the table room
+      label.innerText = "DEALING CARDS...";
+      status.innerText = "ENTERING SALOON LOBBY...";
+      cta.classList.add('bg-secondary');
+      if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate([40, 30, 50]);
+      }
+      setTimeout(() => {
+        label.innerText = "TABLE READY // CONNECTED";
+      }, 700);
+    }
+  }
+
+  // Auto transition sequence from Studio Intro to Scrap Poker Title Reveal
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      if (currentStage === 'studio') {
+        setScreenPhase('poker');
+      }
+    }, 2800);
+  });
+</script>
+</body></html>

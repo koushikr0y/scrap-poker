@@ -7,6 +7,7 @@ import { DesktopRegister } from './components/screens/DesktopRegister';
 import { HandRankings } from './components/screens/HandRankings';
 import { DesktopSplash } from './components/screens/DesktopSplash';
 import { MobileSplash } from './components/screens/MobileSplash';
+import { MobileSplashAlt } from './components/screens/MobileSplashAlt';
 import { MobileBattleLobby } from './components/screens/MobileBattleLobby';
 import {
   MobileTableBrowser,
@@ -35,6 +36,7 @@ export type ScreenRoute =
   | 'hand-rankings'
   | 'splash'
   | 'm-splash'
+  | 'm-splash-alt'
   | 'm-lobby'
   | 'm-tables'
   | 'm-buyin'
@@ -88,6 +90,7 @@ function getScreenFromHash(): ScreenRoute {
   if (rawHash === 'hand-rankings' || rawHash === 'rankings') return 'hand-rankings';
   if (rawHash === 'splash') return 'splash';
   if (rawHash === 'm/splash' || rawHash === 'm-splash') return 'm-splash';
+  if (rawHash === 'm/splash-alt' || rawHash === 'm-splash-alt') return 'm-splash-alt';
   if (rawHash === 'm/lobby' || rawHash === 'm-lobby') return 'm-lobby';
   if (rawHash === 'm/tables' || rawHash === 'm-tables') return 'm-tables';
   if (rawHash === 'm/tables/buy-in' || rawHash === 'm-buyin') return 'm-buyin';
@@ -135,6 +138,7 @@ const AppContent: React.FC = () => {
   const navigateTo = (screen: ScreenRoute) => {
     const routeMap: Partial<Record<ScreenRoute, string>> = {
       'm-splash': 'm/splash',
+      'm-splash-alt': 'm/splash-alt',
       'm-lobby': 'm/lobby',
       'm-tables': 'm/tables',
       'm-buyin': 'm/tables/buy-in',
@@ -203,6 +207,7 @@ const AppContent: React.FC = () => {
                 { id: 'table', label: 'Battle', badge: 'DT' },
                 { id: 'hand-rankings', label: 'Rankings', badge: 'DT' },
                 { id: 'm-splash', label: 'M-Splash', badge: 'MO' },
+                { id: 'm-splash-alt', label: 'M-Splash Alt', badge: 'MO' },
                 { id: 'm-login', label: 'M-Login', badge: 'MO' },
                 { id: 'm-guest-setup', label: 'M-Guest', badge: 'MO' },
                 { id: 'm-lobby', label: 'M-Lobby', badge: 'MO' },
@@ -244,6 +249,13 @@ const AppContent: React.FC = () => {
       {currentScreen === 'm-splash' && (
         <MobileSplash
           onEnter={() => navigateTo(session.isAuthenticated ? 'm-lobby' : 'm-login')}
+        />
+      )}
+
+      {currentScreen === 'm-splash-alt' && (
+        <MobileSplashAlt
+          onEnter={() => navigateTo(session.isAuthenticated ? 'm-lobby' : 'm-login')}
+          onNavigateLogin={() => navigateTo('m-login')}
         />
       )}
 

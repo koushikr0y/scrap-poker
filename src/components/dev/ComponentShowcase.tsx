@@ -7,7 +7,8 @@ import { PlayerPod } from '../game/PlayerPod';
 import { BettingSlider } from '../game/BettingSlider';
 import { PotDisplay } from '../game/PotDisplay';
 import { Card, Player, Pot } from '@/lib/mock/types';
-import { Crown, Sparkles, Layers, Sliders, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Crown, Sparkles, Layers, Sliders, ShieldCheck, RefreshCw, Volume2, VolumeX } from 'lucide-react';
+import { soundEngine } from '@/lib/sound';
 
 export const ComponentShowcase: React.FC = () => {
   // Local state for interactive testbeds
@@ -419,6 +420,105 @@ export const ComponentShowcase: React.FC = () => {
             </GlassPanel>
           </section>
         )}
+
+        {/* ==========================================================================
+            SECTION 7: PROCEDURAL WEB AUDIO SFX ENGINE
+            ========================================================================== */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Volume2 className="w-4 h-4 text-primary-container" />
+              <h2 className="font-editorial text-xl font-bold text-white">
+                7. Procedural Web Audio SFX Engine (`audioEngine`)
+              </h2>
+            </div>
+            <button
+              onClick={() => soundEngine.setMuted(!soundEngine.getMuted())}
+              className="px-3 py-1 bg-surface-container border border-white/10 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 hover:bg-surface-bright transition-all"
+            >
+              {soundEngine.getMuted() ? (
+                <>
+                  <VolumeX className="w-3.5 h-3.5 text-error" /> Unmute SFX
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-3.5 h-3.5 text-primary-container" /> Mute SFX
+                </>
+              )}
+            </button>
+          </div>
+
+          <GlassPanel className="p-6">
+            <p className="text-xs text-text-variant mb-4">
+              Pure mathematical synthesis with Web Audio API (oscillators, white noise, biquad filters). 0KB audio files, 0ms network latency.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <button
+                onClick={() => soundEngine.playCardDeal()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-primary mb-1">🂠 Card Deal / Slide</div>
+                <div className="text-[11px] text-text-variant">Bandpass noise sweep</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playChipToss()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-primary mb-1">🪙 Chip Toss</div>
+                <div className="text-[11px] text-text-variant">Dual ceramic sine clink</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playChipStack()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-primary mb-1">💰 Chip Stack</div>
+                <div className="text-[11px] text-text-variant">Cascading 3-chip clinks</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playCheckKnock()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-primary mb-1">🪵 Check Knock</div>
+                <div className="text-[11px] text-text-variant">Double table knuckle tap</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playFoldWhoosh()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-primary mb-1">💨 Fold Muck</div>
+                <div className="text-[11px] text-text-variant">Lowpass card discard sweep</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playHeroTurnAlert()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-secondary mb-1">🔔 Hero Turn Alert</div>
+                <div className="text-[11px] text-text-variant">Pleasant D5-A5 chime</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playAllIn()}
+                className="p-3 bg-surface-container-high hover:bg-surface-bright active:scale-95 text-left border border-white/5 transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-error mb-1">🚨 All-In Siren</div>
+                <div className="text-[11px] text-text-variant">808 sub + comic siren</div>
+              </button>
+
+              <button
+                onClick={() => soundEngine.playWinFanfare()}
+                className="p-3 bg-primary-container text-on-primary-container hover:bg-[#ffe179] active:scale-95 text-left border border-black transition-all shadow-[2px_2px_0px_#000]"
+              >
+                <div className="text-sm font-bold text-black mb-1">🏆 Win Fanfare</div>
+                <div className="text-[11px] text-[#231b00]">Ascending C-E-G-C jingle</div>
+              </button>
+            </div>
+          </GlassPanel>
+        </section>
       </main>
     </div>
   );

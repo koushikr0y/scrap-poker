@@ -7,6 +7,7 @@ import {
   usePokerTable,
   type PokerTableConfig,
 } from "../../lib/poker";
+import { useSoundEffects } from "../../lib/sound";
 
 export interface MobileTableCard {
   rank: string;
@@ -87,6 +88,12 @@ export const MobileBattleTable: React.FC<MobileBattleTableProps> = ({
   const [localMuted, setLocalMuted] = useState<boolean>(false);
 
   const isMuted = controlledMuted ?? localMuted;
+
+  useSoundEffects({
+    muted: isMuted,
+    state: tableState,
+    heroPlayerId: hero.id,
+  });
 
   useEffect(() => {
     setCurrentBet(minRaiseTarget);

@@ -8,6 +8,7 @@ import {
   type EnginePlayer,
   type PokerTableConfig,
 } from "../../lib/poker";
+import { useSoundEffects } from "../../lib/sound";
 
 export interface BattleTableProps {
   tableConfig?: PokerTableConfig;
@@ -72,6 +73,12 @@ export const BattleTable: React.FC<BattleTableProps> = ({
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   const isMuted = controlledMuted ?? localMuted;
+
+  useSoundEffects({
+    muted: isMuted,
+    state: tableState,
+    heroPlayerId: hero.id,
+  });
 
   useEffect(() => {
     setBetTarget(minRaiseTarget);
