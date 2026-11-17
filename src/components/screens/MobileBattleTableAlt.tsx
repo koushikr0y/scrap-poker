@@ -9,6 +9,7 @@ import {
   type PokerTableConfig,
 } from "../../lib/poker";
 import { useSoundEffects } from "../../lib/sound";
+import { ComicActionBadge } from "../game/ComicActionBadge";
 
 export interface MobileBattleTableAltProps {
   tableConfig?: PokerTableConfig;
@@ -305,6 +306,43 @@ export const MobileBattleTableAlt: React.FC<MobileBattleTableAltProps> = ({
                     seat.isFolded ? "opacity-40" : ""
                   }`}
                 >
+                  {/* Floating Comic Action Badge */}
+                  {seat.isAllIn && !seat.isFolded ? (
+                    <ComicActionBadge
+                      type="allIn"
+                      amount={seat.currentBet}
+                      size="sm"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                    />
+                  ) : isTurn && !seat.isFolded ? (
+                    <ComicActionBadge
+                      type="thinking"
+                      size="sm"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                    />
+                  ) : seat.isFolded ? (
+                    <ComicActionBadge
+                      type="fold"
+                      size="sm"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                    />
+                  ) : seat.lastAction ? (
+                    <ComicActionBadge
+                      type={
+                        seat.lastAction.type === "raise"
+                          ? "raise"
+                          : seat.lastAction.type === "call"
+                          ? "call"
+                          : seat.lastAction.type === "check"
+                          ? "check"
+                          : "bet"
+                      }
+                      amount={seat.currentBet}
+                      size="sm"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                    />
+                  ) : null}
+
                   <div
                     className={`relative ${
                       idx === 1 ? "w-14 h-14 rounded-xl" : "w-12 h-12 rounded-lg"
@@ -475,8 +513,9 @@ export const MobileBattleTableAlt: React.FC<MobileBattleTableAltProps> = ({
                   return (
                     <div
                       key={card.id}
-                      className={`w-[38px] h-[58px] sm:w-[44px] sm:h-[66px] bg-[#f2eee4] ${suitMeta.mobileAltCardColor} comic-border rounded-md comic-card-shadow flex flex-col justify-between p-1 ${rot} ${
-                        isWinningCard(card.id) ? "ring-2 ring-primary-container" : ""
+                      style={{ animationDelay: `${idx < 3 ? idx * 120 : (idx - 3) * 120}ms` }}
+                      className={`w-[38px] h-[58px] sm:w-[44px] sm:h-[66px] bg-[#f2eee4] ${suitMeta.mobileAltCardColor} comic-border rounded-md comic-card-shadow anim-card-flip flex flex-col justify-between p-1 ${rot} ${
+                        isWinningCard(card.id) ? "ring-2 ring-primary-container anim-pot-glow" : ""
                       } select-none`}
                     >
                       <div className="flex flex-col items-center leading-none">
@@ -616,17 +655,18 @@ export const MobileBattleTableAlt: React.FC<MobileBattleTableAltProps> = ({
               </div>
 
               {/* HERO HOLE CARDS */}
-              <div className={`flex items-center -space-x-4 pr-1 ${hero.isFolded ? "opacity-45" : ""}`}>
+              <div className={`flex items-center -space-x-4 pr-1 card-peel-container ${hero.isFolded ? "opacity-45" : ""}`}>
                 {hero.holeCards.map((card, idx) => {
                   const suitMeta = getSuitVisualMeta(card.suit);
                   return (
                     <div
                       key={card.id}
-                      className={`w-[52px] h-[78px] bg-[#f2eee4] ${suitMeta.mobileAltCardColor} comic-border-thick rounded-lg comic-shadow-lg flex flex-col justify-between p-1.5 select-none relative ${
+                      style={{ animationDelay: `${idx * 140}ms` }}
+                      className={`w-[52px] h-[78px] bg-[#f2eee4] ${suitMeta.mobileAltCardColor} comic-border-thick rounded-lg comic-shadow-lg flex flex-col justify-between p-1.5 select-none relative anim-deal-slide card-peel-interactive ${
                         idx === 0 ? "z-10" : "z-20"
                       } ${
-                        isWinningCard(card.id) ? "ring-2 ring-primary-container" : ""
-                      } transition-transform active:-translate-y-2`}
+                        isWinningCard(card.id) ? "ring-2 ring-primary-container anim-pot-glow" : ""
+                      } transition-transform cursor-pointer`}
                     >
                       <div className="flex flex-col items-center leading-none">
                         <span

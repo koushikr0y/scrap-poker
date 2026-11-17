@@ -8,6 +8,7 @@ import {
   type PokerTableConfig,
 } from "../../lib/poker";
 import { useSoundEffects } from "../../lib/sound";
+import { ComicActionBadge } from "../game/ComicActionBadge";
 
 export interface MobileTableCard {
   rank: string;
@@ -298,6 +299,43 @@ export const MobileBattleTable: React.FC<MobileBattleTableProps> = ({
                         seat.isFolded ? "opacity-40" : ""
                       }`}
                     >
+                      {/* Floating Comic Action Badge */}
+                      {seat.isAllIn && !seat.isFolded ? (
+                        <ComicActionBadge
+                          type="allIn"
+                          amount={seat.currentBet}
+                          size="sm"
+                          className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                        />
+                      ) : isTurn && !seat.isFolded ? (
+                        <ComicActionBadge
+                          type="thinking"
+                          size="sm"
+                          className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                        />
+                      ) : seat.isFolded ? (
+                        <ComicActionBadge
+                          type="fold"
+                          size="sm"
+                          className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                        />
+                      ) : seat.lastAction ? (
+                        <ComicActionBadge
+                          type={
+                            seat.lastAction.type === "raise"
+                              ? "raise"
+                              : seat.lastAction.type === "call"
+                              ? "call"
+                              : seat.lastAction.type === "check"
+                              ? "check"
+                              : "bet"
+                          }
+                          amount={seat.currentBet}
+                          size="sm"
+                          className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+                        />
+                      ) : null}
+
                       <div
                         className={`relative ${
                           idx === 1 ? "w-12 h-12" : "w-11 h-11"
@@ -456,8 +494,9 @@ export const MobileBattleTable: React.FC<MobileBattleTableProps> = ({
                       return (
                         <div
                           key={card.id}
-                          className={`w-[30px] h-[46px] bg-primary rounded shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 ${rot} ${
-                            isWinningCard(card.id) ? "ring-2 ring-primary-container" : ""
+                          style={{ animationDelay: `${idx < 3 ? idx * 120 : (idx - 3) * 120}ms` }}
+                          className={`w-[30px] h-[46px] bg-primary rounded anim-card-flip shadow-[2px_2px_0px_#000000] flex flex-col justify-between p-0.5 ${rot} ${
+                            isWinningCard(card.id) ? "ring-2 ring-primary-container anim-pot-glow" : ""
                           } select-none`}
                         >
                           <div className="flex flex-col items-center leading-none">
@@ -597,19 +636,20 @@ export const MobileBattleTable: React.FC<MobileBattleTableProps> = ({
                   </div>
 
                   {/* Hero Hole Cards Display */}
-                  <div className={`flex items-center -space-x-3 pr-1 ${hero.isFolded ? "opacity-45" : ""}`}>
+                  <div className={`flex items-center -space-x-3 pr-1 card-peel-container ${hero.isFolded ? "opacity-45" : ""}`}>
                     {hero.holeCards.map((card, idx) => {
                       const suitMeta = getSuitVisualMeta(card.suit);
                       return (
                         <div
                           key={card.id}
-                          className={`w-11 h-16 bg-primary rounded ${
+                          style={{ animationDelay: `${idx * 140}ms` }}
+                          className={`w-11 h-16 bg-primary rounded anim-deal-slide card-peel-interactive ${
                             idx === 0
                               ? "shadow-[3px_3px_0px_#000000] z-10 -rotate-6"
                               : "shadow-[4px_4px_0px_#000000] z-20 rotate-6"
                           } ${
-                            isWinningCard(card.id) ? "ring-2 ring-primary-container" : ""
-                          } flex flex-col justify-between p-1 select-none relative transition-transform hover:-translate-y-1`}
+                            isWinningCard(card.id) ? "ring-2 ring-primary-container anim-pot-glow" : ""
+                          } flex flex-col justify-between p-1 select-none relative transition-transform cursor-pointer`}
                         >
                           <div className="flex flex-col items-center leading-none">
                             <span

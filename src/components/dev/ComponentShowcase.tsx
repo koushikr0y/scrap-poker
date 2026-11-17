@@ -6,6 +6,7 @@ import { ChipStack } from '../game/ChipStack';
 import { PlayerPod } from '../game/PlayerPod';
 import { BettingSlider } from '../game/BettingSlider';
 import { PotDisplay } from '../game/PotDisplay';
+import { ComicActionBadge } from '../game/ComicActionBadge';
 import { Card, Player, Pot } from '@/lib/mock/types';
 import { Crown, Sparkles, Layers, Sliders, ShieldCheck, RefreshCw, Volume2, VolumeX } from 'lucide-react';
 import { soundEngine } from '@/lib/sound';
@@ -400,6 +401,22 @@ export const ComponentShowcase: React.FC = () => {
                   potSize={60000}
                   onBetChange={(newVal) => setSliderBet(newVal)}
                 />
+              </GlassPanel>
+
+              {/* Comic Action Badges */}
+              <GlassPanel className="p-6 md:col-span-2">
+                <h3 className="text-xs uppercase tracking-wider text-text-variant font-bold mb-3">
+                  Comic Action Speech Badges (`ComicActionBadge`)
+                </h3>
+                <div className="flex flex-wrap items-center gap-4 py-2">
+                  <ComicActionBadge type="allIn" amount={50000} />
+                  <ComicActionBadge type="raise" amount={12000} />
+                  <ComicActionBadge type="bet" amount={4000} />
+                  <ComicActionBadge type="call" amount={2000} />
+                  <ComicActionBadge type="check" />
+                  <ComicActionBadge type="fold" />
+                  <ComicActionBadge type="thinking" />
+                </div>
               </GlassPanel>
             </div>
           </section>

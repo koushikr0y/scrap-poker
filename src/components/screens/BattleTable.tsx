@@ -9,6 +9,7 @@ import {
   type PokerTableConfig,
 } from "../../lib/poker";
 import { useSoundEffects } from "../../lib/sound";
+import { ComicActionBadge } from "../game/ComicActionBadge";
 
 export interface BattleTableProps {
   tableConfig?: PokerTableConfig;
@@ -223,6 +224,39 @@ export const BattleTable: React.FC<BattleTableProps> = ({
               </span>
             </div>
           </div>
+
+          {/* FLOATING COMIC ACTION BURST BADGE */}
+          {player.isAllIn && !player.isFolded ? (
+            <ComicActionBadge
+              type="allIn"
+              amount={player.currentBet}
+              className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+            />
+          ) : isTurn && !player.isFolded ? (
+            <ComicActionBadge
+              type="thinking"
+              className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+            />
+          ) : player.isFolded ? (
+            <ComicActionBadge
+              type="fold"
+              className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+            />
+          ) : player.lastAction ? (
+            <ComicActionBadge
+              type={
+                player.lastAction.type === "raise"
+                  ? "raise"
+                  : player.lastAction.type === "call"
+                  ? "call"
+                  : player.lastAction.type === "check"
+                  ? "check"
+                  : "bet"
+              }
+              amount={player.currentBet}
+              className="absolute -top-3.5 left-1/2 -translate-x-1/2"
+            />
+          ) : null}
 
           {player.isFolded && (
             <div className="absolute -bottom-2.5 right-2 bg-surface-container-highest px-space-sm py-0.5 border-[2px] border-surface-container-lowest rotate-3 text-outline font-headline-sm text-headline-sm leading-none">
@@ -461,9 +495,10 @@ export const BattleTable: React.FC<BattleTableProps> = ({
   return (
     <div
       key={card.id}
+      style={{ animationDelay: `${slot < 3 ? slot * 120 : (slot - 3) * 120}ms` }}
       className={`w-14 sm:w-20 md:w-24 h-20 sm:h-28 md:h-34 bg-[#F2EEE4] ${suitMeta.desktopTextColor} p-1.5 border-[3px] ${
-        won ? "border-primary-container ring-2 ring-primary-container" : "border-surface-container-lowest"
-      } comic-shadow-md ${tilt} flex flex-col justify-between hover:-translate-y-1 transition-transform`}
+        won ? "border-primary-container ring-2 ring-primary-container anim-pot-glow" : "border-surface-container-lowest"
+      } comic-shadow-md ${tilt} anim-card-flip flex flex-col justify-between hover:-translate-y-1 transition-transform`}
     >
       <div className="flex justify-between items-start leading-none">
         <span className="font-headline-lg text-headline-lg leading-none font-bold">{card.rank}</span>
@@ -528,16 +563,17 @@ export const BattleTable: React.FC<BattleTableProps> = ({
 {/* Hero Hand Cards & Identity Badge */}
 <div className="flex items-end gap-space-md">
 {/* HERO HOLE CARDS */}
-<div className={`flex -space-x-4 items-center ${hero.isFolded ? "opacity-50" : ""}`}>
+<div className={`flex -space-x-4 items-center card-peel-container ${hero.isFolded ? "opacity-50" : ""}`}>
 {hero.holeCards.map((card, idx) => {
   const suitMeta = getSuitVisualMeta(card.suit);
   const won = isWinningCard(card.id);
   return (
     <div
       key={card.id}
+      style={{ animationDelay: `${idx * 140}ms` }}
       className={`w-20 sm:w-24 md:w-28 h-30 sm:h-36 md:h-42 bg-[#F2EEE4] ${suitMeta.desktopTextColor} p-2 border-[4px] ${
-        won ? "border-primary-container ring-2 ring-primary-container" : "border-surface-container-lowest"
-      } comic-shadow-lg ${idx === 0 ? "-rotate-6" : "rotate-6"} hover:-translate-y-2 transition-transform cursor-pointer relative`}
+        won ? "border-primary-container ring-2 ring-primary-container anim-pot-glow" : "border-surface-container-lowest"
+      } comic-shadow-lg ${idx === 0 ? "-rotate-6" : "rotate-6"} anim-deal-slide card-peel-interactive cursor-pointer relative`}
     >
       {card.rank === "A" && (
         <div className="absolute -top-3 -right-2 bg-primary-container text-on-primary-container px-1 py-0.5 border-[2px] border-surface-container-lowest font-headline-sm text-headline-sm rotate-6">
